@@ -30,6 +30,7 @@
     "format": "prettier -c prettier.config.mjs --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "prepare": "husky install",
     "pre-commit": "yarn run lint",
+    "pre-push": "",
     "commit": "cz"
   },
   "dependencies": {
