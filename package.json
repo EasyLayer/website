@@ -1,0 +1,94 @@
+{
+  "name": "@easylayer/website",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Yaroslav Pavliuk",
+  "packageManager": "yarn@4.5.0",
+  "license": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/easylayer/website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/easylayer/website/issues"
+  },
+  "homepage": "https://github.com/easylayer/website#readme",
+  "scripts": {
+    "clear": "yarn run clear:dist && yarn cache clean && yarn run clear:node_modules",
+    "clear:node_modules": "rimraf node_modules",
+    "clear:dist": "docusaurus clear",
+    "start:dev": "cross-env NODE_ENV=development docusaurus start",
+    "start": "cross-env NODE_ENV=production docusaurus serve",
+    "build": "cross-env NODE_ENV=production docusaurus build",
+    "swizzle": "cross-env NODE_ENV=development docusaurus swizzle",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "cypress:run": "cypress run",
+    "test:e2e": "cross-env BROWSER=none start-server-and-test start http://localhost:3000 cypress:run",
+    "lint": "eslint -c eslint.config.mjs \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint:fix": "eslint -c eslint.config.mjs \"src/**/*.{js,jsx,ts,tsx}\" --fix",
+    "format": "prettier -c prettier.config.mjs --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "prepare": "husky install",
+    "pre-commit": "yarn run lint",
+    "commit": "cz"
+  },
+  "dependencies": {
+    "@docusaurus/core": "3.7.0",
+    "@docusaurus/preset-classic": "3.7.0",
+    "autoprefixer": "10.4.17",
+    "classnames": "2.5.1",
+    "clsx": "1.2.1",
+    "postcss": "8.4.35",
+    "prism-react-renderer": "2.1.0",
+    "prismjs": "1.29.0",
+    "react": "18.2.0",
+    "react-cookie-consent": "9.0.0",
+    "react-dom": "18.2.0",
+    "react-feather": "2.0.10",
+    "react-modal": "3.16.3",
+    "react-player": "2.16.0",
+    "react-tooltip": "5.28.1",
+    "react-transition-group": "4.4.5",
+    "tailwindcss": "3.4.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "18.4.3",
+    "@commitlint/config-conventional": "18.4.3",
+    "@docusaurus/module-type-aliases": "3.0.0",
+    "@docusaurus/tsconfig": "3.0.0",
+    "@docusaurus/types": "3.0.0",
+    "@types/react-transition-group": "4.4.12",
+    "@typescript-eslint/eslint-plugin": "8.32.0",
+    "@typescript-eslint/parser": "8.32.0",
+    "commitizen": "4.3.0",
+    "cross-env": "7.0.3",
+    "cypress": "14.3.1",
+    "cz-conventional-changelog": "3.3.0",
+    "eslint": "9.26.0",
+    "eslint-config-prettier": "10.1.5",
+    "eslint-plugin-mdx": "3.4.0",
+    "eslint-plugin-prettier": "5.4.0",
+    "husky": "8.0.3",
+    "prettier": "3.1.1",
+    "rimraf": "5.0.5",
+    "start-server-and-test": "2.0.11",
+    "string-replace-loader": "3.1.0",
+    "typescript": "5.2.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  },
+  "devEngines": {
+    "node": ">=17.0.0 <=22.x.x",
+    "npm": ">=8.0.0"
+  }
+}

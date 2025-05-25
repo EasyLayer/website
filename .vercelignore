@@ -1,0 +1,20 @@
+# ========= Docusaurus internals =========
+.docusaurus/
+
+# ========= Local artifacts/dependencies =========
+node_modules/
+.env*
+.vscode/
+.idea/
+.DS_Store
+*.log
+
+# ========= Tests =========
+__tests__/
+test/
+coverage/
+cypress
+e2e-tests
+
+# ========= (Optional) Old build, if committed =========
+; build/

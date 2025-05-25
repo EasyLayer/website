@@ -1,0 +1,65 @@
+name: Prepare Development Branch to Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'patch, minor or major'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  bump-and-pr:
+    name: Bump version, update docs & open PR
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/development'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Install dependencies in current repository
+        uses: ./.github/actions/yarn-nm-install
+
+      - name: Check Security Dependencies
+        uses: ./.github/actions/security/lockfile
+        with:
+          path: 'yarn.lock'
+          type: 'yarn'
+          allowedHosts: 'https://registry.npmjs.org'
+          allowedURLs: ''
+
+      - name: Setup GitHub CLI
+        uses: actions/setup-gh-cli@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Run Prepare Branch Script
+        id: invoke_prepare
+        run: bash ./scripts/prepare-branch-to-release.sh
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          HUSKY: '0'

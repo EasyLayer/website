@@ -1,0 +1,15 @@
+{
+  "extends": "@docusaurus/tsconfig",
+  "compilerOptions": {
+    "target": "ESNext",
+    "baseUrl": ".",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": [
+    "build",
+    "templates",
+    "swagger",
+    "node_modules"
+  ]
+}

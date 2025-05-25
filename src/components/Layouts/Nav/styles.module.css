@@ -1,0 +1,29 @@
+/* 1. From Indigo to saturated Blue */
+.gradientBackground1 {
+    background-image: linear-gradient(to right, #6366f1, #3b82f6);
+  }
+  
+  /* 2. From Blue to Cyan */
+  .gradientBackground2 {
+    background-image: linear-gradient(to right, #3b82f6, #22d3ee);
+  }
+  
+  /* 3. From Sky to Blue */
+  .gradientBackground3 {
+    background-image: linear-gradient(to right, #38bdf8, #3b82f6);
+  }
+  
+  /* 4. From Teal to Sky */
+  .gradientBackground4 {
+    /* background-image: linear-gradient(to right, #2dd4bf, #38bdf8); */
+    background-image: linear-gradient(to right, #2dd4bf, #fcd34d);
+  }
+  
+  /* 5. From Cyan to Teal */
+  .gradientBackground {
+    background-image: linear-gradient(to right, #22d3ee, #2dd4bf);
+  }
+  
+/* yellow-300 — default #fcd34d
+yellow-400 — default #fbbf24
+yellow-500 — default #f59e0b */

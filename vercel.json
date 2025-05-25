@@ -1,0 +1,106 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "build"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/$1",
+        "headers": {
+          "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+          "Content-Security-Policy": "default-src 'self';\n  script-src 'self' https://www.googletagmanager.com https://connect.facebook.net 'unsafe-inline';\n  connect-src 'self' https://www.google-analytics.com https://graph.facebook.com;\n  img-src 'self' https://your-external-domain.com https: data:;\n  style-src 'self' 'unsafe-inline';\n  font-src 'self' https://fonts.gstatic.com;\n  frame-ancestors 'none';",
+          "X-Frame-Options": "DENY",
+          "Referrer-Policy": "strict-origin-when-cross-origin",
+          "Permissions-Policy": "microphone=()",
+          "X-Content-Type-Options": "nosniff",
+          "X-XSS-Protection": "1; mode=block"
+        }
+      },
+      {
+        "src": "/static/(.*)",
+        "headers": {
+          "cache-control": "public, max-age=31536000, immutable"
+        }
+      },
+      {
+        "handle": "filesystem"
+      },
+      {
+        "src": "/(.*)",
+        "status": 404,
+        "dest": "/404.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "/sitemap.xml",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml"
+          }
+        ]
+      },
+      {
+        "source": "/robots.txt",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "text/plain"
+          }
+        ]
+      },
+      {
+        "source": "/favicon.ico",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "image/x-icon"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "/manifest.json",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/manifest+json"
+          }
+        ]
+      },
+      {
+        "source": "/.well-known/security.txt",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "text/plain"
+          }
+        ]
+      },
+      {
+        "source": "/apple-touch-icon.png",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "image/png"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      }
+    ]
+  }
+  

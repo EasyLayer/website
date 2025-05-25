@@ -1,0 +1,37 @@
+name: E2E Tests Workflows
+
+on:
+  pull_request:
+    branches: [master, development]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  cypress:
+    name: 'Cypress E2E Tests (node:22)'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Monorepo install
+        uses: ./.github/actions/yarn-nm-install
+
+      - name: Monorepo build
+        uses: ./.github/actions/run-build
+
+      - name: 🚀 Run Cypress E2E Tests
+        run: yarn test:e2e
+        shell: bash
