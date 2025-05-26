@@ -17,29 +17,29 @@ interface ExampleItem {
 
 const examples: ExampleItem[] = [
   {
-    title: 'Bitcoin UTXOs ✅',
-    description: '',
+    title: 'Bitcoin One Address Balance ✅',
+    description: 'A simple example of how to monitor a bitcoin wallet balance',
     authorName: 'easylayer',
     authorImg: `${SITE_URLS.BASE}/img/logo.png`,
-    repoName: '@bitcoin-state-listener/examples',
+    repoName: '@bitcoin-crawler/examples',
     repoUrl: EXAMPLE_APPS.BITCOIN_ONE_ADDRESS_BALANCE,
   },
-  {
-    title: 'EVM Balances 🤖',
-    description: '',
-    authorName: 'easylayer',
-    authorImg: `${SITE_URLS.BASE}/img/logo.png`,
-    repoName: '@evm-state-listener/examples',
-    repoUrl: EXAMPLE_APPS.EVM_BALANCES,
-  },
-  {
-    title: 'EVM Tokens State 🔌',
-    description: '',
-    authorName: 'easylayer',
-    authorImg: `${SITE_URLS.BASE}/img/logo.png`,
-    repoName: '@evm-state-listener/examples',
-    repoUrl: EXAMPLE_APPS.EVM_TOKENS,
-  },
+  // {
+  //   title: 'EVM Balances 🤖',
+  //   description: '',
+  //   authorName: 'easylayer',
+  //   authorImg: `${SITE_URLS.BASE}/img/logo.png`,
+  //   repoName: '@evm-state-listener/examples',
+  //   repoUrl: EXAMPLE_APPS.EVM_BALANCES,
+  // },
+  // {
+  //   title: 'EVM Tokens State 🔌',
+  //   description: '',
+  //   authorName: 'easylayer',
+  //   authorImg: `${SITE_URLS.BASE}/img/logo.png`,
+  //   repoName: '@evm-state-listener/examples',
+  //   repoUrl: EXAMPLE_APPS.EVM_TOKENS,
+  // },
 ];
 
 interface SeeTheCodeButtonProps {
