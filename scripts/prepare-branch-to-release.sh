@@ -24,7 +24,8 @@ git config user.name "github-actions"
 git config user.email "github-actions@github.com"
 
 echo "Setting package versions to: $version"
-npm version $version --no-git-tag-version
+npm version $version --exact --yes --no-git-tag-version --no-commit-hooks --force
+
 
 # Read the new version from package.json
 version_num=$(jq -r '.version' package.json)
