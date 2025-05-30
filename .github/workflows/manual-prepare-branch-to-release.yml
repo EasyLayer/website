@@ -51,16 +51,6 @@ jobs:
           allowedHosts: 'https://registry.npmjs.org'
           allowedURLs: ''
 
-      - name: Setup GitHub CLI
-        uses: actions/setup-gh-cli@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install jq
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq
-
       - name: Run Prepare Branch Script
         id: invoke_prepare
         run: bash ./scripts/prepare-branch-to-release.sh
