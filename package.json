@@ -27,7 +27,7 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "cypress:run": "cypress run",
     "lighthouse:run": "lighthouse http://localhost:3000 --output html --output-path ./lighthouse/reports/lh.html --chrome-flags=\"--headless\" --only-categories=performance,accessibility",
-    "test:e2e": "cross-env BROWSER=none start-server-and-test \"yarn serve\" http://localhost:3000 cypress:run",
+    "test:e2e": "cross-env BROWSER=none start-server-and-test \"yarn serve\" http://localhost:3000 \"yarn cypress:run\"",
     "test:lighthouse": "cross-env BROWSER=none start-server-and-test \"yarn serve\" http://localhost:3000 \"yarn lighthouse:run\"",
     "lint": "eslint -c eslint.config.mjs \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint -c eslint.config.mjs \"src/**/*.{js,jsx,ts,tsx}\" --fix",
