@@ -5,6 +5,13 @@ set -e
 
 # Get version type (e.g., patch, minor or major)
 version=$VERSION
+
+# Validate version type
+if [[ ! "$version" =~ ^(patch|minor|major)$ ]]; then
+  echo "Error: Invalid version type. Must be one of: patch, minor, major"
+  exit 1
+fi
+
 # Temporary workspace for cloning repositories
 temp_dir="temp"
 # Destination base directory for docs from each repo (real folder)
@@ -24,7 +31,7 @@ git config user.name "github-actions"
 git config user.email "github-actions@github.com"
 
 echo "Setting package versions to: $version"
-npm version $version --exact --yes --no-git-tag-version --no-commit-hooks --force
+npm version $version --no-git-tag-version --no-commit-hooks
 
 
 # Read the new version from package.json
