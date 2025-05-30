@@ -4,7 +4,7 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
-import { SOCIAL_URLS, BLOG_URLS, DOCS_URLS } from './src/urls';
+import { SITE_URLS, SOCIAL_URLS, BLOG_URLS, DOCS_URLS } from './src/urls';
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -14,7 +14,7 @@ const config: Config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://easylayer.io',
+  url: SITE_URLS.BASE,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',

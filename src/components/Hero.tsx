@@ -159,6 +159,7 @@ bootstrap({
           <div className="flex flex-col gap-4">
             <small className="text-xs text-neutral-500">Works on</small>
             <div className="flex">
+              <img className="h-8 pr-5 md:h-10 md:pr-10" src="img/lending/nodejs-logo.svg" alt="nodejs-logo-svg" />
               <img className="h-8 pr-5 md:h-10 md:pr-10" src="img/lending/bitcoin.svg" alt="bitcoin-logo-svg" />
               <img className="h-8 pr-5 md:h-10 md:pr-10" src="img/lending/ethereum.svg" alt="ethereum-logo-svg" />
             </div>
