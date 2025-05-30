@@ -59,13 +59,14 @@ const HowItWorks: FC = () => {
           <h2 className="mb-4 text-xl text-neutral-700 lg:text-2xl">How does it work? 🧐</h2>
 
           <p className="text-neutral-700">
-            Define your state <code>Model</code> and <code>Mapper</code> to transform on‑chain data into domain events,
-            configure your <code>Event Store</code> (PostgreSQL or SQLite) and blockchain self <code>Node</code> or
-            provider, then persist every event and rebuild your state at any block height.
+            Define your state <code>Model</code> to transform on‑chain data into domain events, configure your{' '}
+            <code>Event Store</code> (PostgreSQL or SQLite) and blockchain self <code>Node</code> or provider. EasyLayer
+            will handle everything else automatically.
             <br />
             <br />
-            Subscribe over <code>Transport</code> with guaranteed at‑least‑once delivery for real‑time updates, and
-            replay historical events from any blockchain height for recovery, auditing and full transparency.
+            Use <code>Transport</code> to get your domain state object at any block height or subscribe to real-time
+            events with guaranteed at‑least‑once delivery, and replay historical events from any blockchain height for
+            recovery, auditing and full transparency.
           </p>
 
           {/* Features */}

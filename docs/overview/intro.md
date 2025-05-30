@@ -95,7 +95,7 @@ EasyLayer is built on three foundational principles:
 Blockchain technology should be accessible to all developers, not just cryptography experts. By abstracting complex mechanisms behind intuitive APIs, we enable developers to create value rather than debug protocol implementations.
 
 ### Flexibility
-Every business has unique blockchain requirements. Our protocol system and customizable data modeling ensure you can tailor applications to your specific needs without compromising on functionality.
+Every business has unique blockchain requirements. Our framework system and customizable data modeling ensure you can tailor applications to your specific needs without compromising on functionality.
 
 ### Power
 Simplicity doesn't mean sacrificing capability. Our applications handle enterprise-scale demands while maintaining the ease of use that lets small teams move fast and iterate quickly.

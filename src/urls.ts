@@ -35,14 +35,15 @@ export const DOCS_URLS = {
     OVERVIEW: `${BASE_URLS.DOCS}/overview`,
     BITCOIN_CRAWLER: `${BASE_URLS.DOCS}/get-started/bitcoin-crawler/v0.0.4`,
     TRANSPORT_SDK: `${BASE_URLS.DOCS}/get-started/transport-sdk/v1.0.14`,
+    EXAMPLES: `${BASE_URLS.DOCS}/examples`,
   },
 } as const;
 
 // Example Apps URLs
 export const EXAMPLE_APPS = {
-  BITCOIN_ONE_ADDRESS_BALANCE: `${BASE_URLS.GITHUB}/bitcoin-crawler/tree/release/examples/bitcoin-one-address-balance`,
-  EVM_BALANCES: `${BASE_URLS.GITHUB}/.../tree/release/examples/evm-balances`,
-  EVM_TOKENS: `${BASE_URLS.GITHUB}/.../tree/release/examples/evm-tokens`,
+  BITCOIN_ONE_ADDRESS_BALANCE: `${BASE_URLS.GITHUB}/bitcoin-crawler/tree/master/examples/bitcoin-one-address-balance`,
+  // EVM_BALANCES: `${BASE_URLS.GITHUB}/.../tree/release/examples/evm-balances`,
+  // EVM_TOKENS: `${BASE_URLS.GITHUB}/.../tree/release/examples/evm-tokens`,
 } as const;
 
 // Site URLs

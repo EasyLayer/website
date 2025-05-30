@@ -5,6 +5,7 @@ sidebar_label: Examples
 description: Explore real-world examples and use cases of EasyLayer's blockchain tools. Learn how to implement blockchain processing, data indexing, and event handling in your applications.
 keywords: ['blockchain examples', 'use cases', 'implementation', 'blockchain processing', 'data indexing', 'event handling', 'EasyLayer']
 image: /img/el_twitter_default.png
+slug: /examples
 ---
 
 # Examples

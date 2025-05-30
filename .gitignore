@@ -173,5 +173,6 @@ docs/.vuepress/config.js
 docs/node_modules/**
 
 cypress
+lighthouse
 
 .cursor

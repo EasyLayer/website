@@ -24,9 +24,9 @@ interface SectionProps {
 // Features for the current phase
 const currentPhaseFeatures: FeatureItem[] = [
   {
-    text: 'Testing and improving @bitcoin-state-listener and @evm-state-listener.',
+    text: 'Testing and improving @bitcoin-crawler and @evm-crawler.',
     link: {
-      url: 'https://github.com/EasyLayer/website/issue/1',
+      url: '',
       label: '#1',
       type: 'issue',
     },
@@ -36,9 +36,9 @@ const currentPhaseFeatures: FeatureItem[] = [
 // Features for the future phase
 const futurePhaseFeatures: FeatureItem[] = [
   {
-    text: 'Release stable versions of @bitcoin-state-listener and @evm-state-listener, ready for developers to use.',
+    text: 'Release stable versions of @bitcoin-crawler and @evm-crawler, ready for developers to use.',
     link: {
-      url: 'https://github.com/EasyLayer/website/projects/2',
+      url: '',
       label: '#100',
       type: 'task',
     },
@@ -110,12 +110,12 @@ const Roadmap: FC = () => (
 
     <div className="grid grid-cols-1 md:gap-16 lg:grid-cols-2">
       <div className="rounded-lg border border-yellow-500/25 bg-yellow-500/5 p-5">
-        <div className="mb-6 text-center font-bold text-neutral-700">Beta Testing Phase</div>
+        <div className="mb-6 text-center font-bold text-neutral-700">🚧 In Progress</div>
         <Section features={currentPhaseFeatures} />
       </div>
 
       <div className="mt-6 rounded-lg border border-yellow-500/25 bg-yellow-500/20 p-5 lg:mt-0">
-        <div className="mb-6 text-center font-bold text-neutral-700">Release Apps Phase</div>
+        <div className="mb-6 text-center font-bold text-neutral-700">⏳ Coming Soon</div>
         <Section features={futurePhaseFeatures} />
       </div>
     </div>
