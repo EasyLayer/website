@@ -1,6 +1,6 @@
 {
   "name": "@easylayer/website",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "author": "Yaroslav Pavliuk",
   "packageManager": "yarn@4.5.0",
@@ -92,9 +92,5 @@
       "last 3 firefox version",
       "last 5 safari version"
     ]
-  },
-  "devEngines": {
-    "node": ">=17.0.0 <=22.x.x",
-    "npm": ">=8.0.0"
   }
 }
