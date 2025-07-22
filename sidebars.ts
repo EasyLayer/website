@@ -11,10 +11,12 @@ const sidebars: SidebarsConfig = {
       items: [
         'overview/intro',
         'overview/self-hosting',
-        'overview/state-modelling',
-        'overview/data-access',
-        'overview/transport',
+        'overview/rpc-efficiency',
         'overview/reorganisation-handling',
+        'overview/state-modelling',
+        'overview/streams',
+        'overview/snapshots',
+        'overview/transport',
         'overview/networks',
       ]
     },

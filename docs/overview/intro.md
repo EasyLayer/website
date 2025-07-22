@@ -38,7 +38,6 @@ Access your blockchain data through multiple protocols:
 - **HTTP RPC**: RESTful API endpoints
 - **WebSocket**: Real-time bidirectional communication
 - **IPC**: Inter-process communication for local applications
-- **TCP**: Direct socket connections for high-performance scenarios
 
 ### Automatic Reorganization Handling
 Blockchain forks and reorganizations are handled automatically. Your application stays consistent even when the blockchain itself reorganizes, ensuring data integrity without manual intervention.

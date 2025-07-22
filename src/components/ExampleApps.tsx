@@ -17,29 +17,29 @@ interface ExampleItem {
 
 const examples: ExampleItem[] = [
   {
-    title: 'Bitcoin One Address Balance ✅',
-    description: 'A simple example of how to monitor a bitcoin wallet balance',
+    title: 'Bitcoin Top Addresses by Balances ✅',
+    description: 'A simple example of how to monitor a bitcoin top addresses balances',
     authorName: 'easylayer',
     authorImg: `${SITE_URLS.BASE}/img/logo.png`,
     repoName: '@bitcoin-crawler/examples',
-    repoUrl: EXAMPLE_APPS.BITCOIN_ONE_ADDRESS_BALANCE,
+    repoUrl: EXAMPLE_APPS.BITCOIN_TOP_ADDRESSES_BY_BALANCES,
   },
-  // {
-  //   title: 'EVM Balances 🤖',
-  //   description: '',
-  //   authorName: 'easylayer',
-  //   authorImg: `${SITE_URLS.BASE}/img/logo.png`,
-  //   repoName: '@evm-state-listener/examples',
-  //   repoUrl: EXAMPLE_APPS.EVM_BALANCES,
-  // },
-  // {
-  //   title: 'EVM Tokens State 🔌',
-  //   description: '',
-  //   authorName: 'easylayer',
-  //   authorImg: `${SITE_URLS.BASE}/img/logo.png`,
-  //   repoName: '@evm-state-listener/examples',
-  //   repoUrl: EXAMPLE_APPS.EVM_TOKENS,
-  // },
+  {
+    title: 'Bitcoin Network Fees Analytic 🔗',
+    description: 'A simple example of how to load a bitcoin network fees for analytic',
+    authorName: 'easylayer',
+    authorImg: `${SITE_URLS.BASE}/img/logo.png`,
+    repoName: '@bitcoin-crawler/examples',
+    repoUrl: EXAMPLE_APPS.BITCOIN_NETWORK_FEES_ANALYTIC,
+  },
+  {
+    title: 'EVM Gas Price Monitoring 🤖',
+    description: 'A simple example of how to monitor a evm gas price',
+    authorName: 'easylayer',
+    authorImg: `${SITE_URLS.BASE}/img/logo.png`,
+    repoName: '@evm-crawler/examples',
+    repoUrl: EXAMPLE_APPS.EVM_GAS_PRICE_MONITORING,
+  },
 ];
 
 interface SeeTheCodeButtonProps {
