@@ -1,74 +1,82 @@
 ---
-title: 'Transport API - Multiple Protocols for Easylayer Applications'
-description: 'Connect to Easylayer applications via HTTP RPC, WebSocket, TCP, or IPC. Support for real-time events, multiple simultaneous transports, and unified transport-sdk client.'
-keywords: ['transport api', 'easylayer', 'websocket', 'tcp', 'http rpc', 'ipc', 'real-time events', 'transport-sdk']
+title: 'Transport API - Multiple Protocols | EasyLayer Framework'
 sidebar: intro
-sidebar_label: 'Transport API'
-slug: '/transport'
+sidebar_label: 'API & Transports'
+slug: /transport
+description: Connect to EasyLayer applications via HTTP RPC, WebSocket, TCP, or IPC. Support for real-time events, multiple simultaneous transports, and unified transport-sdk client for seamless integration.
+keywords: ['transport API', 'HTTP RPC', 'WebSocket', 'TCP', 'IPC transport', 'real-time events', 'transport-sdk', 'EasyLayer API', 'event streaming', 'client-server communication', 'desktop applications']
+image: /img/el_twitter_default.png
 ---
 
-# Transport API
+# API & Transports
 
-Easylayer applications support multiple transport protocols for flexible client-server communication. Choose the transport that best fits your use case and infrastructure requirements.
+EasyLayer applications provide flexible transport options for client-server communication. Choose from HTTP, WebSocket, TCP, or IPC protocols based on your application requirements, with unified client SDK for seamless integration.
 
-## Supported Transports
+## Available Transport Protocols
 
-### HTTP RPC
-Traditional request-response communication over HTTP protocol.
-- **Use case**: Web applications, REST-like interactions
-- **Events**: Not supported
-- **Connection**: Stateless
+### HTTP RPC Transport
+Out-of-the-box [HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP) server with standardized RPC API endpoints:
 
-### WebSocket (WS)
-Real-time bidirectional communication over WebSocket protocol.
-- **Use case**: Real-time applications, live updates
-- **Events**: Full support with subscriptions
-- **Connection**: Persistent
+- **RPC Queries**: Send any RPC request through a unified endpoint
+- **Stream Endpoint**: Access real-time data streams via HTTP streaming
+- **RESTful Interface**: Standard HTTP methods for easy integration with existing systems
 
-### TCP
-Direct TCP socket communication for high-performance scenarios.
-- **Use case**: High-throughput applications, low-latency requirements
-- **Events**: Full support with subscriptions
-- **Connection**: Persistent
+### WebSocket Transport
+[WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) connections provide real-time bidirectional communication:
+
+- **Query Requests**: Send queries similar to HTTP RPC with instant responses
+- **Event Subscriptions**: Subscribe to real-time system and custom events
+- **Stream Processing**: Handle continuous data streams with low latency
+- **Guaranteed Delivery**: At-least-once delivery mechanism ensures events reach clients
 
 ### IPC (Inter-Process Communication)
-Communication between processes on the same machine.
-- **Use case**: Child process communication, local integrations
-- **Events**: Full support with subscriptions
-- **Connection**: Local only
-- **Limitation**: Works only as a child process
+Parent-child process communication for specialized applications:
 
-## Multiple Transport Support
+- **Desktop Applications**: Perfect for desktop software requiring blockchain integration
+- **Process Separation**: Isolate blockchain processing from main application logic
+- **Local Development**: Efficient communication for local development environments
+- **High Performance**: Direct process communication without network overhead
 
-Easylayer applications can run multiple transports simultaneously, allowing clients to connect using their preferred protocol. Configure multiple transports in your application settings to provide maximum flexibility.
+## Unified Client SDK
 
-## Event Subscriptions
-
-Real-time event subscriptions are available on all transports except HTTP RPC:
-- ✅ WebSocket: Full event streaming
-- ✅ TCP: Full event streaming  
-- ✅ IPC: Full event streaming
-- ❌ HTTP RPC: Request-response only
-
-## Transport SDK
-
-The `transport-sdk` package provides a unified client interface for connecting to Easylayer applications across all supported transports. It handles protocol differences and provides a consistent API for your client applications.
+**[@easylayer/transport-sdk](https://www.npmjs.com/package/@easylayer/transport-sdk)** provides a consistent interface across all transport protocols:
 
 ```javascript
-import { TransportClient } from 'transport-sdk';
+import { Client } from '@easylayer/transport-sdk';
 
-// Connect using your preferred transport
-const client = new TransportClient({
-  transport: 'ws', // 'http', 'ws', 'tcp', or 'ipc'
-  url: 'ws://localhost:3000'
+// HTTP transport
+const client = new Client({ 
+  transport: {
+    type: 'http',
+    baseUrl: 'http://localhost:3000'
+  }
 });
 ```
 
-## Getting Started
+## Real-Time Event System
 
-1. Configure your desired transports in the application settings
-2. Install the `transport-sdk` for client-side integration
-3. Choose the appropriate transport based on your requirements
-4. Start building your connected application
+### Event Types
+- **System Events**: Built-in blockchain events (blocks, transactions, reorganizations)
+- **Custom Events**: User-defined application events and business logic triggers
 
-The transport layer abstracts protocol complexity while providing the performance and features you need for modern applications.
+### Event Handling
+Subscribe to events with handlers for real-time processing:
+
+```javascript
+// Subscribe to new blocks
+client.subscribe('NewBlockEvent', (event) => {
+  console.log('New block:', event.blockHeight);
+});
+
+// Handle custom business events
+client.subscribe('CustomUserEvent', (event) => {
+  // Process custom application logic
+});
+```
+
+### Guaranteed Delivery
+**At-Least-Once Delivery**: Events are guaranteed to be delivered to subscribed clients. If synchronization issues occur between application and client, missed events are delivered after successful reconnection.
+
+**Resilient Connections**: Automatic reconnection and event replay mechanisms ensure no data loss during temporary disconnections.
+
+Ready to integrate with EasyLayer transports? Check our [transport examples](https://easylayer.io/docs/examples) and join our [community discussions](https://github.com/EasyLayer/core/discussions) for implementation guidance.

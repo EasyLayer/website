@@ -1,3 +1,10 @@
 {
-    "position": 2
+  "label": "bitcoin-crawler",
+  "position": 2,
+  "collapsed": false,
+  "link": {
+    "type": "generated-index",
+    "title": "bitcoin-crawler",
+    "slug": "/bitcoin-crawler"
+  }
 }

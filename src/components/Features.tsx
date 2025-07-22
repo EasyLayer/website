@@ -1,5 +1,5 @@
 import type { FC, ComponentType } from 'react';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Link from '@docusaurus/Link';
 import classNames from 'classnames';
 import {
@@ -22,6 +22,7 @@ import {
   Repeat,
   Send,
   Grid,
+  Zap,
 } from 'react-feather';
 
 import SectionContainer from './Layouts/SectionContainer';
@@ -83,51 +84,54 @@ const Features: FC = () => (
     <dl className="grid grid-cols-1 md:gap-16 lg:grid-cols-4 lg:gap-x-8 xl:gap-x-16">
       <Feature
         Icon={Server}
-        title="Self-Hosted Infrastructure"
+        title="Self-Hosted & Private"
         url="/docs/self-hosting"
-        description={`
-          Take full control of your infrastructure with our self-hosted solution. Deploy and manage your nodes with complete autonomy.
-        `}
+        description={`Deploy entirely on your own infrastructure: the EventStore supports SQLite for quick setups or PostgreSQL for production workloads. Your data never leaves your servers.`}
       />
       <Feature
-        Icon={Type}
-        title="Custom State Modelling"
-        url="/docs/state-modelling"
-        description={`
-          Define precise state models for specific addresses or smart contracts, eliminating the need to store the entire blockchain state.
-        `}
-      />
-      <Feature
-        Icon={Clock}
-        title="Real-Time & Historical Data"
-        url="/docs/data-access"
-        description={`
-          Access both real-time blockchain events through subscriptions and historical data with our comprehensive data access layer.
-        `}
-      />
-      <Feature
-        Icon={Link2}
-        title="Flexible Transport Layer"
-        url="/docs/transport"
-        description={`
-          Choose from multiple transport protocols including RPC, WebSocket, IPC, and TCP to match your specific integration needs.
-        `}
+        Icon={Zap}
+        title="2 RPC Calls per Block"
+        url="/docs/rpc-efficiency"
+        description={`The crawler fetches full block data with just 2 RPC requests, keeping node load low and reducing operating costs.`}
       />
       <Feature
         Icon={RefreshCw}
-        title="Automatic Reorganization"
+        title="Reorg-Proof Consistency"
         url="/docs/reorganisation-handling"
+        description={`Automatic fork handler rolls back and replays data for chain reorganisations of any depth-no manual intervention required.`}
+      />
+      <Feature
+        Icon={Clock}
+        title="Live & Historical Streams"
+        url="/docs/streams"
+        description={`Sync the entire chain history once and keep a continuous real-time feed through the same endpoint for dashboards or alerts.`}
+      />
+      <Feature
+        Icon={Type}
+        title="Custom State Models"
+        url="/docs/state-modelling"
+        description={`Define only the states you need in a custom model file. Smaller datasets, faster queries, and lower storage overhead.`}
+      />
+      <Feature
+        Icon={Layers}
+        title="Instant Block Snapshots"
+        url="/docs/snapshots"
+        description={`Request the exact state of any model at a specific block height with a single call-ideal.`}
+      />
+      <Feature
+        Icon={Link2}
+        title="Built-In API & Transports"
+        url="/docs/transport"
         description={`
-          Built-in handling of blockchain reorganizations ensures data consistency and reliability across all supported networks.
+          REST for simplicity, WebSocket for event pushes, IPC for desktop apps. The
+          server launches automatically-no hand-written controllers or middleware needed.
         `}
       />
       <Feature
         Icon={Globe}
-        title="Multi-Chain Support"
+        title="Bitcoin & EVM Ready"
         url="/docs/networks"
-        description={`
-          Comprehensive support for Bitcoin, its forks, and all EVM-compatible networks including Ethereum and its derivatives.
-        `}
+        description={`Bundled crawlers support Bitcoin forks and all EVM-compatible chains; extend to new networks with minimal configuration.`}
       />
     </dl>
   </SectionContainer>

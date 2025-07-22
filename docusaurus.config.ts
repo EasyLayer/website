@@ -118,8 +118,8 @@ const config: Config = {
     announcementBar: {
       id: 'announcement-bar-id',
       content:
-        '<strong>Bitcoin Crawler beta is here!</strong> 🚀 ' +
-        `<a href="${BLOG_URLS.BASE}" target="_blank" rel="noopener" ` +
+        '<strong>EVM Crawler beta is here!</strong> 🚀 ' +
+        `<a href="${BLOG_URLS.BASE}/welcome-evm-crawler-beta-app" target="_blank" rel="noopener" ` +
         'style="text-decoration: underline; font-weight: bold;">See what\'s new ⚙️ →</a>',
       backgroundColor: '#22d3ee',
       textColor: '#ffffff',

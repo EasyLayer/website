@@ -1,82 +1,57 @@
 ---
-title: 'Supported Blockchain Networks - Bitcoin, Ethereum & More'
-description: 'Connect Easylayer applications to Bitcoin, Ethereum networks and their forks. Use your own node or supported providers like QuickNode for blockchain connectivity.'
-keywords: ['blockchain networks', 'bitcoin crawler', 'ethereum support', 'blockchain nodes', 'quicknode', 'blockchain providers', 'bitcoin forks']
+title: 'Supported Blockchain Networks - Bitcoin, Ethereum & More | EasyLayer Framework'
 sidebar: intro
-sidebar_label: 'Networks'
-slug: '/networks'
+sidebar_label: 'Supported Blockchain Networks'
+slug: /networks
+description: Connect EasyLayer applications to Bitcoin, Ethereum networks and their forks. Use your own node or supported providers like QuickNode for blockchain connectivity across Bitcoin Core compatible and EVM-compatible networks.
+keywords: ['blockchain networks', 'bitcoin crawler', 'ethereum support', 'EVM networks', 'bitcoin forks', 'blockchain nodes', 'QuickNode', 'BSC', 'Polygon', 'L2 networks', 'web3.js', 'ethers.js', 'bitcoin core API']
+image: /img/el_twitter_default.png
 ---
 
-# Supported Networks
+# Supported Blockchain Networks
 
-Easylayer applications connect to various blockchain networks through dedicated crawlers that synchronize and process blockchain data in real-time.
+EasyLayer provides specialized crawler packages for major blockchain ecosystems, supporting both native networks and their compatible forks. Connect to any network using your own nodes or trusted providers.
 
-## Currently Supported
+## Bitcoin Core Compatible Networks
 
-### Bitcoin & Bitcoin Forks
-Our Bitcoin crawler supports Bitcoin mainnet and all Bitcoin-based networks including:
-- **Bitcoin** (BTC)
-- **Bitcoin Cash** (BCH)
-- **Litecoin** (LTC)
-- **Dogecoin** (DOGE)
-- **Other Bitcoin forks** with compatible protocols
+**[@easylayer/bitcoin-crawler](https://www.npmjs.com/package/@easylayer/bitcoin-crawler)** supports [Bitcoin](https://bitcoin.org/) and all networks compatible with [Bitcoin Core API](https://developer.bitcoin.org/reference/rpc/):
 
-The Bitcoin crawler handles UTXO tracking, transaction processing, and block reorganisations across all supported networks.
+- **Bitcoin (BTC)**: The original cryptocurrency network
+- **Bitcoin Cash (BCH)**: Bitcoin fork with larger block sizes  
+- **Dogecoin (DOGE)**: Popular meme cryptocurrency network
+- **Litecoin (LTC)**: Silver to Bitcoin's gold
+- **Other Bitcoin Forks**: Any network implementing Bitcoin Core RPC compatibility
 
-## Coming Soon
+**API Compatibility**: Works with any blockchain that implements the standard Bitcoin Core RPC interface, providing consistent data access across Bitcoin-derived networks.
 
-### Ethereum & EVM Networks
-Ethereum support is currently in development and will include:
-- **Ethereum mainnet**
-- **Layer 2 solutions** (Polygon, Arbitrum, Optimism)
-- **EVM-compatible chains** (BSC, Avalanche, Fantom)
-- **Ethereum testnets** (Goerli, Sepolia)
+## EVM Compatible Networks
 
-## Node Connectivity
+**[@easylayer/evm-crawler](https://www.npmjs.com/package/@easylayer/evm-crawler)** supports [Ethereum](https://ethereum.org/) and all EVM-compatible networks that work with [web3.js](https://web3js.readthedocs.io/) and [ethers.js](https://docs.ethers.org/):
 
-Easylayer applications require connection to blockchain nodes to access network data. You have several options:
+### Layer 1 Networks
+- **Ethereum (ETH)**: The original smart contract platform
+- **Binance Smart Chain (BSC)**: High-performance EVM-compatible network
+- **Polygon (MATIC)**: Ethereum scaling solution
+- **Avalanche C-Chain**: Fast, low-cost EVM network
 
-### Your Own Node
-Run your own blockchain node for:
-- **Full control** over data access and performance
-- **Maximum reliability** and uptime
-- **Cost optimization** for high-volume applications
-- **Enhanced privacy** and security
+### Other EVM Networks
+- **Arbitrum**: Optimistic rollup scaling solution
+- **Optimism**: Another optimistic rollup for Ethereum
+- **Polygon zkEVM**: Zero-knowledge Ethereum Virtual Machine
+- **Base**: Coinbase's Layer 2 network
 
-### Supported Providers
+## Planned Network Expansion
 
-#### QuickNode
-We provide a built-in adapter for QuickNode, offering:
-- **Easy setup** with API key configuration
-- **Reliable infrastructure** with global endpoints
-- **Multiple networks** support through single provider
-- **Managed service** without node maintenance
+**Coming Soon**: We're actively developing crawler packages for additional major blockchain ecosystems:
 
-```javascript
-// QuickNode configuration example
-{
-  provider: 'quicknode',
-  apiKey: 'your-quicknode-api-key',
-  network: 'bitcoin-mainnet'
-}
-```
+- **[Solana](https://solana.com/)**: High-performance blockchain for decentralized applications
+- **[TON](https://ton.org/)**: The Open Network, originally developed by Telegram
 
-### Request Additional Providers
+## Custom Network Requests
 
-Need support for other blockchain infrastructure providers? Let us know in our [GitHub Discussions](https://github.com/easylayer/discussions) and we'll prioritize based on community demand.
+**Need a Specific Network?** If you require support for a blockchain network not currently listed, we'd love to hear from you:
 
-Popular providers we're considering:
-- Alchemy
-- Infura
-- Moralis
-- Ankr
-- GetBlock
+- Join our [community discussions](https://github.com/EasyLayer/core/discussions) to request new networks
+- Connect with our development team for enterprise network integration needs
 
-## Getting Started
-
-1. **Choose your network** from supported options
-2. **Set up node access** (own node or provider)
-3. **Configure your application** with connection details
-4. **Start building** your blockchain application
-
-Whether you're building on Bitcoin's proven network or preparing for Ethereum's smart contract capabilities, Easylayer provides the infrastructure to connect your applications to the blockchain world.
+Ready to start building on your preferred network? Check our [configuration examples](https://easylayer.io/docs/examples) for network-specific setup guides.

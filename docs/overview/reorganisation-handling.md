@@ -1,74 +1,63 @@
 ---
-title: 'Blockchain Reorganisation Handling - Automatic State Management'
-description: 'Learn how Easylayer applications automatically handle blockchain reorganisations with state updates and system events for blocks, transactions, and heights.'
-keywords: ['blockchain reorganisation', 'reorg handling', 'easylayer', 'blockchain state', 'system events', 'automatic updates']
+title: 'Blockchain Reorganisation Handling | EasyLayer Framework'
 sidebar: intro
-sidebar_label: 'Reorganisation handling'
-slug: '/reorganisation-handling'
+sidebar_label: 'Blockchain Reorganisation Handling'
+slug: /reorganisation-handling
+description: EasyLayer automatically detects and handles blockchain reorganisations with state rollbacks and system events. Maintain data consistency across any reorganisation depth with automatic model updates and event notifications.
+keywords: ['blockchain reorganisation', 'reorg handling', 'blockchain state management', 'automatic rollback', 'system events', 'data consistency', 'EasyLayer reorg', 'blockchain reliability', 'state reconstruction', 'web3 consistency']
+image: /img/el_twitter_default.png
 ---
 
-# Reorganisation Handling
+# Blockchain Reorganisation Handling
 
-Blockchain reorganisations (reorgs) are a natural part of blockchain networks where the chain reorganises itself due to competing blocks or network conditions. Easylayer applications handle these reorganisations automatically, ensuring your application state remains consistent and accurate.
+EasyLayer framework automatically detects blockchain reorganisations and maintains data consistency by reconstructing the chain state and rolling back affected changes. Your applications receive detailed reorganisation events without requiring manual intervention.
 
-## Automatic State Management
+## Automatic Detection & State Management
 
-When a blockchain reorganisation occurs, Easylayer automatically:
+When a blockchain reorganisation occurs, EasyLayer automatically detects the change and begins reconstructing the correct chain state. The framework rolls back all affected data to maintain consistency across your application's state.
 
-- **Updates application state** to reflect the new chain structure
-- **Reverts affected data** that was based on reorganised blocks
-- **Maintains data consistency** across all application components
-- **Handles complex reorganisations** without manual intervention
+**Automatic Model Updates**: Custom user models are automatically rebuilt during reorganisation events. Developers don't need to implement manual rollback logic or worry about data inconsistencies.
 
-Your application continues to operate seamlessly during reorganisations without requiring any additional code or configuration.
+**Any Depth Support**: EasyLayer handles reorganisations of any depth, from single block reorganisations to deep chain restructuring, depending on the specific blockchain's characteristics.
 
-## System Events
+## System Events & Notifications
 
-Easylayer emits comprehensive system events when reorganisations are detected, providing detailed information about what changed:
+During reorganisation, your application receives detailed event notifications:
 
-### Reorganisation Event Structure
+```typescript
+export type LightBlock = {
+  height: number;
+  hash: string;
+  previousblockhash: string;
+  tx: string[];
+};
 
-```javascript
-{
-  type: 'blockchain.reorganisation',
-  data: {
-    reorganisedBlocks: [
-      // Array of block hashes that were reorganised
-    ],
-    reorganisedTransactions: [
-      // Array of transaction hashes affected by the reorg
-    ],
-    reorganisedHeights: [
-      // Array of block heights that were reorganised
-    ],
-    newChainTip: {
-      // Information about the new chain head
-    }
-  }
+// Example reorganisation event structure
+BitcoinNetworkReorganizedEvent {
+  blocks: LightBlock[]
 }
 ```
 
-## Handling Reorganisation Events
+**Comprehensive Data**: Events include all affected block hashes, heights, and transaction hashes, providing complete visibility into what data was reorganised.
 
-Subscribe to reorganisation events to implement custom logic when reorgs occur:
+**Real-time Notifications**: Applications receive events immediately when reorganisations are detected, enabling responsive handling of state changes.
 
-```javascript
-// Listen for reorganisation events
-client.subscribe('blockchain.reorganisation', (event) => {
-  const { reorganisedBlocks, reorganisedTransactions, reorganisedHeights } = event.data;
-  
-  // Implement custom reorganisation handling
-  console.log(`Reorganisation detected: ${reorganisedBlocks.length} blocks affected`);
-  
-  // Update UI, notify users, or trigger custom workflows
-});
-```
+## Business Benefits
 
-## Benefits
+**Data Integrity**: Automatic reorganisation handling ensures your business logic always operates on the correct, final blockchain state without manual intervention.
 
-- **Zero configuration**: Reorganisation handling works out of the box
-- **Automatic recovery**: State automatically updates to match the canonical chain
-- **Complete visibility**: Detailed events provide full reorganisation context
-- **Reliable data**: Your application always reflects the current blockchain state
+**Reliable Operations**: Eliminate concerns about stale or incorrect data affecting business decisions, transactions, or user interactions.
 
-Easylayer's built-in reorganisation handling ensures your blockchain applications remain robust and reliable, even during network instability or competing chain scenarios.
+**Reduced Development Complexity**: No need to implement custom reorganisation detection or rollback mechanisms in your application code.
+
+## Node Reliability Considerations
+
+Reorganisation detection depends on your blockchain node's reliability and synchronization status. For production applications:
+
+**Trusted Providers**: Use established providers like [QuickNode](https://www.quicknode.com/), [Infura](https://infura.io/), or [Alchemy](https://alchemy.com/) that maintain properly synchronized nodes.
+
+**Self-Hosted Nodes**: If running your own [Bitcoin](https://bitcoin.org/) or [Ethereum](https://ethereum.org/) nodes, ensure proper configuration and synchronization to detect reorganisations accurately.
+
+**Network Monitoring**: Consider monitoring multiple nodes or providers to cross-verify reorganisation events for critical business applications.
+
+Need help implementing reorganisation handling? Join our [community discussions](https://github.com/EasyLayer/core/discussions) or check out our [event handling examples](https://easylayer.io/docs/examples) for detailed implementation patterns.

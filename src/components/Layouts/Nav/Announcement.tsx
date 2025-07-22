@@ -7,7 +7,7 @@ import { BLOG_URLS } from '../../../urls';
 const Announcement: React.FC = () => {
   const history = useHistory();
   const handleLink = () => {
-    history.push(`${BLOG_URLS.BASE}/welcome-bitcoin-crawler-beta-app`);
+    history.push(`${BLOG_URLS.BASE}/welcome-evm-crawler-beta-app`);
   };
   return (
     <div
@@ -31,7 +31,7 @@ const Announcement: React.FC = () => {
       >
         <span className="item-center flex gap-2 px-3">
           <span>
-            <b>🚀 Bitcoin Crawler beta is here! 🚀</b>
+            <b>🚀 EVM Crawler beta is here! 🚀</b>
           </span>
         </span>
         <span className="hidden items-center space-x-2 px-3 lg:flex">
