@@ -41,9 +41,9 @@ export const DOCS_URLS = {
 
 // Example Apps URLs
 export const EXAMPLE_APPS = {
-  BITCOIN_ONE_ADDRESS_BALANCE: `${BASE_URLS.GITHUB}/bitcoin-crawler/tree/master/examples/bitcoin-one-address-balance`,
-  // EVM_BALANCES: `${BASE_URLS.GITHUB}/.../tree/release/examples/evm-balances`,
-  // EVM_TOKENS: `${BASE_URLS.GITHUB}/.../tree/release/examples/evm-tokens`,
+  BITCOIN_TOP_ADDRESSES_BY_BALANCES: `${BASE_URLS.GITHUB}/bitcoin-crawler/tree/master/examples/historical-data/top-addresses-by-balance`,
+  BITCOIN_NETWORK_FEES_ANALYTIC: `${BASE_URLS.GITHUB}/bitcoin-crawler/tree/master/examples/historical-data/network-fee-analytics`,
+  EVM_GAS_PRICE_MONITORING: `${BASE_URLS.GITHUB}/evm-crawler/tree/master/examples/real-time-data/gas-price-monitoring`,
 } as const;
 
 // Site URLs

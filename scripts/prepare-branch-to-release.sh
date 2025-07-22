@@ -24,6 +24,7 @@ docs_dir="docs"
 # List of repositories to sync
 repos=(
   "bitcoin-crawler"
+  "evm-crawler"
   "transport-sdk"
 )
 

@@ -14,52 +14,52 @@ const faqs: FAQItem[] = [
   {
     question: 'Which blockchains are supported?',
     answer:
-      'EasyLayer currently supports Bitcoin and all EVM-compatible chains (Ethereum, Polygon, Arbitrum, etc.) out of the box. ' +
-      'The framework is designed to be chain-agnostic - you can add support for any blockchain by defining its events and state models.',
+      'EasyLayer supports all Bitcoin-like chains (Bitcoin, Litecoin, Dogecoin, etc.) and every EVM-compatible network (Ethereum, Polygon, Arbitrum, Optimism, BSC, and more). You can plug in additional chains by adding a TypeScript adapter.',
   },
   {
-    question: 'What technologies does EasyLayer use?',
+    question: 'How many RPC calls does EasyLayer make per block?',
     answer:
-      'EasyLayer is built with Node.js and TypeScript, but you can use it with any JavaScript code. ' +
-      'No complex setup required - just install the package and start building your blockchain application.',
+      'Never more than two: one call to fetch the block itself and, when the chain exposes extra data, an optional call for supplementary information. This keeps traffic minimal and predictable for any provider you choose.',
   },
   {
-    question: 'How does EasyLayer handle blockchain data synchronization?',
+    question: 'Can I track historical balances for a wallet or contract?',
     answer:
-      'EasyLayer automatically handles blockchain data synchronization through its event-driven architecture. ' +
-      'It tracks all relevant transactions, maintains state consistency, and provides real-time updates through the Transport layer. ' +
-      'You can also replay historical events from any block height for auditing or recovery purposes.',
+      'Yes. EasyLayer automatically keeps the full state history, so you can retrieve a balance - or any custom state - at **any** block height on demand.',
   },
   {
-    question: 'What storage options are available for event persistence?',
+    question: 'How does EasyLayer handle chain reorganisations?',
     answer:
-      'EasyLayer supports PostgreSQL and SQLite as event stores out of the box. ' +
-      'The event store is used to persist all domain events, allowing you to rebuild your state at any point in time and maintain full transaction history.',
+      'Reorgs are handled natively. If a fork occurs, the engine rolls back orphaned data and replays the new blocks automatically. There is no hard depth limit - your database always mirrors the canonical chain.',
   },
   {
-    question: 'How can I monitor specific blockchain events or states?',
+    question: 'Do I need to run my own full node?',
     answer:
-      'You can monitor any blockchain events by defining your domain model and event handlers. ' +
-      'For example, to track a wallet balance, you just need to define the state model - EasyLayer will automatically handle and real-time updates.',
+      'Not necessarily. You can point EasyLayer at any standard RPC provider such as Infura, Alchemy, QuickNode, or a self-hosted node. Terraform modules are available if you prefer to deploy your own infrastructure.',
   },
   {
-    question: 'Is EasyLayer suitable for production use?',
+    question: 'What technologies power EasyLayer?',
     answer:
-      'EasyLayer is currently in active development with a focus on stability and production readiness. ' +
-      "We're continuously testing and improving our core components (@bitcoin-crawler and @evm-crawler) to ensure reliable performance in production environments.",
+      'Core components are written in Node.js (TypeScript). PostgreSQL is used for persistence, but SQLite is also supported for lightweight scenarios.',
   },
   {
-    question: 'How does EasyLayer ensure data consistency?',
+    question: 'How do I create custom business models?',
     answer:
-      'EasyLayer uses an event-sourcing pattern to maintain data consistency. ' +
-      'All state changes are captured as events, which are persisted in the event store. ' +
-      'This allows for deterministic state reconstruction and ensures that your application state is always consistent with the blockchain.',
+      'Simply write a TypeScript class that describes the events and state you care about - balances, invoices, liquidity pools, compliance flags, and so on. EasyLayer auto-generates storage and keeps the model in sync in real time.',
   },
   {
-    question: 'Can I use my own blockchain node with EasyLayer?',
+    question: 'What resources are required to run EasyLayer?',
     answer:
-      'Yes, you can use your own blockchain node or any compatible provider. ' +
-      'EasyLayer is designed to work with both self-hosted nodes and third-party providers, giving you flexibility in how you connect to the blockchain.',
+      'A small VM or container with 2 vCPUs, 4 GB RAM, and a PostgreSQL instance is typically enough. Deployment options include Docker, bare metal, AWS ECS, and AWS Lambda.',
+  },
+  {
+    question: 'How does EasyLayer guarantee data consistency?',
+    answer:
+      'The platform uses an event-sourcing pattern: every state change is captured as an immutable event. This allows deterministic state reconstruction and ensures that application state always aligns with the blockchain.',
+  },
+  {
+    question: 'Is EasyLayer suitable for compliance and reporting?',
+    answer:
+      'Yes. Full audit trails, point-in-time queries, and configurable retention policies make it ideal for AML5, MiCA, Travel Rule, and other regulatory requirements.',
   },
 ];
 

@@ -7,9 +7,11 @@ sidebar_class_name: hidden
 # Overview
 
 - [Introduction](./intro.md)
-- [State Modelling](./state-modelling.md)
-- [Transport](./transport.md)
-- [Data Access](./data-access.md)
-- [Reorganisation Handling](./reorganisation-handling.md)
+- [Self-Hosted & Private](./self-hosting.md)
+- [RPC Calls](./rpc-efficiency.md)
+- [Reorganisation-Proof Consistency](./reorganisation-handling.md)
+- [Custom State Models](./state-modelling.md)
+- [Live & Historical Streams](./streams.md)
+- [Instant Block Snapshots](./snapshots.md)
+- [API & Transports](./transport.md)
 - [Networks](./networks.md)
-- [Self Hosting](./self-hosting.md)

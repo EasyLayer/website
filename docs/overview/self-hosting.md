@@ -1,66 +1,50 @@
 ---
-title: 'Self-Hosted Blockchain Infrastructure'
+title: 'Self-Hosted Web3 Infrastructure | EasyLayer Framework'
 sidebar: intro
-sidebar_label: 'Self Hosted'
+sidebar_label: 'Self-Hosted & Private'
 slug: /self-hosting
-description: Learn how to deploy and manage EasyLayer's self-hosted blockchain applications. Complete guide to installation, configuration, and infrastructure management.
-keywords: ['self-hosted blockchain', 'blockchain infrastructure', 'Node.js deployment', 'blockchain node setup', 'EasyLayer deployment', 'npm blockchain tools', 'blockchain configuration']
+description: Deploy EasyLayer's web3 integration framework entirely on your infrastructure with SQLite or PostgreSQL support. Complete data ownership, GDPR compliance, zero vendor lock-in. Deploy on AWS, Azure, Google Cloud or on-premises with full control over your web3 applications.
+keywords: ['self-hosted web3', 'web3 infrastructure', 'Node.js deployment', 'web3 integration', 'EasyLayer deployment', 'npm web3 tools', 'web3 configuration', 'PostgreSQL web3', 'SQLite web3', 'GDPR compliance', 'enterprise web3']
 image: /img/el_twitter_default.png
 ---
 
-Self-hosted means you download, deploy, and run EasyLayer applications on your own servers or cloud infrastructure. You're not dependent on external services, third-party APIs, or vendor availability. Your blockchain data processing happens within your network perimeter, ensuring maximum security, privacy, and control.
+# Self-Hosted & Private
 
-## Key Benefits of Self-Hosting
+EasyLayer is a web3 integration framework designed for complete deployment on your own infrastructure. Your EventStore data remains entirely within your controlled environment, supporting both [SQLite](https://sqlite.org/) for rapid development and [PostgreSQL](https://postgresql.org/) for production-scale applications.
 
-**Complete Data Ownership**: Your blockchain data never leaves your infrastructure. No third-party services have access to your data.
+## Complete Control & Compliance
 
-**Zero Vendor Lock-in**: Switch providers, modify configurations, or scale independently without being constrained by external service limitations or pricing models.
+Your web3 data never leaves your infrastructure. No third-party services have access to your sensitive information, ensuring full data sovereignty and maximum privacy protection. Perfect for European businesses requiring GDPR compliance and regulatory adherence by maintaining all data processing within your controlled environment.
 
-**Customizable Performance**: Optimize hardware, database configurations, and network settings specifically for your use case and traffic patterns.
+Switch cloud providers, modify configurations, or scale independently without external service constraints or unpredictable pricing models. Deploy seamlessly across [AWS](https://aws.amazon.com/) ECS, Lambda functions, other cloud platforms, or on-premises infrastructure according to your operational requirements.
 
-**Compliance & Security**: Meet enterprise security requirements and regulatory compliance standards by keeping all data processing within your controlled environment.
+## Database Support
 
-**Cost Predictability**: No per-request fees or usage-based pricing surprises. Your infrastructure costs are predictable and scalable according to your needs.
+**[SQLite](https://sqlite.org/) Database**: Ideal for development, testing, and lightweight production environments with zero configuration required, file-based storage for fast deployment, and perfect for prototyping and small-scale applications.
 
-## Installation Requirements
+**[PostgreSQL](https://postgresql.org/) Database**: Enterprise-grade solution for production workloads with high-performance concurrent operations, advanced optimization, and battle-tested reliability for mission-critical applications.
 
-### Prerequisites
+## Requirements & Setup
 
 To run EasyLayer applications, you need:
-
-- **Node.js** (version 17 or higher)
-- **npm** or **yarn** package manager
-- **Database**: SQLite or PostgreSQL
-- **Blockchain Node Access**: Either your own blockchain node or provider access (like [QuickNode]https://www.quicknode.com))
-
-Each application comes as a complete, ready-to-run package with all necessary dependencies included.
-
-## Application Architecture
-
-### Bootstrap Function
-
-Every EasyLayer application exports an asynchronous `bootstrap` function that serves as the main entry point:
-
-```typescript
-import { bootstrap } from '@easylayer/bitcoin-crawler';
-
-bootstrap().catch(error => console.error(error));
-```
-
-The bootstrap function:
-- Initializes the application with your configuration
-- Establishes database connections
-- Connects to blockchain nodes
-- Starts event processing and data synchronization
-- Launches the transport layer (HTTP, WebSocket, etc.)
-
-### Configuration Management
+- **[Node.js](https://nodejs.org/)** (version 17 or higher)
+- **[npm](https://www.npmjs.com/)** or **[yarn](https://yarnpkg.com/)** package manager
+- **Database**: [SQLite](https://sqlite.org/) or [PostgreSQL](https://postgresql.org/)
+- **Blockchain RPC Access**: Either your own blockchain node or provider access (like [QuickNode](https://www.quicknode.com))
 
 All application settings are managed through environment variables, typically stored in a `.env` file in your application root:
 
 ```env
 # Blockchain Node Configuration
-BITCOIN_CRAWLER_NETWORK_PROVIDER_SELF_NODE_URL=https://your-node-endpoint.com
+BITCOIN_CRAWLER_NETWORK_PROVIDER_NODE_HTTP_URL=https://your-node-endpoint.com
 ```
+
+## Deployment Options
+
+Deploy on cloud platforms like [AWS](https://aws.amazon.com/) ECS, AWS Lambda, [Google Cloud](https://cloud.google.com/) Run, [Azure](https://azure.microsoft.com/) Container Instances, or use traditional server installations, [Docker](https://docker.com/) containerization, [Kubernetes](https://kubernetes.io/) orchestration, and hybrid cloud configurations for on-premises infrastructure.
+
+## Quick Start Installation Guide
+
+TODO
 
 Need help with deployment? Join our [community discussions](https://github.com/EasyLayer/core/discussions) or check out our [deployment examples](https://easylayer.io/docs/examples) for detailed configurations.

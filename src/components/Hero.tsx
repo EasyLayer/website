@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import React from 'react';
 import Link from '@docusaurus/Link';
-import { Terminal, ArrowUpRight, Play, BookOpen, Grid, Layout, Trello, Code } from 'react-feather';
+import { BookOpen, Code } from 'react-feather';
 import CodeHighlight from './CodeHighlight';
 import SectionContainer from './Layouts/SectionContainer';
 import { SOCIAL_URLS, DOCS_URLS } from '../urls';
@@ -98,7 +98,7 @@ const FileViewer: FC<FileViewerProps> = ({ fileName, fileExplanation, link, chil
 };
 
 const Hero: FC = () => {
-  const modelSource = `import { BasicEvent, EventBasePayload, Model, Block } from '@easylayer/bitcoin-crawler';
+  const modelSource = `import { BasicEvent, EventBasePayload, Model, Block } from '@easylayer/evm-crawler';
 
 export class CustomEvent<T extends EventBasePayload> extends BasicEvent<T> {}; // Define your custom event
 
@@ -112,23 +112,12 @@ export default class CustomModel extends Model { // Create your model
 }
 `;
 
-  const bootstrapSource = `import { bootstrap } from '@easylayer/bitcoin-crawler';
+  const bootstrapSource = `import { bootstrap } from '@easylayer/evm-crawler';
 import Model from './model.ts';
 
 bootstrap({
-  Models: [Model],
-  rpc: true,
-  ws: true
-}).catch(error => console.error(error));
-`;
-
-  const clientSource = `import { bootstrap } from '@easylayer/bitcoin-crawler';
-
-bootstrap({
-  Models: [Model],
-  rpc: true,
-  ws: true
-});
+  Models: [Model]
+}).catch(console.error);
 `;
 
   return (
@@ -143,15 +132,14 @@ bootstrap({
                 lg:text-5xl lg:leading-tight
               `}
             >
-              {/** Powerful Solutions for Crypto Networks Processing */}
-              {/** Next‑Level Blockchain Network Monitoring */}
-              {/** Powerful Monitoring & Auditing for Crypto Networks */}
-              Real-Time & Historical <span className="underline decoration-yellow-500">Blockchain</span> Data with
+              {/* Real-Time & Historical <span className="underline decoration-yellow-500">Blockchain</span> Data with
+              Custom State Modeling */}
+              Own Your <span className="underline decoration-yellow-500">Blockchain Data</span> - Live, Historical &
               Custom State Modeling
             </h1>
             <p className="mt-4 text-xl text-neutral-500 sm:mt-5 lg:text-xl">
-              Run EasyLayer self-hosted apps, build custom state models, and stream both historical and real-time
-              blockchain events into your own systems
+              Run a self-hosted TypeScript apps with automatic chain reorg support - deliver live and historical
+              blockchain events over HTTP, WS, or IPC, tailored to your custom state models.
             </p>
           </div>
           {/* EOF Hero title and subtitle */}
