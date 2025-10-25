@@ -12,54 +12,54 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
-    question: 'Which blockchains are supported?',
+    question: 'What blockchains are supported?',
     answer:
-      'EasyLayer supports all Bitcoin-like chains (Bitcoin, Litecoin, Dogecoin, etc.) and every EVM-compatible network (Ethereum, Polygon, Arbitrum, Optimism, BSC, and more). You can plug in additional chains by adding a TypeScript adapter.',
+      "Currently Bitcoin Crawler supports Bitcoin and Bitcoin-like networks (Bitcoin Cash, Litecoin, Dogecoin). We're actively developing crawlers for EVM-compatible chains, Solana, and TON. Need a specific network? Contact us - we prioritize based on demand.",
   },
   {
-    question: 'How many RPC calls does EasyLayer make per block?',
+    question: 'Do I need to run my own blockchain node?',
     answer:
-      'Never more than two: one call to fetch the block itself and, when the chain exposes extra data, an optional call for supplementary information. This keeps traffic minimal and predictable for any provider you choose.',
+      'No. Bitcoin Crawler makes just 2 RPC requests per block, so you can use external providers like QuickNode without exceeding free tiers. Running your own node is optional and only recommended for very high-volume operations or specific privacy requirements.',
   },
   {
-    question: 'Can I track historical balances for a wallet or contract?',
+    question: 'How much does it cost to run?',
     answer:
-      'Yes. EasyLayer automatically keeps the full state history, so you can retrieve a balance - or any custom state - at **any** block height on demand.',
+      'A lightweight server with 2-4 virtual CPUs is enough for most use cases. With our minimal request design (2 per block), external provider costs are negligible - often free. No monthly API subscriptions, no expensive infrastructure. You control the costs.',
   },
   {
-    question: 'How does EasyLayer handle chain reorganisations?',
+    question: 'How do blockchain reorganizations work?',
     answer:
-      'Reorgs are handled natively. If a fork occurs, the engine rolls back orphaned data and replays the new blocks automatically. There is no hard depth limit - your database always mirrors the canonical chain.',
+      'Automatically handled under the hood using Event Sourcing. When a reorg happens, the system rolls back events from orphaned blocks and replays the correct chain. Your state updates automatically - no manual intervention needed. You can optionally subscribe to reorg events for custom logic.',
   },
   {
-    question: 'Do I need to run my own full node?',
+    question: 'What data can I track with custom models?',
     answer:
-      'Not necessarily. You can point EasyLayer at any standard RPC provider such as Infura, Alchemy, QuickNode, or a self-hosted node. Terraform modules are available if you prefer to deploy your own infrastructure.',
+      'Anything you need: wallet balances, UTXOs, transaction fees, specific addresses, payment monitoring, mempool activity. You describe what matters in your model - framework handles parsing, storage, and indexing. Store only relevant data, not the entire blockchain.',
   },
   {
-    question: 'What technologies power EasyLayer?',
+    question: 'Can I query historical data at specific block heights?',
     answer:
-      'Core components are written in Node.js (TypeScript). PostgreSQL is used for persistence, but SQLite is also supported for lightweight scenarios.',
+      'Yes. Event Sourcing gives you complete history. Query any model state at any block height - see balances as they were at block 850000, replay events from any point, maintain complete audit trails for compliance.',
   },
   {
-    question: 'How do I create custom business models?',
+    question: 'How do I access the data from my application?',
     answer:
-      'Simply write a TypeScript class that describes the events and state you care about - balances, invoices, liquidity pools, compliance flags, and so on. EasyLayer auto-generates storage and keeps the model in sync in real time.',
+      'Built-in Transport APIs work out of the box: HTTP for simple queries, WebSocket for real-time event streams, IPC for Node.js microservices. Use @easylayer/transport-sdk for easy client integration. No need to build custom APIs.',
   },
   {
-    question: 'What resources are required to run EasyLayer?',
+    question: 'What about mempool monitoring?',
     answer:
-      'A small VM or container with 2 vCPUs, 4 GB RAM, and a PostgreSQL instance is typically enough. Deployment options include Docker, bare metal, AWS ECS, and AWS Lambda.',
+      'Mempool monitoring is optional (disabled by default). Enable it to track unconfirmed transactions, detect pending payments, analyze fee markets, or spot double-spend attempts. Note: mempool monitoring significantly increases request volume.',
   },
   {
-    question: 'How does EasyLayer guarantee data consistency?',
+    question: 'Which database should I use - SQLite or PostgreSQL?',
     answer:
-      'The platform uses an event-sourcing pattern: every state change is captured as an immutable event. This allows deterministic state reconstruction and ensures that application state always aligns with the blockchain.',
+      'SQLite for development, testing, and small projects (< 1M events). PostgreSQL for production and larger datasets. IndexedDB available for browser environments. Framework manages schema automatically - you just configure connection.',
   },
   {
-    question: 'Is EasyLayer suitable for compliance and reporting?',
+    question: 'Is this suitable for production applications?',
     answer:
-      'Yes. Full audit trails, point-in-time queries, and configurable retention policies make it ideal for AML5, MiCA, Travel Rule, and other regulatory requirements.',
+      'Absolutely. Event Sourcing provides complete audit trails, automatic reorg handling ensures data consistency, and self-hosted deployment gives you full control. Already used by payment processors, wallets, and analytics platforms. Perfect for compliance and financial applications.',
   },
 ];
 

@@ -1,0 +1,213 @@
+---
+title: Software Licenses | EasyLayer
+description: EasyLayer uses different open-source licenses for different packages. Learn about MIT and AGPL-3.0 licenses and what they mean for you.
+keywords: ['open source license', 'MIT license', 'AGPL license', 'software licensing', 'EasyLayer license']
+image: /img/el_twitter_default.png
+---
+
+# Software Licenses
+
+EasyLayer is open-source software, but different packages use different licenses based on their purpose and community needs.
+
+## Quick Overview
+
+| Package | License | Commercial Use | Must Share Modifications |
+|---------|---------|----------------|-------------------------|
+| @easylayer/core | MIT | ✅ Yes | ❌ No |
+| @easylayer/transport-sdk | MIT | ✅ Yes | ❌ No |
+| @easylayer/bitcoin-crawler | AGPL-3.0 | ✅ Yes* | ✅ Yes (if network service)* |
+
+*See details below
+
+## MIT License (Permissive)
+
+### Packages
+- @easylayer/core
+- @easylayer/transport-sdk
+- Other core infrastructure packages
+
+### What You Can Do
+✅ Use commercially  
+✅ Modify  
+✅ Distribute  
+✅ Sublicense  
+✅ Private use  
+✅ Keep modifications private  
+
+### What You Must Do
+- Include original copyright notice
+- Include MIT license text
+
+### What You Can't Do
+- Hold us liable
+- Claim warranty
+
+### Perfect For
+- Building commercial products
+- Internal company tools
+- Closed-source applications
+- Maximum flexibility
+
+**Read Full MIT License:** https://opensource.org/licenses/MIT
+
+---
+
+## AGPL-3.0 License (Copyleft)
+
+### Packages
+- @easylayer/bitcoin-crawler
+- Other blockchain crawler packages
+
+### What You Can Do
+✅ Use commercially  
+✅ Modify  
+✅ Distribute  
+✅ Private use  
+
+### What You MUST Do
+If you run modified AGPL software as a **network service**:
+- **Publish your complete source code**
+- License modifications under AGPL-3.0
+- Provide prominent notice to users
+- Include build and installation instructions
+- Make source available over the network
+
+### What is "Network Service"?
+- ✅ HTTP APIs using the crawler
+- ✅ Internal company services accessed remotely
+- ✅ SaaS offerings
+- ✅ WebSocket endpoints
+- ✅ Any remote access by users
+
+### What is NOT "Network Service"?
+- ❌ Running crawler locally on your laptop
+- ❌ Desktop application (no network access)
+- ❌ Using unmodified version
+
+### The Key Difference from GPL
+**GPL:** Only share if you distribute binaries  
+**AGPL:** Share if users interact over network
+
+This prevents "SaaS loophole" where companies run modified GPL software as services without sharing improvements.
+
+### Why We Chose AGPL for Crawlers
+
+We want Bitcoin Crawler improvements to benefit everyone. AGPL ensures:
+- Commercial use is allowed ✅
+- But improvements come back to community ✅
+- Can't create proprietary forks as services ❌
+- Fair exchange: use our work, share yours back ✅
+
+### AGPL Compliance Examples
+
+**✅ Compliant:**
+- Using unmodified @easylayer/bitcoin-crawler
+- Modifying crawler for local/desktop use
+- Publishing your modifications on GitHub under AGPL
+- Contributing improvements back to EasyLayer
+
+**❌ Non-Compliant (Copyright Violation):**
+- Modifying crawler, offering it as API, not sharing code
+- Creating proprietary SaaS using modified crawler
+- Running modified crawler in company without publishing source
+- Claiming to comply but hiding actual running code
+
+**Read Full AGPL-3.0 License:** https://www.gnu.org/licenses/agpl-3.0.en.html
+
+---
+
+## Choosing the Right Package
+
+### Need MIT? Use:
+- @easylayer/core for core functionality
+- @easylayer/transport-sdk for client communications
+- Build your own crawler using MIT-licensed components
+
+### Need AGPL? Use:
+- @easylayer/bitcoin-crawler for full Bitcoin indexing
+- Ready-to-use, battle-tested crawler
+- Contribute improvements back to community
+
+### Want Closed-Source Service?
+
+**Option 1:** Use only MIT-licensed packages and build your own crawler
+
+**Option 2:** Comply with AGPL and open-source your modifications
+
+**Option 3:** Contact us about commercial licensing: commercial@easylayer.io
+
+---
+
+## Dual Licensing (Future)
+
+We may offer commercial licenses for AGPL packages in the future for companies that:
+- Cannot open-source their modifications
+- Need proprietary features
+- Require support and indemnification
+
+**Interested?** Email: commercial@easylayer.io
+
+---
+
+## FAQ
+
+**Q: Can I use @easylayer/bitcoin-crawler in my company internally?**  
+A: Yes! But if employees/users access it over a network (even internal), you must publish your modifications.
+
+**Q: I haven't modified the crawler, just configured it. Must I share?**  
+A: No. Configuration files and custom models you write aren't modifications. AGPL applies to crawler code itself.
+
+**Q: Can I run AGPL crawler behind my API without sharing?**  
+A: No. API is network service. You must publish modifications.
+
+**Q: Can I sell services using AGPL crawler?**  
+A: Yes! AGPL allows commercial use. But you must share your code.
+
+**Q: What if I just use it locally?**  
+A: No obligation to share. AGPL only triggers on network use.
+
+**Q: How do I properly comply with AGPL?**  
+A: 
+1. Fork the repo on GitHub
+2. Publish your modifications there
+3. In your service, link prominently to your fork
+4. Ensure your fork includes build instructions
+
+**Q: Can I get sued for AGPL violation?**  
+A: Yes. AGPL violations are copyright infringement. We take compliance seriously.
+
+**Still confused?** Email: legal@easylayer.io
+
+---
+
+## License Texts
+
+**View official license texts:**
+- MIT License: https://opensource.org/licenses/MIT
+- AGPL-3.0: https://www.gnu.org/licenses/agpl-3.0.en.html
+- Our GitHub Repository: https://github.com/easylayer/easylayer
+
+Each package contains a LICENSE file. That file is authoritative.
+
+---
+
+## Contributing
+
+When you contribute to EasyLayer:
+- Code contributions are under the package's existing license
+- You represent you have rights to contribute
+- See Contributing Guidelines: https://github.com/easylayer/easylayer/blob/main/CONTRIBUTING.md
+
+---
+
+## Questions?
+
+**Licensing questions:** legal@easylayer.io  
+**Commercial licensing:** commercial@easylayer.io  
+**General questions:** hello@easylayer.io  
+
+**Not legal advice.** Consult your lawyer for compliance questions.
+
+EasyLayer  
+Remote-first organization  
+European Union

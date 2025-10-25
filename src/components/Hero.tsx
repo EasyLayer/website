@@ -2,9 +2,8 @@ import type { FC } from 'react';
 import React from 'react';
 import Link from '@docusaurus/Link';
 import { BookOpen, Code } from 'react-feather';
-import CodeHighlight from './CodeHighlight';
 import SectionContainer from './Layouts/SectionContainer';
-import { SOCIAL_URLS, DOCS_URLS } from '../urls';
+import { SITE_URLS, DOCS_URLS } from '../urls';
 
 const StartIcon: FC = () => (
   <svg
@@ -24,6 +23,8 @@ const StartIcon: FC = () => (
   </svg>
 );
 
+const CodeHighlight = React.lazy(() => import('./CodeHighlight'));
+
 const ActionButtons: FC = () => (
   <div className="flex items-center gap-2">
     <Link to={DOCS_URLS.BASE}>
@@ -42,7 +43,7 @@ const ActionButtons: FC = () => (
       </button>
     </Link>
 
-    <Link to={SOCIAL_URLS.GITHUB}>
+    <Link to={SITE_URLS.FEATURES}>
       <button
         className={`
           inline-flex items-center space-x-2
@@ -55,7 +56,7 @@ const ActionButtons: FC = () => (
         `}
       >
         <Code size={16} />
-        <span>GitHub</span>
+        <span>See Features</span>
       </button>
     </Link>
   </div>
@@ -64,27 +65,24 @@ const ActionButtons: FC = () => (
 interface FileViewerProps {
   fileName: string;
   fileExplanation: string;
-  link: string;
   children: React.ReactNode;
 }
 
-const FileViewer: FC<FileViewerProps> = ({ fileName, fileExplanation, link, children }) => {
+const FileViewer: FC<FileViewerProps> = ({ fileName, fileExplanation, children }) => {
   return (
     <div className="relative flex flex-col items-center justify-center">
       {/* Editor header bar */}
       <div className="flex h-6 w-full items-center justify-between rounded-t-md bg-[#F3EDE0] px-2">
-        <Link to={link}>
-          <span
-            className={`
+        <span
+          className={`
               flex items-center space-x-1 text-sm text-neutral-500 transition
               duration-200 ease-out hover:text-neutral-400
             `}
-          >
-            <span>{fileName}</span>
-            {/* <ArrowUpRight size={14} /> */}
-            <span className="text-neutral-400">· {fileExplanation}</span>
-          </span>
-        </Link>
+        >
+          <span>{fileName}</span>
+          {/* <ArrowUpRight size={14} /> */}
+          <span className="text-neutral-400">· {fileExplanation}</span>
+        </span>
         <div className="flex space-x-2">
           <div className="h-2 w-2 rounded-full bg-yellow-500" />
           <div className="h-2 w-2 rounded-full bg-yellow-500" />
@@ -98,26 +96,29 @@ const FileViewer: FC<FileViewerProps> = ({ fileName, fileExplanation, link, chil
 };
 
 const Hero: FC = () => {
-  const modelSource = `import { BasicEvent, EventBasePayload, Model, Block } from '@easylayer/evm-crawler';
+  const codeSource = String.raw`import { bootstrap, compileStateModelBTC } from '@easylayer/bitcoin-crawler';
 
-export class CustomEvent<T extends EventBasePayload> extends BasicEvent<T> {}; // Define your custom event
+export const AddressUtxoWatcherModel = { // Ultra-minimal UTXO watcher for a specific wallet
+  modelId: 'wallet-utxo-watcher',
+  state: { wallets: new Set(['1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa']), utxos: new Map() }, // State keeps unspent outputs only
+  sources: {
+    async vout(ctx) { return { a: ctx.vout.scriptPubKey.addresses?.[0], k: \`\${ctx.tx.txid}:\${ctx.vout.n}\`, v: toSat(ctx.vout.value) }; },  // Called for every tx output. Marks potential UTXO.
+    async vin(ctx) { return { k: \`\${ctx.vin.txid}:\${ctx.vin.vout}\` }; }, // Called for every tx input. Marks "spent" UTXO by key.
+    async block(ctx) { ctx.applyEvent('Deposit', ctx.block.height, { o: ctx.locals.vout, i: ctx.locals.vin }); }, // One event per block: merges all vout + vin for this height
+  },
+  reducers: { // Reducer updates state on event "Deposit"
+    Deposit(s, e) {
+      const { o = [], i = [] } = e.payload || {};
+      for (const x of o) (s.utxos.get(x.a) || s.utxos.set(x.a, new Map()).get(x.a)).set(x.k, x.v);
+      for (const y of i)
+        for (const [a, bag] of s.utxos)
+          if (bag.delete(y.k) && !bag.size) s.utxos.delete(a);
+    },
+  },
+};
 
-export default class CustomModel extends Model { // Create your model
-    constructor() {
-      super('uniq-model-id'); // This ID will be used to fetch events and state
-    }
-
-    public async parseBlock({ block }: { block: Block }) {} // Maps custom events from block - user defines which data they need
-    private onCustomEvent({ payload }: CustomEvent) {} // Updates model state when custom event occurs
-}
-`;
-
-  const bootstrapSource = `import { bootstrap } from '@easylayer/evm-crawler';
-import Model from './model.ts';
-
-bootstrap({
-  Models: [Model]
-}).catch(console.error);
+const AddressUtxoWatcher = compileStateModelBTC(AddressUtxoWatcherModel); // Compile model into runnable indexer state machine
+bootstrap({ Models: [AddressUtxoWatcher] }).catch(console.error); // Run the node.js blockchain indexer app
 `;
 
   return (
@@ -132,14 +133,14 @@ bootstrap({
                 lg:text-5xl lg:leading-tight
               `}
             >
-              {/* Real-Time & Historical <span className="underline decoration-yellow-500">Blockchain</span> Data with
-              Custom State Modeling */}
-              Own Your <span className="underline decoration-yellow-500">Blockchain Data</span> - Live, Historical &
-              Custom State Modeling
+              Build Your Own <span className="underline decoration-yellow-500">Blockchain Indexer</span> Using Our
+              Framework
             </h1>
             <p className="mt-4 text-xl text-neutral-500 sm:mt-5 lg:text-xl">
-              Run a self-hosted TypeScript apps with automatic chain reorg support - deliver live and historical
-              blockchain events over HTTP, WS, or IPC, tailored to your custom state models.
+              Install. Describe your model. Run your indexer in minutes.
+              <br className="hidden sm:block" />
+              <span className="font-medium">Self-hosted, cost-effective</span>, and feels like regular backend
+              development.
             </p>
           </div>
           {/* EOF Hero title and subtitle */}
@@ -147,18 +148,30 @@ bootstrap({
           <div className="flex flex-col gap-4">
             <small className="text-xs text-neutral-500">Works on</small>
             <div className="flex">
-              <img className="h-8 pr-5 md:h-10 md:pr-10" src="img/lending/nodejs-logo.svg" alt="nodejs-logo-svg" />
-              <img className="h-8 pr-5 md:h-10 md:pr-10" src="img/lending/bitcoin.svg" alt="bitcoin-logo-svg" />
-              <img className="h-8 pr-5 md:h-10 md:pr-10" src="img/lending/ethereum.svg" alt="ethereum-logo-svg" />
+              <img
+                className="h-8 pr-5 md:h-10 md:pr-10"
+                src="img/lending/nodejs-logo.svg"
+                alt="nodejs-logo-svg"
+                loading="lazy"
+              />
+              <img
+                className="h-8 pr-5 md:h-10 md:pr-10"
+                src="img/lending/bitcoin.svg"
+                alt="bitcoin-logo-svg"
+                loading="lazy"
+              />
+              <img
+                className="h-8 pr-5 md:h-10 md:pr-10"
+                src="img/lending/ethereum.svg"
+                alt="ethereum-logo-svg"
+                loading="lazy"
+              />
             </div>
           </div>
         </div>
         <div className="mt-16 flex flex-col gap-4 lg:col-span-6 lg:mt-0">
-          <FileViewer fileName="main.ts" fileExplanation="Bootsrap function" link="">
-            <CodeHighlight language="ts" source={bootstrapSource} />
-          </FileViewer>
-          <FileViewer fileName="model.ts" fileExplanation="Describe Your Custom Model" link="">
-            <CodeHighlight language="ts" source={modelSource} />
+          <FileViewer fileName="index.ts" fileExplanation="Your complete blockchain indexer">
+            <CodeHighlight language="ts" source={codeSource} />
           </FileViewer>
         </div>
       </div>

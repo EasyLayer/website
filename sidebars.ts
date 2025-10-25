@@ -10,14 +10,12 @@ const sidebars: SidebarsConfig = {
       collapsible: false,
       items: [
         'overview/intro',
-        'overview/self-hosting',
-        'overview/rpc-efficiency',
-        'overview/reorganisation-handling',
-        'overview/state-modelling',
-        'overview/streams',
-        'overview/snapshots',
-        'overview/transport',
-        'overview/networks',
+        'overview/data-modeling',
+        'overview/network-providers',
+        'overview/mempool-monitoring',
+        'overview/transport-layer',
+        'overview/event-store',
+        'overview/system-models'
       ]
     },
     {

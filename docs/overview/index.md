@@ -7,11 +7,9 @@ sidebar_class_name: hidden
 # Overview
 
 - [Introduction](./intro.md)
-- [Self-Hosted & Private](./self-hosting.md)
-- [RPC Calls](./rpc-efficiency.md)
-- [Reorganisation-Proof Consistency](./reorganisation-handling.md)
-- [Custom State Models](./state-modelling.md)
-- [Live & Historical Streams](./streams.md)
-- [Instant Block Snapshots](./snapshots.md)
-- [API & Transports](./transport.md)
-- [Networks](./networks.md)
+- [Custom Data Modeling](./data-modeling.md)
+- [Network Providers](./network-providers.md)
+- [Mempool Monitoring](./mempool-monitoring.md)
+- [API & Transports](./transport-layer.md)
+- [Event Store & Databases](./event-store.md)
+- [System Models](./system-models.md)
