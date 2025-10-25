@@ -3,102 +3,137 @@ id: intro
 title: Introduction to EasyLayer
 slug: /
 sidebar_label: Introduction
-description: Learn about EasyLayer's self-hosted blockchain tools for developers. Discover our TypeScript-based solutions for blockchain processing, data indexing, and event handling.
-keywords: ['blockchain tools', 'self-hosted', 'TypeScript', 'blockchain processing', 'data indexing', 'event handling', 'NestJS', 'CQRS', 'Event Sourcing', 'DDD']
+description: Learn about EasyLayer's self-hosted blockchain frameworks for developers. Build custom blockchain indexers and parsers with TypeScript-based tools.
+keywords: ['blockchain frameworks', 'self-hosted', 'TypeScript', 'blockchain indexer', 'blockchain parser', 'data indexing', 'event sourcing', 'CQRS', 'Bitcoin', 'real-time blockchain data']
 image: /img/el_twitter_default.png
 ---
 
-Welcome to EasyLayer, a comprehensive suite of **self-hosted blockchain applications** built with [TypeScript](https://www.typescriptlang.org) and powered by [Node.js](https://nodejs.org). Our mission is simple: make blockchain integration so straightforward that developers can focus entirely on their business logic instead of wrestling with Web3 technical complexities.
+Welcome to EasyLayer, a suite of **self-hosted blockchain frameworks** built with [TypeScript](https://www.typescriptlang.org) and powered by [Node.js](https://nodejs.org). Our mission is simple: make blockchain data integration so straightforward that developers can focus entirely on their business logic instead of wrestling with complex infrastructure.
 
 ## What We Build
 
-EasyLayer creates production-ready applications distributed through npm that you can deploy and run on your own infrastructure. We handle the intricate blockchain mechanics—node connections, data synchronization, event processing, and state management—so you don't have to become a blockchain expert to build blockchain-powered applications.
+EasyLayer creates frameworks distributed through npm that let you build custom blockchain indexers and parsers. You install the package, describe what data you need in a model, and deploy on your own infrastructure. We handle the intricate blockchain mechanics—node connections, block processing, reorganizations, and state management.
 
 Currently, our ecosystem includes:
 
-- **Blockchain Crawlers**: Intelligent applications that monitor, index, and process blockchain data in real-time and historically
-- **Transport Layer**: Flexible communication protocols to interact with crawler applications
-- **Wallet Management** *(coming soon)*: Multi-wallet transaction management with built-in transactionality support
+- **Blockchain Crawlers**: Frameworks for building custom indexers that monitor and parse blockchain data (Bitcoin, and more coming soon)
+- **Transport SDK**: Client library for easy integration with crawler applications across all transport protocols
 
-Our applications are built using modern event-driven architecture with **Event Sourcing** patterns. Data is stored row-by-row, enabling horizontal scaling and ensuring data integrity. We support both SQLite and PostgreSQL as EventStore databases, giving you flexibility in deployment scenarios.
+Our frameworks use Event Sourcing architecture, storing every state change as an immutable event. This provides complete audit trails, automatic blockchain reorganization handling, and the ability to reconstruct any past state. We support SQLite, PostgreSQL, and IndexedDB as storage backends.
 
 ## Core Features
 
-### Self-Hosted Infrastructure
-You maintain complete control over your blockchain infrastructure. No vendor lock-in, no external dependencies, no mysterious third-party services. Deploy on your servers, your cloud, your rules.
+### Self-Hosted & Cost-Effective
+Deploy on your infrastructure with complete control. No vendor lock-in, no recurring API fees that scale with usage. Run on lightweight servers (2-4 vCPUs) and save money compared to third-party blockchain APIs.
 
-### Custom State Modeling
-Instead of storing entire blockchain state (which would be massive and mostly irrelevant), you define exactly what data matters to your business. Track specific addresses, smart contracts, or transaction patterns—nothing more, nothing less.
+### Custom Data Models
+Define exactly what blockchain data matters to your business using simple TypeScript models. Track specific addresses, monitor transaction fees, or parse scripts—store only what you need, not the entire blockchain. This dramatically reduces storage costs and speeds up queries.
 
 ### Real-Time & Historical Data
-Subscribe to live blockchain events as they happen, while simultaneously accessing complete historical data. Our crawlers seamlessly handle both real-time streaming and historical backfilling.
+Process blockchain data from any block height—genesis block, recent history, or current tip. Crawlers handle both historical backfilling and real-time monitoring seamlessly through the same interface. Add mempool monitoring to track unconfirmed transactions in real-time.
 
-### Flexible Transport Layer
-Access your blockchain data through multiple protocols:
-- **HTTP RPC**: RESTful API endpoints
-- **WebSocket**: Real-time bidirectional communication
-- **IPC**: Inter-process communication for local applications
+### Minimal Node Requests
+Optimized for cost efficiency: just **2 RPC requests per block** (plus periodic height checks). This means you can use external providers like QuickNode without exceeding free tier limits, or run your own node with minimal load.
 
 ### Automatic Reorganization Handling
-Blockchain forks and reorganizations are handled automatically. Your application stays consistent even when the blockchain itself reorganizes, ensuring data integrity without manual intervention.
+Blockchain reorgs are handled automatically through Event Sourcing. When a fork occurs, the system rolls back events from orphaned blocks and replays the correct chain. Your data stays consistent without any manual intervention.
 
-### Multi-Network Support
-Built-in support for multiple blockchain networks:
-- **Bitcoin** and Bitcoin forks
-- **Ethereum** and EVM-compatible networks
-- Additional networks continuously being added
+### Multiple Transports
+Access your data through various protocols:
+- **HTTP RPC**: Request-response queries
+- **WebSocket**: Real-time event streams and queries
+- **IPC**: Inter-process communication for Node.js applications
+- **Electron**: Desktop application support
+- **Browser**: Limited support for browser extensions
+
+All transports use the same message format and APIs—switch between them without code changes.
+
+### Cross-Platform Support
+Works on servers, desktop applications, and browsers:
+- **Server**: Production deployments with PostgreSQL
+- **Desktop**: Offline-capable applications with SQLite
+- **Browser**: Extensions and privacy-focused apps with IndexedDB
+
+### Event Sourcing Architecture
+Every state change is stored as an event, providing:
+- Complete audit trails (perfect for fintech, gaming, compliance)
+- Full history of all state changes
+- Ability to query state at any past block height
+- Automatic rollback and replay during reorganizations
+- Scalable architecture with CQRS pattern
+
+## Network Support
+
+**Currently available:**
+- **Bitcoin Crawler**: Bitcoin and Bitcoin-like networks (Bitcoin Cash, Litecoin, Dogecoin, and forks)
+
+**Coming soon:**
+- EVM-compatible chains crawler
+- Solana crawler
+- TON crawler
+
+Need a specific network prioritized? [Contact our team](https://github.com/easylayer/easylayer/discussions).
 
 ## Architecture & Technology
 
-Our applications utilize emphasizing modern, robust, and scalable software architecture. We adhere to proven patterns including:
+Our frameworks utilize modern architectural patterns:
 
 - **Event Sourcing**: Complete audit trail and state reconstruction capabilities
-- **Command Query Responsibility Segregation (CQRS)**: Optimized read and write operations
+- **Command Query Responsibility Segregation (CQRS)**: Separate write and read operations for optimal performance
 - **Domain-Driven Design (DDD)**: Business logic organization that scales with complexity
 
-This architectural foundation ensures our solutions are not only powerful but also maintainable, testable, and extensible for enterprise use.
+This foundation ensures solutions are maintainable, testable, and extensible for enterprise use. The "write side" (parsing and indexing) is built into crawlers. For high-load scenarios, you can build custom "read side" with optimized projections.
 
 ## Getting Started
 
-Setting up EasyLayer applications is designed to be effortless:
+Ready to build your blockchain indexer? Check out our [tools documentation](/docs/get-started) to choose the right framework for your needs and start building.
 
-1. **Install**: Pull the application from npm
-2. **Configure**: Define your blockchain networks and data models
-3. **Deploy**: Run on your infrastructure
-4. **Connect**: Start querying blockchain data through your preferred transport
+## Use Cases
 
-Our custom framework allows complete customization of blockchain data management while abstracting away the complexity of node communication, consensus mechanisms, and data synchronization.
+**Who uses EasyLayer?**
+
+- **Payment processors**: Track Bitcoin payments, monitor confirmations, process deposits
+- **Wallets**: Sync transaction history, track balances and UTXOs
+- **Exchanges**: Process deposits/withdrawals with complete audit trails
+- **Gaming platforms**: Monitor blockchain-based payments with provable fairness
+- **Analytics platforms**: Build custom explorers, fee analyzers, UTXO trackers
+- **Compliance teams**: Maintain complete audit trails for regulatory requirements
+- **DeFi protocols**: Index smart contract events (coming with EVM crawler)
 
 ## Community
 
-EasyLayer is a community-driven, open-source project built on transparency and collaboration. The EasyLayer team is committed to developing the future of blockchain tooling together with our community. Every insight, piece of feedback, and contribution helps steer the project toward solving real-world problems.
+EasyLayer is an open-source project built on transparency and collaboration. Join our growing community:
 
-Join our growing community:
-- **Discussions**: Share ideas and get help in our [GitHub Discussions](https://github.com/EasyLayer/core/discussions)
-- **Blog**: Stay updated with developments on our [Blog](https://easylayer.io/blog)
-- **Twitter**: Follow [@easylayer_io](https://twitter.com/easylayer_ios) for updates and insights
+- **GitHub Discussions**: Share ideas and get help in our [forum](https://github.com/easylayer/easylayer/discussions)
+- **Blog**: Stay updated with developments on our [blog](https://easylayer.io/blog)
+- **Twitter**: Follow [@easylayer](https://twitter.com/easylayer) for updates
 
 ## Support
 
-EasyLayer provides free community support through our open-source platform. If you encounter issues or have questions, our [forum](https://github.com/EasyLayer/core/discussions) connects you with both community members and our core team.
+**Community Support (Free):**
+- GitHub Discussions for questions and issues
+- Open-source documentation and examples
+- Community-driven troubleshooting
 
-For businesses requiring priority assistance, custom solutions, or direct expert access, we offer paid support options. This model helps sustain the project while ensuring the community always has access to free, high-quality tools.
+**Enterprise Support (Paid):**
+- Priority assistance and direct expert access
+- Custom read-side solutions for high-load scenarios
+- Custom network implementations
+- Architecture consulting
 
-Learn more about our support options and enterprise solutions in our [examples section](https://easylayer.io/docs/examples).
+This model sustains the project while ensuring the community always has access to free, high-quality tools.
 
 ## Philosophy
 
 EasyLayer is built on three foundational principles:
 
 ### Simplicity
-Blockchain technology should be accessible to all developers, not just cryptography experts. By abstracting complex mechanisms behind intuitive APIs, we enable developers to create value rather than debug protocol implementations.
+Blockchain data should be accessible to all developers, not just cryptography experts. By abstracting complex mechanisms behind simple model definitions, we enable developers to build solutions in minutes instead of months.
+
+### Cost-Efficiency
+Why pay recurring API fees or maintain expensive infrastructure? Self-hosted frameworks with minimal node requests mean you can run production indexers on small servers or free provider tiers.
 
 ### Flexibility
-Every business has unique blockchain requirements. Our framework system and customizable data modeling ensure you can tailor applications to your specific needs without compromising on functionality.
+Every business has unique needs. Our framework approach—where you define only the data model—ensures you can build exactly what you need without unnecessary complexity or storage overhead.
 
-### Power
-Simplicity doesn't mean sacrificing capability. Our applications handle enterprise-scale demands while maintaining the ease of use that lets small teams move fast and iterate quickly.
-
-By combining these principles with cutting-edge technology and proven architectural patterns, EasyLayer empowers developers to build the next generation of blockchain applications with confidence and speed.
-
-Ready to simplify your blockchain integration? Let's dive into the documentation and start building something amazing together.
+By combining these principles with proven architectural patterns (Event Sourcing, CQRS) and modern technology, EasyLayer empowers developers to build blockchain applications with confidence and speed.

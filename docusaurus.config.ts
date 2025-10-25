@@ -10,7 +10,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 const config: Config = {
   title: 'EasyLayer.io',
-  tagline: 'Self hosted tools for integrating crypto processing and data indexing into your business',
+  tagline: 'Self-hosted framework for building custom blockchain indexers and parsers. Monitor and index Bitcoin blockchain data - both historical and real-time.',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -118,9 +118,9 @@ const config: Config = {
     announcementBar: {
       id: 'announcement-bar-id',
       content:
-        '<strong>EVM Crawler beta is here!</strong> 🚀 ' +
-        `<a href="${BLOG_URLS.BASE}/welcome-evm-crawler-beta-app" target="_blank" rel="noopener" ` +
-        'style="text-decoration: underline; font-weight: bold;">See what\'s new ⚙️ →</a>',
+        '<strong>Bitcoin Crawler beta is here!</strong> 🚀 ' +
+        `<a href="${BLOG_URLS.BASE}/welcome-bitcoin-crawler-beta-app" target="_blank" rel="noopener" ` +
+        'style="text-decoration: underline; font-weight: bold;">See how it works →</a>',
       backgroundColor: '#22d3ee',
       textColor: '#ffffff',
       isCloseable: false,
@@ -191,6 +191,10 @@ const config: Config = {
           title: 'Community',
           items: [
             {
+              label: 'Blog',
+              to: BLOG_URLS.BASE,
+            },
+            {
               label: 'Discussion',
               href: SOCIAL_URLS.DISCUSSIONS,
             },
@@ -208,10 +212,6 @@ const config: Config = {
           title: 'Company',
           items: [
             {
-              label: 'Blog',
-              to: BLOG_URLS.BASE,
-            },
-            {
               label: 'Privacy Policy',
               to: 'policy',
             },
@@ -222,6 +222,10 @@ const config: Config = {
             {
               label: 'Terms & Conditions',
               to: 'terms',
+            },
+            {
+              label: 'Licenses',
+              to: 'licenses',
             }
           ],
         },
@@ -230,8 +234,10 @@ const config: Config = {
     },
     prism: {
       additionalLanguages: ['bash', 'shell-session'],
-      theme: prismThemes.jettwaveLight,
-      darkTheme: prismThemes.jettwaveDark,
+      // theme: prismThemes.jettwaveLight,
+      // darkTheme: prismThemes.jettwaveDark,
+      theme: prismThemes.github,
+      darkTheme: prismThemes.vsDark,
     },
     image: 'img/el_twitter_default.png',
     metadata: [
@@ -299,6 +305,14 @@ const config: Config = {
               ],
             },
           };
+        },
+      };
+    },
+    function enableSourceMaps() {
+      return {
+        name: 'enable-sourcemaps',
+        configureWebpack() {
+          return isProduction ? { devtool: 'source-map' } : {};
         },
       };
     },

@@ -24,7 +24,7 @@ interface SectionProps {
 // Features for the current phase
 const currentPhaseFeatures: FeatureItem[] = [
   {
-    text: 'Testing and improving @bitcoin-crawler and @evm-crawler.',
+    text: 'Testing and improving @bitcoin-crawler',
     link: {
       url: '',
       label: '#1',
@@ -36,7 +36,7 @@ const currentPhaseFeatures: FeatureItem[] = [
 // Features for the future phase
 const futurePhaseFeatures: FeatureItem[] = [
   {
-    text: 'Release stable versions of @bitcoin-crawler and @evm-crawler, ready for developers to use.',
+    text: 'Release beta versions of @evm-crawler, ready for developers to use.',
     link: {
       url: '',
       label: '#100',
@@ -55,24 +55,24 @@ const FeatureLinkComponent: FC<FeatureLink> = ({ url, label, type }) => {
   const Icon = iconMap[type] || ArrowRight;
 
   return (
-    <Link to={url}>
-      <span
-        className={`
+    // <Link to={url}>
+    <span
+      className={`
           cursor-pointer rounded-full
           bg-neutral-600 px-2.5
           py-1 text-xs text-white
         `}
-      >
-        <div className="group inline-flex items-center gap-1">
-          <span>{label}</span>
-          <div className="transition-all group-hover:ml-0.5">
-            <span className="text-yellow-400">
-              <Icon size={14} />
-            </span>
-          </div>
+    >
+      <div className="group inline-flex items-center gap-1">
+        <span>{label}</span>
+        <div className="transition-all group-hover:ml-0.5">
+          <span className="text-yellow-400">
+            <Icon size={14} />
+          </span>
         </div>
-      </span>
-    </Link>
+      </div>
+    </span>
+    // </Link>
   );
 };
 

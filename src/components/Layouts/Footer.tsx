@@ -20,6 +20,10 @@ const docs: LinkItem[] = [
 
 const community: LinkItem[] = [
   {
+    text: 'Blog',
+    url: BLOG_URLS.BASE,
+  },
+  {
     text: 'Discussions',
     url: SOCIAL_URLS.DISCUSSIONS,
   },
@@ -35,20 +39,20 @@ const community: LinkItem[] = [
 
 const company: LinkItem[] = [
   {
-    text: 'Blog',
-    url: BLOG_URLS.BASE,
-  },
-  {
     text: 'Privacy Policy',
     url: SITE_URLS.POLICY,
+  },
+  {
+    text: 'Security Policy',
+    url: SITE_URLS.SECURITY,
   },
   {
     text: 'Terms of Service',
     url: SITE_URLS.TERMS,
   },
   {
-    text: 'Security Policy',
-    url: SITE_URLS.SECURITY,
+    text: 'Licenses',
+    url: SITE_URLS.LICENSES,
   },
 ];
 

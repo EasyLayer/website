@@ -2,8 +2,6 @@ import type { FC } from 'react';
 import React from 'react';
 import { Highlight, themes } from 'prism-react-renderer';
 
-import '../css/prismjs-github-theme.css';
-
 interface CodeHighlightProps {
   language: string;
   source: string;
@@ -11,7 +9,7 @@ interface CodeHighlightProps {
 
 const CodeHighlight: FC<CodeHighlightProps> = ({ language, source }) => {
   return (
-    <Highlight theme={themes.github} code={source} language={language}>
+    <Highlight theme={themes.dracula} code={source} language={language}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
           className={className}
