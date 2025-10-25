@@ -117,7 +117,7 @@ npm install @easylayer/bitcoin-crawler
 yarn add @easylayer/bitcoin-crawler
 ```
 
-Ready to build your indexer? Check out the [documentation](/docs/bitcoin-crawler) for:
+Ready to build your indexer? Check out the [documentation](/docs/get-started/bitcoin-crawler) for:
 - Creating your first model
 - Configuration and setup
 - API usage and queries

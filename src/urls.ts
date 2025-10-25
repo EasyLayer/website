@@ -33,17 +33,17 @@ export const DOCS_URLS = {
   SECTIONS: {
     GET_STARTED: `${BASE_URLS.DOCS}/get-started`,
     OVERVIEW: `${BASE_URLS.DOCS}/overview`,
-    BITCOIN_CRAWLER: `${BASE_URLS.DOCS}/get-started/bitcoin-crawler/v0.0.4`,
-    TRANSPORT_SDK: `${BASE_URLS.DOCS}/get-started/transport-sdk/v1.0.14`,
+    BITCOIN_CRAWLER: `${BASE_URLS.DOCS}/get-started/bitcoin-crawler`,
+    TRANSPORT_SDK: `${BASE_URLS.DOCS}/get-started/transport-sdk`,
     EXAMPLES: `${BASE_URLS.DOCS}/examples`,
   },
 } as const;
 
 // Example Apps URLs
 export const EXAMPLE_APPS = {
-  BITCOIN_TOP_ADDRESSES_BY_BALANCES: `${BASE_URLS.GITHUB}/bitcoin-crawler/tree/master/examples/historical-data/top-addresses-by-balance`,
-  BITCOIN_NETWORK_FEES_ANALYTIC: `${BASE_URLS.GITHUB}/bitcoin-crawler/tree/master/examples/historical-data/network-fee-analytics`,
-  EVM_GAS_PRICE_MONITORING: `${BASE_URLS.GITHUB}/evm-crawler/tree/master/examples/real-time-data/gas-price-monitoring`,
+  BITCOIN_SYSTEM: `${BASE_URLS.GITHUB}/bitcoin-crawler/tree/master/examples/system`,
+  BITCOIN_BASIC_WALLET_WATCHER: `${BASE_URLS.GITHUB}/bitcoin-crawler/tree/master/examples/business/base-wallet-watcher`,
+  BITCOIN_ADVANCED_WALLET_WATCHER: `${BASE_URLS.GITHUB}/bitcoin-crawler/tree/master/examples/business/advanced-wallet-watcher`,
 } as const;
 
 // Site URLs

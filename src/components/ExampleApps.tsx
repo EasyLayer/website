@@ -23,7 +23,7 @@ const examples: ExampleItem[] = [
     authorName: 'easylayer',
     authorImg: `${SITE_URLS.BASE}/img/logo.png`,
     repoName: '@easylayer/bitcoin-crawler',
-    repoUrl: 'https://github.com/EasyLayer/bitcoin-crawler/tree/master/examples/system',
+    repoUrl: EXAMPLE_APPS.BITCOIN_SYSTEM,
   },
   {
     title: 'Basic Wallet Watcher 👛',
@@ -32,7 +32,7 @@ const examples: ExampleItem[] = [
     authorName: 'easylayer',
     authorImg: `${SITE_URLS.BASE}/img/logo.png`,
     repoName: '@easylayer/bitcoin-crawler',
-    repoUrl: 'https://github.com/EasyLayer/bitcoin-crawler/tree/master/examples/business/base-wallet-watcher',
+    repoUrl: EXAMPLE_APPS.BITCOIN_BASIC_WALLET_WATCHER,
   },
   {
     title: 'Advanced Wallet Watcher 💎',
@@ -41,7 +41,7 @@ const examples: ExampleItem[] = [
     authorName: 'easylayer',
     authorImg: `${SITE_URLS.BASE}/img/logo.png`,
     repoName: '@easylayer/bitcoin-crawler',
-    repoUrl: 'https://github.com/EasyLayer/bitcoin-crawler/tree/master/examples/business/advanced-wallet-watcher',
+    repoUrl: EXAMPLE_APPS.BITCOIN_ADVANCED_WALLET_WATCHER,
   },
 ];
 
