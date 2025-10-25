@@ -52,8 +52,10 @@ export const SITE_URLS = {
   POLICY: '/policy',
   SECURITY: '/security',
   TERMS: '/terms',
+  LICENSES: '/licenses',
   FAQ: '#faq',
   SUBSCRIBE: '#subscribe',
+  FEATURES: '#features',
 } as const;
 
 // API URLs

@@ -17,28 +17,31 @@ interface ExampleItem {
 
 const examples: ExampleItem[] = [
   {
-    title: 'Bitcoin Top Addresses by Balances ✅',
-    description: 'A simple example of how to monitor a bitcoin top addresses balances',
+    title: 'System Examples - Getting Started 🚀',
+    description:
+      'Learn how to connect Bitcoin Crawler in different modes: HTTP RPC, P2P, ZMQ subscriptions, and various configurations',
     authorName: 'easylayer',
     authorImg: `${SITE_URLS.BASE}/img/logo.png`,
-    repoName: '@bitcoin-crawler/examples',
-    repoUrl: EXAMPLE_APPS.BITCOIN_TOP_ADDRESSES_BY_BALANCES,
+    repoName: '@easylayer/bitcoin-crawler',
+    repoUrl: 'https://github.com/EasyLayer/bitcoin-crawler/tree/master/examples/system',
   },
   {
-    title: 'Bitcoin Network Fees Analytic 🔗',
-    description: 'A simple example of how to load a bitcoin network fees for analytic',
+    title: 'Basic Wallet Watcher 👛',
+    description:
+      'Track wallet balances - when funds arrive and when they leave. Simple UTXO monitoring for payment processors and wallets',
     authorName: 'easylayer',
     authorImg: `${SITE_URLS.BASE}/img/logo.png`,
-    repoName: '@bitcoin-crawler/examples',
-    repoUrl: EXAMPLE_APPS.BITCOIN_NETWORK_FEES_ANALYTIC,
+    repoName: '@easylayer/bitcoin-crawler',
+    repoUrl: 'https://github.com/EasyLayer/bitcoin-crawler/tree/master/examples/business/base-wallet-watcher',
   },
   {
-    title: 'EVM Gas Price Monitoring 🤖',
-    description: 'A simple example of how to monitor a evm gas price',
+    title: 'Advanced Wallet Watcher 💎',
+    description:
+      'Full wallet monitoring with mempool tracking - detect deposits, pending transactions, double-spend attempts',
     authorName: 'easylayer',
     authorImg: `${SITE_URLS.BASE}/img/logo.png`,
-    repoName: '@evm-crawler/examples',
-    repoUrl: EXAMPLE_APPS.EVM_GAS_PRICE_MONITORING,
+    repoName: '@easylayer/bitcoin-crawler',
+    repoUrl: 'https://github.com/EasyLayer/bitcoin-crawler/tree/master/examples/business/advanced-wallet-watcher',
   },
 ];
 

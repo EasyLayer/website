@@ -57,16 +57,15 @@ const HowItWorks: FC = () => {
       <div className="grid grid-cols-12">
         <div className="col-span-12 lg:col-span-4">
           <h2 className="mb-4 text-xl text-neutral-700 lg:text-2xl">How does it work? 🧐</h2>
-
           <p className="text-neutral-700">
-            Define your state <code>Model</code> to transform on‑chain data into domain events, configure your{' '}
-            <code>Event Store</code> (PostgreSQL or SQLite) and blockchain self <code>Node</code> or provider. EasyLayer
-            will handle everything else automatically.
+            Install crawler package and describe your custom <code>Model</code> - what blockchain data you need to
+            track. Configure blockchain <code>Node Provider</code> (your self node or external like QuickNode) and{' '}
+            <code>Event Store</code> (SQLite,PostgreSQL or IndexDB). That's it - framework handles everything else.
             <br />
             <br />
-            Use <code>Transport</code> to get your domain state object at any block height or subscribe to real-time
-            events with guaranteed at‑least‑once delivery, and replay historical events from any blockchain height for
-            recovery, auditing and full transparency.
+            Your model parses blocks and generates domain events. Framework stores them with Event Sourcing pattern,
+            automatically handles blockchain reorgs, and exposes <code>Transport</code> APIs (HTTP, WebSocket, IPC) for
+            queries and real-time event streams.
           </p>
 
           {/* Features */}
@@ -88,8 +87,12 @@ const HowItWorks: FC = () => {
           {/* EOF Features */}
         </div>
 
-        <div className="col-span-12 lg:col-span-7 xl:col-span-7 xl:col-start-6">
-          <img className="" src="img/how_it_works_diagram.png" alt="React" />
+        <div
+          className="col-span-12 lg:col-span-7 xl:col-span-7 xl:col-start-6
+                  self-center justify-self-center
+                  mt-8 lg:mt-0 px-4 sm:px-6 lg:px-0"
+        >
+          <img className="block max-w-full h-auto" src="img/how_it_works_diagram.png" alt="Diagram" loading="lazy" />
         </div>
       </div>
     </SectionContainer>
