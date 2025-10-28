@@ -82,7 +82,7 @@ EasyLayer is a community-driven, open-source project built on transparency and c
 Join our growing community:
 - **Discussions**: Share ideas and get help in our [GitHub Discussions](https://github.com/EasyLayer/core/discussions)
 - **Blog**: Stay updated with developments on our [Blog](https://easylayer.io/blog)
-- **Twitter**: Follow [@easylayer_io](https://twitter.com/easylayer_ios) for updates and insights
+- **Twitter**: Follow [@easylayer_io](https://twitter.com/easylayer_io) for updates and insights
 
 ## Support
 

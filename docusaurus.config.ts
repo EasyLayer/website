@@ -98,7 +98,10 @@ const config: Config = {
           showReadingTime: true,
           blogSidebarCount: 'ALL',
           blogSidebarTitle: 'All our posts',
-          postsPerPage: 'ALL'
+          postsPerPage: 'ALL',
+          feedOptions: {
+            type: null,
+          },
         },
         theme: {
           // Allows you to set the path to your custom CSS file, allowing you to customize site styles.
