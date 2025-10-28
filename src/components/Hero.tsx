@@ -96,17 +96,17 @@ const FileViewer: FC<FileViewerProps> = ({ fileName, fileExplanation, children }
 };
 
 const Hero: FC = () => {
-  const codeSource = String.raw`import { bootstrap, compileStateModelBTC } from '@easylayer/bitcoin-crawler';
+  const codeSource = `import { bootstrap, compileStateModelBTC } from '@easylayer/bitcoin-crawler';
 
-export const AddressUtxoWatcherModel = { // Ultra-minimal UTXO watcher for a specific wallet
+export const AddressUtxoWatcherModel = {
   modelId: 'wallet-utxo-watcher',
-  state: { wallets: new Set(['1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa']), utxos: new Map() }, // State keeps unspent outputs only
+  state: { wallets: new Set(['1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa']), utxos: new Map() },
   sources: {
-    async vout(ctx) { return { a: ctx.vout.scriptPubKey.addresses?.[0], k: \`\${ctx.tx.txid}:\${ctx.vout.n}\`, v: toSat(ctx.vout.value) }; },  // Called for every tx output. Marks potential UTXO.
-    async vin(ctx) { return { k: \`\${ctx.vin.txid}:\${ctx.vin.vout}\` }; }, // Called for every tx input. Marks "spent" UTXO by key.
-    async block(ctx) { ctx.applyEvent('Deposit', ctx.block.height, { o: ctx.locals.vout, i: ctx.locals.vin }); }, // One event per block: merges all vout + vin for this height
+    async vout(ctx) { return { a: ctx.vout.scriptPubKey.addresses?.[0], k: \`\${ctx.tx.txid}:\${ctx.vout.n}\`, v: toSat(ctx.vout.value) }; },
+    async vin(ctx) { return { k: \`\${ctx.vin.txid}:\${ctx.vin.vout}\` }; },
+    async block(ctx) { ctx.applyEvent('Deposit', ctx.block.height, { o: ctx.locals.vout, i: ctx.locals.vin }); },
   },
-  reducers: { // Reducer updates state on event "Deposit"
+  reducers: {
     Deposit(s, e) {
       const { o = [], i = [] } = e.payload || {};
       for (const x of o) (s.utxos.get(x.a) || s.utxos.set(x.a, new Map()).get(x.a)).set(x.k, x.v);
@@ -115,11 +115,7 @@ export const AddressUtxoWatcherModel = { // Ultra-minimal UTXO watcher for a spe
           if (bag.delete(y.k) && !bag.size) s.utxos.delete(a);
     },
   },
-};
-
-const AddressUtxoWatcher = compileStateModelBTC(AddressUtxoWatcherModel); // Compile model into runnable indexer state machine
-bootstrap({ Models: [AddressUtxoWatcher] }).catch(console.error); // Run the node.js blockchain indexer app
-`;
+};`;
 
   return (
     <SectionContainer className="pb-5 pt-24">
