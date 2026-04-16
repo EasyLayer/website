@@ -236,7 +236,8 @@ const config: Config = {
       copyright: `Copyright © ${new Date().getFullYear()} EasyLayer Team`,
     },
     prism: {
-      additionalLanguages: ['bash', 'shell-session'],
+      defaultLanguage: 'typescript',
+      additionalLanguages: ['bash', 'shell-session', 'docker', 'log', 'diff', 'json'],
       // theme: prismThemes.jettwaveLight,
       // darkTheme: prismThemes.jettwaveDark,
       theme: prismThemes.github,

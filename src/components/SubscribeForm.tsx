@@ -17,7 +17,6 @@ const SubscribeForm: FC<SubscribeFormProps> = ({ className, inputBgColor = '' })
     event.preventDefault();
 
     try {
-      // eslint-disable-next-line no-undef
       const res = await fetch(createNewEmailSubscriberApiEndpoint, {
         method: 'POST',
         body: 'userGroup=&email=' + email,
