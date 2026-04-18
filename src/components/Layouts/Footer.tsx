@@ -36,7 +36,7 @@ const company: LinkItem[] = [
 const Logo: FC = () => (
   <div className="flex flex-shrink-0 items-center">
     <Link to="/">
-      <img src="img/logo.png" width={35} height={35} alt="EasyLayer Logo" />
+      <img src="/img/logo.png" width={35} height={35} alt="EasyLayer Logo" />
     </Link>
     <span className="ml-3 text-lg font-semibold text-neutral-700 dark:text-neutral-200">EasyLayer</span>
   </div>
