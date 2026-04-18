@@ -13,7 +13,7 @@ export async function sendTelegramMessage(text: string): Promise<void> {
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
   if (!token || !chatId) {
-    console.warn('[telegram] TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID not set — message not sent');
+    console.error('[telegram] TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID not set — message not sent');
     return;
   }
 
