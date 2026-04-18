@@ -134,14 +134,10 @@ export const postEnterpriseJoin: RequestHandler = async (req: any, res: any) => 
     return res.status(400).json({ success: false, message: 'Invalid email' });
   }
 
-  // Honeypot
-  const hp = sanitize(body.hp, FIELD_LIMITS.hp);
-  return res.json({ success: true, _debug: { hp: body.hp, hpSanitized: hp } });
-
-  if (hp) {
-    res.setHeader('Cache-Control', 'no-store');
-    return res.json({ success: true });
-  }
+  // Honeypot disabled — browser autofill was filling the hidden field.
+  // Bot protection is handled by hCaptcha + rate limiting instead.
+  // const hp = sanitize(body.hp, FIELD_LIMITS.hp);
+  // if (hp) { return res.json({ success: true }); }
 
   // hCaptcha
   const token = String(body.captchaToken || '');
@@ -176,15 +172,7 @@ export const postEnterpriseJoin: RequestHandler = async (req: any, res: any) => 
   }
 
   res.setHeader('Cache-Control', 'no-store');
-  // return res.json({ success: true });
-  return res.json({ 
-    success: true,
-    _debug: {
-      hasToken: !!process.env.TELEGRAM_BOT_TOKEN,
-      hasChatId: !!process.env.TELEGRAM_CHAT_ID,
-      email: email,
-    }
-  });
+  return res.json({ success: true });
 };
 
 // ── Vercel wrapper ────────────────────────────────────────────────────────────
