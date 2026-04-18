@@ -1,13 +1,26 @@
+// src/theme/Root.tsx
+// Global root wrapper — adds cookie consent banner at the bottom of every page.
+
 import React from 'react';
 import CookieConsent from 'react-cookie-consent';
+import Link from '@docusaurus/Link';
+import { translate } from '@docusaurus/Translate';
 
-export default function Root({ children }) {
+export default function Root({ children }: { children: React.ReactNode }) {
+  const acceptLabel = translate({ id: 'cookieConsent.accept', message: 'Accept' });
+  const textPrefix = translate({
+    id: 'cookieConsent.text',
+    message:
+      'We use cookies to enhance your experience on our website. By continuing to use this site, you agree to our',
+  });
+  const privacyLabel = translate({ id: 'cookieConsent.privacyPolicy', message: 'Privacy Policy' });
+
   return (
     <>
       {children}
       <CookieConsent
         location="bottom"
-        buttonText="Accept"
+        buttonText={acceptLabel}
         cookieName="easylayer-cookie-consent"
         style={{
           background: '#ffffff',
@@ -28,31 +41,11 @@ export default function Root({ children }) {
           fontWeight: '500',
         }}
         expires={150}
-        // enableDeclineButton
-        // declineButtonText="Decline"
-        // declineButtonStyle={{
-        //   background: "transparent",
-        //   color: "#1f2937",
-        //   fontSize: "14px",
-        //   padding: "0.5rem 1.5rem",
-        //   borderRadius: "4px",
-        //   cursor: "pointer",
-        //   fontWeight: "500",
-        //   border: "1px solid #e5e7eb"
-        // }}
-        // onAccept={() => {}}
       >
-        We use cookies to enhance your experience on our website. By continuing to use this site, you agree to our{' '}
-        <a
-          href="/policy"
-          style={{
-            color: '#22d3ee',
-            textDecoration: 'underline',
-            fontWeight: '500',
-          }}
-        >
-          privacy policy
-        </a>
+        {textPrefix}{' '}
+        <Link to="/policy" style={{ color: '#22d3ee', textDecoration: 'underline', fontWeight: '500' }}>
+          {privacyLabel}
+        </Link>
         .
       </CookieConsent>
     </>

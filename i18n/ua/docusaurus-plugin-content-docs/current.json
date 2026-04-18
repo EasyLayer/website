@@ -1,0 +1,34 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.docs.category.Overview": {
+    "message": "Overview",
+    "description": "The label for category Overview in sidebar docs"
+  },
+  "sidebar.docs.category.Get Started": {
+    "message": "Get Started",
+    "description": "The label for category Get Started in sidebar docs"
+  },
+  "sidebar.docs.category.transport-sdk": {
+    "message": "transport-sdk",
+    "description": "The label for category transport-sdk in sidebar docs"
+  },
+  "sidebar.docs.category.transport-sdk.link.generated-index.title": {
+    "message": "transport-sdk",
+    "description": "The generated-index page title for category transport-sdk in sidebar docs"
+  },
+  "sidebar.docs.category.bitcoin-crawler": {
+    "message": "bitcoin-crawler",
+    "description": "The label for category bitcoin-crawler in sidebar docs"
+  },
+  "sidebar.docs.category.bitcoin-crawler.link.generated-index.title": {
+    "message": "bitcoin-crawler",
+    "description": "The generated-index page title for category bitcoin-crawler in sidebar docs"
+  },
+  "sidebar.docs.category.evm-crawler": {
+    "message": "evm-crawler",
+    "description": "The label for category evm-crawler in sidebar docs"
+  }
+}

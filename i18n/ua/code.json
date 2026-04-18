@@ -1,0 +1,736 @@
+{
+  "hero.title.prefix": {
+    "message": "Побудуй свій власний"
+  },
+  "hero.title.highlight": {
+    "message": "Блокчейн-індексер"
+  },
+  "hero.title.suffix": {
+    "message": "за допомогою нашого фреймворку"
+  },
+  "hero.subtitle": {
+    "message": "Встанови. Опиши свою модель. Запусти індексер за хвилини."
+  },
+  "hero.subtitle.highlight": {
+    "message": "Self-hosted, економічно вигідно"
+  },
+  "hero.subtitle.rest": {
+    "message": "і відчувається як звичайна backend-розробка."
+  },
+  "hero.cta.getStarted": {
+    "message": "Почати"
+  },
+  "hero.cta.seeFeatures": {
+    "message": "Переглянути можливості"
+  },
+  "hero.codeBlock.fileExplanation": {
+    "message": "Ваш повний блокчейн-індексер"
+  },
+  "nav.docs": {
+    "message": "Документація"
+  },
+  "nav.blog": {
+    "message": "Блог"
+  },
+  "nav.faq": {
+    "message": "FAQ"
+  },
+  "nav.enterprise": {
+    "message": "Для бізнесу"
+  },
+  "nav.newsletter": {
+    "message": "Розсилка"
+  },
+  "nav.discussions": {
+    "message": "Дискусії"
+  },
+  "nav.github.star": {
+    "message": "Зірочка на GitHub"
+  },
+  "newsletter.title": {
+    "message": "Будь в курсі 📬"
+  },
+  "newsletter.description": {
+    "message": "Підписуйся, щоб своєчасно отримувати оновлення про нові релізи, виправлення помилок та останні новини EasyLayer."
+  },
+  "newsletter.email.placeholder": {
+    "message": "ти@компанія.com"
+  },
+  "newsletter.submit": {
+    "message": "Підписатись"
+  },
+  "newsletter.submitting": {
+    "message": "Підписуємось…"
+  },
+  "newsletter.success": {
+    "message": "Дякуємо за підписку! 🙏"
+  },
+  "newsletter.error": {
+    "message": "🛑 Упс! Щось пішло не так. Спробуй ще раз."
+  },
+  "faq.title": {
+    "message": "Часті запитання"
+  },
+  "faq.subtitle": {
+    "message": "Якщо тут немає відповіді на твоє запитання, приєднуйся до"
+  },
+  "faq.forum": {
+    "message": "нашого форуму"
+  },
+  "roadmap.title": {
+    "message": "⚡ Дорожня карта ⚡"
+  },
+  "roadmap.subtitle": {
+    "message": "Від ідеї та концепції до реалізації та розширення"
+  },
+  "roadmap.inProgress": {
+    "message": "🚧 В процесі"
+  },
+  "roadmap.comingSoon": {
+    "message": "⏳ Незабаром"
+  },
+  "examples.title": {
+    "message": "Не знаєш з чого почати?"
+  },
+  "examples.description": {
+    "message": "Переглянь наші приклади, щоб побачити EasyLayer в дії та знайти ідеї для свого проєкту."
+  },
+  "examples.seeCode": {
+    "message": "Дивитись код"
+  },
+  "examples.seeAll": {
+    "message": "Переглянути всі приклади"
+  },
+  "enterprise.hero.badge": {
+    "message": "⚡ EasyLayer PRO Сервіси"
+  },
+  "enterprise.hero.title": {
+    "message": "Блокчейн-інфраструктура для вашого бізнесу"
+  },
+  "enterprise.form.title": {
+    "message": "Напишіть нам"
+  },
+  "enterprise.form.description": {
+    "message": "Розкажіть про ваш проєкт. Відповімо протягом 1 робочого дня."
+  },
+  "enterprise.form.email": {
+    "message": "Робочий email *"
+  },
+  "enterprise.form.company": {
+    "message": "Назва компанії *"
+  },
+  "enterprise.form.blockchain": {
+    "message": "Блокчейн"
+  },
+  "enterprise.form.serviceType": {
+    "message": "Що вас цікавить?"
+  },
+  "enterprise.form.scale": {
+    "message": "Очікуваний обсяг даних"
+  },
+  "enterprise.form.message": {
+    "message": "Розкажіть більше (опціонально)"
+  },
+  "enterprise.form.submit": {
+    "message": "Надіслати повідомлення →"
+  },
+  "enterprise.form.sending": {
+    "message": "Надсилаємо…"
+  },
+  "enterprise.form.success.title": {
+    "message": "Дякуємо!"
+  },
+  "enterprise.form.success.description": {
+    "message": "Ми отримали ваше повідомлення і зв'яжемося протягом 1 робочого дня."
+  },
+  "footer.title.docs": {
+    "message": "Документація"
+  },
+  "footer.title.community": {
+    "message": "Спільнота"
+  },
+  "footer.title.company": {
+    "message": "Компанія"
+  },
+  "footer.docs.getStarted": {
+    "message": "Почати"
+  },
+  "footer.docs.overview": {
+    "message": "Огляд"
+  },
+  "footer.docs.bitcoinCrawler": {
+    "message": "Bitcoin Crawler"
+  },
+  "footer.docs.transportSdk": {
+    "message": "Transport SDK"
+  },
+  "footer.community.blog": {
+    "message": "Блог"
+  },
+  "footer.community.discussions": {
+    "message": "Дискусії"
+  },
+  "footer.community.twitter": {
+    "message": "Twitter"
+  },
+  "footer.community.github": {
+    "message": "GitHub"
+  },
+  "footer.company.enterprise": {
+    "message": "Для бізнесу"
+  },
+  "footer.company.privacy": {
+    "message": "Конфіденційність"
+  },
+  "footer.company.security": {
+    "message": "Безпека"
+  },
+  "footer.company.terms": {
+    "message": "Умови використання"
+  },
+  "footer.company.licenses": {
+    "message": "Ліцензії"
+  },
+  "footer.stayUpToDate": {
+    "message": "Будь в курсі"
+  },
+  "footer.subscribeDescription": {
+    "message": "Підписуйся, щоб отримувати своєчасні оновлення про нові релізи та новини EasyLayer."
+  },
+  "footer.copyright": {
+    "message": "© Команда EasyLayer, усі права захищені."
+  },
+  "cookieConsent.accept": {
+    "message": "Прийняти"
+  },
+  "cookieConsent.text": {
+    "message": "Ми використовуємо файли cookie, щоб покращити ваш досвід на нашому сайті. Продовжуючи використовувати цей сайт, ви погоджуєтесь з нашою"
+  },
+  "cookieConsent.privacyPolicy": {
+    "message": "Політикою конфіденційності"
+  },
+  "features.learnMore": {
+    "message": "Дізнатися більше"
+  },
+  "features.customModels.title": {
+    "message": "Власні моделі даних"
+  },
+  "features.customModels.description": {
+    "message": "Опиши які дані блокчейну тобі потрібні — баланси гаманців, комісії, адреси. Зберігай лише релевантні дані, а не весь блокчейн."
+  },
+  "features.customModels.aria": {
+    "message": "Дізнатися більше про кастомні моделі даних"
+  },
+  "features.networkProviders.title": {
+    "message": "Мережеві провайдери"
+  },
+  "features.networkProviders.description": {
+    "message": "Лише 2 RPC-запити на блок для Bitcoin. Підключайся до власної ноди або зовнішніх провайдерів."
+  },
+  "features.networkProviders.aria": {
+    "message": "Дізнатися більше про мережеві провайдери"
+  },
+  "features.mempool.title": {
+    "message": "Моніторинг мемпулу"
+  },
+  "features.mempool.description": {
+    "message": "Відстежуй непідтверджені транзакції в реальному часі до того, як вони потраплять у блоки."
+  },
+  "features.mempool.aria": {
+    "message": "Дізнатися більше про моніторинг мемпулу"
+  },
+  "features.transports.title": {
+    "message": "API та транспорти"
+  },
+  "features.transports.description": {
+    "message": "Вбудовані API через HTTP, WebSocket, IPC. Потоки подій у реальному часі та запити з відповідями."
+  },
+  "features.transports.aria": {
+    "message": "Дізнатися більше про API та транспорти"
+  },
+  "features.eventStore.title": {
+    "message": "Event Store та бази даних"
+  },
+  "features.eventStore.description": {
+    "message": "Event Sourcing з автоматичною обробкою реорганізацій. SQLite для розробки, PostgreSQL для production."
+  },
+  "features.eventStore.aria": {
+    "message": "Дізнатися більше про Event Store та бази даних"
+  },
+  "features.systemModels.title": {
+    "message": "Системні моделі"
+  },
+  "features.systemModels.description": {
+    "message": "Вбудовані моделі для перевірки ланцюга та моніторингу мемпулу, які працюють прямо з коробки."
+  },
+  "features.systemModels.aria": {
+    "message": "Дізнатися більше про системні моделі"
+  },
+  "faq.q1.question": {
+    "message": "Які блокчейни підтримуються?"
+  },
+  "faq.q1.answer": {
+    "message": "Наразі підтримуються Bitcoin та Bitcoin-подібні мережі (Bitcoin Cash, Litecoin, Dogecoin). Ми активно розробляємо кравлери для EVM-сумісних мереж, Solana та TON."
+  },
+  "faq.q2.question": {
+    "message": "Чи потрібно запускати власну ноду?"
+  },
+  "faq.q2.answer": {
+    "message": "Ні. Bitcoin Crawler робить лише 2 RPC-запити на блок, тому можна використовувати зовнішніх провайдерів як QuickNode без перевищення безкоштовних лімітів."
+  },
+  "faq.q3.question": {
+    "message": "Скільки коштує запуск?"
+  },
+  "faq.q3.answer": {
+    "message": "Легкий сервер з 2-4 vCPU достатньо для більшості випадків. Витрати на зовнішні провайдери незначні — часто безкоштовно."
+  },
+  "faq.q4.question": {
+    "message": "Як обробляються реорганізації?"
+  },
+  "faq.q4.answer": {
+    "message": "Автоматично за допомогою Event Sourcing. При реорзі система відкочує події з осиротілих блоків і відтворює правильний ланцюг."
+  },
+  "faq.q5.question": {
+    "message": "Які дані можна відстежувати?"
+  },
+  "faq.q5.answer": {
+    "message": "Будь-що: баланси гаманців, UTXO, комісії, конкретні адреси, моніторинг платежів, активність мемпулу."
+  },
+  "faq.q6.question": {
+    "message": "Чи можна запитувати дані на конкретній висоті блоку?"
+  },
+  "faq.q6.answer": {
+    "message": "Так. Event Sourcing дає повну історію. Запитуй стан будь-якої моделі на будь-якій висоті блоку."
+  },
+  "faq.q7.question": {
+    "message": "Як отримати доступ до даних?"
+  },
+  "faq.q7.answer": {
+    "message": "Вбудовані Transport API: HTTP, WebSocket, IPC. Використовуй @easylayer/transport-sdk для зручної інтеграції."
+  },
+  "faq.q8.question": {
+    "message": "Що щодо моніторингу мемпулу?"
+  },
+  "faq.q8.answer": {
+    "message": "Моніторинг мемпулу опціональний (вимкнений за замовчуванням). Увімкни щоб відстежувати непідтверджені транзакції."
+  },
+  "faq.q9.question": {
+    "message": "Яку базу даних використовувати?"
+  },
+  "faq.q9.answer": {
+    "message": "SQLite для розробки і невеликих проєктів. PostgreSQL для продакшну. Схема управляється автоматично."
+  },
+  "faq.q10.question": {
+    "message": "Підходить для production?"
+  },
+  "faq.q10.answer": {
+    "message": "Абсолютно. Event Sourcing забезпечує audit trails, автоматична обробка реоргів гарантує консистентність, self-hosted деплой дає повний контроль."
+  },
+  "examples.app1.title": {
+    "message": "Системні приклади — Початок роботи 🚀"
+  },
+  "examples.app1.description": {
+    "message": "Дізнайся як підключити Bitcoin Crawler у різних режимах: HTTP RPC, P2P, ZMQ підписки та різні конфігурації."
+  },
+  "examples.app2.title": {
+    "message": "Базовий вотчер гаманця 👛"
+  },
+  "examples.app2.description": {
+    "message": "Відстежуй баланси гаманців — коли надходять і відходять кошти. Простий UTXO-моніторинг для платіжних процесорів та гаманців."
+  },
+  "examples.app3.title": {
+    "message": "Розширений вотчер гаманця 💎"
+  },
+  "examples.app3.description": {
+    "message": "Повний моніторинг гаманця з відстеженням мемпулу — виявляй депозити, pending транзакції, спроби подвійного витрачання."
+  },
+  "theme.colorToggle.ariaLabel": {
+    "message": "Перемикання між темним та світлим режимом (зараз {mode})",
+    "description": "The ARIA label for the navbar color mode toggle"
+  },
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "Темний режим",
+    "description": "The name for the dark color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "Світлий режим",
+    "description": "The name for the light color mode"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "Мова",
+    "description": "The label for the mobile language switcher dropdown"
+  },
+  "theme.NotFound.title": {
+    "message": "Сторінку не знайдено",
+    "description": "The title of the 404 page"
+  },
+  "theme.NotFound.p1": {
+    "message": "На жаль, ми не змогли знайти сторінку, яку ви шукали.",
+    "description": "The first paragraph of the 404 page"
+  },
+  "theme.NotFound.p2": {
+    "message": "Будь ласка, зверніться до власника сайту, щоб повідомити про несправне посилання.",
+    "description": "The 2nd paragraph of the 404 page"
+  },
+  "theme.ErrorPageContent.title": {
+    "message": "На сторінці сталася помилка.",
+    "description": "The title of the fallback page when the page crashed"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Спробуйте ще раз",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
+  "theme.BackToTopButton.buttonAriaLabel": {
+    "message": "Прокрутити вгору",
+    "description": "The ARIA label for the back to top button"
+  },
+  "theme.blog.archive.title": {
+    "message": "Архів",
+    "description": "The page & hero title of the blog archive page"
+  },
+  "theme.blog.archive.description": {
+    "message": "Архів",
+    "description": "The page & hero description of the blog archive page"
+  },
+  "theme.blog.paginator.navAriaLabel": {
+    "message": "Навігація по блогу",
+    "description": "The ARIA label for the blog pagination"
+  },
+  "theme.blog.paginator.newerEntries": {
+    "message": "Нові записи",
+    "description": "The label used to navigate to the newer blog posts page (previous page)"
+  },
+  "theme.blog.paginator.olderEntries": {
+    "message": "Старіші записи",
+    "description": "The label used to navigate to the older blog posts page (next page)"
+  },
+  "theme.blog.post.paginator.navAriaLabel": {
+    "message": "Навігація по статтях блогу",
+    "description": "The ARIA label for the blog posts pagination"
+  },
+  "theme.blog.post.paginator.newerPost": {
+    "message": "Наступна стаття",
+    "description": "The blog post button label to navigate to the newer/previous post"
+  },
+  "theme.blog.post.paginator.olderPost": {
+    "message": "Попередня стаття",
+    "description": "The blog post button label to navigate to the older/next post"
+  },
+  "theme.blog.post.readMore": {
+    "message": "Читати далі",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
+  },
+  "theme.blog.post.readMoreLabel": {
+    "message": "Детальніше про {title}",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
+  },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "{readingTime} хв. читання|{readingTime} хв. читання|{readingTime} хв. читання",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.blog.tagTitle": {
+    "message": "{nPosts} з тегом \"{tagName}\"",
+    "description": "The title of the page for a blog tag"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "Останні записи блогу",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "Скопійовано",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "Копіювати в буфер обміну",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "Копіювати",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.CodeBlock.wordWrapToggle": {
+    "message": "Перенос слів",
+    "description": "The title attribute for toggle word wrapping button of code block lines"
+  },
+  "theme.tags.tagsListLabel": {
+    "message": "Теги:",
+    "description": "The label alongside a tag list"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "Переглянути всі теги",
+    "description": "The label of the link targeting the tag list page"
+  },
+  "theme.tags.tagsPageTitle": {
+    "message": "Теги",
+    "description": "The title of the tag list page"
+  },
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "Навігаційний ланцюжок",
+    "description": "The ARIA label for the breadcrumbs"
+  },
+  "theme.docs.breadcrumbs.home": {
+    "message": "Головна сторінка",
+    "description": "The ARIA label for the home page in the breadcrumbs"
+  },
+  "theme.docs.paginator.navAriaLabel": {
+    "message": "Сторінка документації",
+    "description": "The ARIA label for the docs pagination"
+  },
+  "theme.docs.paginator.previous": {
+    "message": "Попередня",
+    "description": "The label used to navigate to the previous doc"
+  },
+  "theme.docs.paginator.next": {
+    "message": "Наступна",
+    "description": "The label used to navigate to the next doc"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "Згорнути бічну панель",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "Згорнути бічну панель",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "Бічна панель документації",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "Закрити бічну панель",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "Відкрити/закрити бічну панель",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "Розгорнути бічну панель",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "Розгорнути бічну панель",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Розгорнути категорію «{label}»",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Згорнути категорію «{label}»",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.common.editThisPage": {
+    "message": "Редагувати цю сторінку",
+    "description": "The link label to edit the current page"
+  },
+  "theme.common.headingLinkTitle": {
+    "message": "Пряме посилання на {heading}",
+    "description": "Title for link to heading"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "Перейти до основного вмісту",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "Закрити",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.admonition.caution": {
+    "message": "обережно",
+    "description": "The default label used for the Caution admonition (:::caution)"
+  },
+  "theme.admonition.danger": {
+    "message": "небезпека",
+    "description": "The default label used for the Danger admonition (:::danger)"
+  },
+  "theme.admonition.info": {
+    "message": "інформація",
+    "description": "The default label used for the Info admonition (:::info)"
+  },
+  "theme.admonition.note": {
+    "message": "примітка",
+    "description": "The default label used for the Note admonition (:::note)"
+  },
+  "theme.admonition.tip": {
+    "message": "порада",
+    "description": "The default label used for the Tip admonition (:::tip)"
+  },
+  "theme.admonition.warning": {
+    "message": "попередження",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.TOCCollapsible.toggleButtonLabel": {
+    "message": "Зміст цієї сторінки",
+    "description": "The label used by the button on the collapsible TOC component"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← Повернутися до головного меню",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "Версія: {versionLabel}"
+  },
+  "theme.lastUpdated.atDate": {
+    "message": "{date}",
+    "description": "The words used to describe on which date a page has been last updated"
+  },
+  "theme.lastUpdated.byUser": {
+    "message": "від {user}",
+    "description": "The words used to describe by who the page has been last updated"
+  },
+  "theme.lastUpdated.lastUpdatedAtBy": {
+    "message": "Останнє оновлення{atDate}{byUser}",
+    "description": "The sentence used to display when a page has been last updated, and by who"
+  },
+  "theme.docs.tagDocListPageTitle.nDocsTagged": {
+    "message": "Одна сторінка|{count} сторінки|{count} сторінок",
+    "description": "Pluralized label for \"{count} docs tagged\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.tagDocListPageTitle": {
+    "message": "{nDocsTagged} з тегом \"{tagName}\"",
+    "description": "The title of the page for a docs tag"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} елемент|{count} елементи|{count} елементів",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
+  },
+  "theme.blog.post.plurals": {
+    "message": "{count} запис|{count} записи|{count} записів",
+    "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.blog.author.pageTitle": {
+    "message": "{authorName} - {nPosts}",
+    "description": "The title of the page for a blog author"
+  },
+  "theme.blog.authorsList.pageTitle": {
+    "message": "Автори",
+    "description": "The title of the authors page"
+  },
+  "theme.blog.authorsList.viewAll": {
+    "message": "Переглянути всіх авторів",
+    "description": "The label of the link targeting the blog authors page"
+  },
+  "theme.blog.author.noPosts": {
+    "message": "Цей автор ще не написав жодної статті.",
+    "description": "The text for authors with 0 blog post"
+  },
+  "theme.contentVisibility.unlistedBanner.title": {
+    "message": "Сторінка без списку",
+    "description": "The unlisted content banner title"
+  },
+  "theme.contentVisibility.unlistedBanner.message": {
+    "message": "Ця сторінка не відображається у списках.",
+    "description": "The unlisted content banner message"
+  },
+  "theme.contentVisibility.draftBanner.title": {
+    "message": "Чернетка",
+    "description": "The draft content banner title"
+  },
+  "theme.contentVisibility.draftBanner.message": {
+    "message": "Ця сторінка є чернеткою. Вона видима лише в режимі розробки.",
+    "description": "The draft content banner message"
+  },
+  "howItWorks.title": {
+    "message": "Як це працює? 🧐"
+  },
+  "howItWorks.description1": {
+    "message": "Встанови пакет crawler та опиши свою кастомну модель — які дані блокчейну тобі потрібно відстежувати. Налаштуй Node Provider (свою ноду або зовнішній сервіс як QuickNode) та Event Store (SQLite, PostgreSQL або IndexedDB). Все — фреймворк бере на себе все інше."
+  },
+  "howItWorks.description2": {
+    "message": "Твоя модель парсить блоки та генерує доменні події. Фреймворк зберігає їх за патерном Event Sourcing, автоматично обробляє реорги блокчейну та надає Transport API (HTTP, WebSocket, IPC) для запитів та потоків подій у реальному часі."
+  },
+  "roadmap.item.current1": {
+    "message": "Тестування та покращення @bitcoin-crawler"
+  },
+  "roadmap.item.future1": {
+    "message": "Випуск бета-версій @evm-crawler, готових для розробників."
+  },
+  "enterprise.proServices.title": {
+    "message": "PRO Сервіси"
+  },
+  "enterprise.proServices.subtitle": {
+    "message": "Все що потрібно для запуску блокчейн-інфраструктури в масштабі."
+  },
+  "enterprise.howItWorks.title": {
+    "message": "Як це працює"
+  },
+  "enterprise.feature1.title": {
+    "message": "Managed Infrastructure"
+  },
+  "enterprise.feature1.desc": {
+    "message": "Ми розгортаємо та керуємо EasyLayer для вашої команди. Без DevOps-досвіду."
+  },
+  "enterprise.feature2.title": {
+    "message": "SQL Read Models"
+  },
+  "enterprise.feature2.desc": {
+    "message": "Опишіть схему — ми зберігаємо дані блокчейну напряму в PostgreSQL для швидких читань."
+  },
+  "enterprise.feature3.title": {
+    "message": "S3 / Object Storage Models"
+  },
+  "enterprise.feature3.desc": {
+    "message": "Потокова передача даних блокчейну в S3 або сумісне сховище у різних форматах."
+  },
+  "enterprise.feature4.title": {
+    "message": "Priority Support"
+  },
+  "enterprise.feature4.desc": {
+    "message": "Прямий доступ до команди інженерів EasyLayer."
+  },
+  "enterprise.step1.title": {
+    "message": "Розкажіть про ваш кейс"
+  },
+  "enterprise.step1.desc": {
+    "message": "Заповніть форму нижче. Займе 2 хвилини."
+  },
+  "enterprise.step2.title": {
+    "message": "Ми проектуємо налаштування"
+  },
+  "enterprise.step2.desc": {
+    "message": "Наша команда пропонує правильне поєднання сервісів для ваших потреб."
+  },
+  "enterprise.step3.title": {
+    "message": "Ви швидше запускаєтесь"
+  },
+  "enterprise.step3.desc": {
+    "message": "Фокусуйтесь на продукті — ми займаємось інфраструктурою."
+  },
+  "hero.worksOn": {
+    "message": "Працює з"
+  },
+  "enterprise.hero.description": {
+    "message": "Skip the infrastructure complexity. Get managed deployment, optimised read models, and direct team support — so your engineers focus on product, not ops."
+  },
+  "enterprise.hero.cta.primary": {
+    "message": "Talk to us →"
+  },
+  "enterprise.hero.cta.secondary": {
+    "message": "Read the Docs"
+  },
+  "theme.docs.versions.unreleasedVersionLabel": {
+    "message": "This is unreleased documentation for {siteTitle} {versionLabel} version.",
+    "description": "The label used to tell the user that he's browsing an unreleased doc version"
+  },
+  "theme.docs.versions.unmaintainedVersionLabel": {
+    "message": "This is documentation for {siteTitle} {versionLabel}, which is no longer actively maintained.",
+    "description": "The label used to tell the user that he's browsing an unmaintained doc version"
+  },
+  "theme.docs.versions.latestVersionSuggestionLabel": {
+    "message": "For up-to-date documentation, see the {latestVersionLink} ({versionLabel}).",
+    "description": "The label used to tell the user to check the latest version"
+  },
+  "theme.docs.versions.latestVersionLinkLabel": {
+    "message": "latest version",
+    "description": "The label used for the latest version suggestion link label"
+  },
+  "theme.navbar.mobileVersionsDropdown.label": {
+    "message": "Versions",
+    "description": "The label for the navbar versions dropdown on mobile view"
+  },
+  "theme.NavBar.navAriaLabel": {
+    "message": "Main",
+    "description": "The ARIA label for the main navigation"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "link.title.Docs": {
+    "message": "Docs",
+    "description": "The title of the footer links column with title=Docs in the footer"
+  },
+  "link.title.Community": {
+    "message": "Community",
+    "description": "The title of the footer links column with title=Community in the footer"
+  },
+  "link.title.Company": {
+    "message": "Company",
+    "description": "The title of the footer links column with title=Company in the footer"
+  },
+  "link.item.label.Get Started": {
+    "message": "Get Started",
+    "description": "The label of footer link with label=Get Started linking to /docs/get-started"
+  },
+  "link.item.label.Overview": {
+    "message": "Overview",
+    "description": "The label of footer link with label=Overview linking to /docs/overview"
+  },
+  "link.item.label.Bitcoin Crawler": {
+    "message": "Bitcoin Crawler",
+    "description": "The label of footer link with label=Bitcoin Crawler linking to /docs/get-started/bitcoin-crawler"
+  },
+  "link.item.label.Transport SDK": {
+    "message": "Transport SDK",
+    "description": "The label of footer link with label=Transport SDK linking to /docs/get-started/transport-sdk"
+  },
+  "link.item.label.Blog": {
+    "message": "Blog",
+    "description": "The label of footer link with label=Blog linking to /blog"
+  },
+  "link.item.label.Discussion": {
+    "message": "Discussion",
+    "description": "The label of footer link with label=Discussion linking to https://github.com/easylayer/core/discussions"
+  },
+  "link.item.label.Twitter": {
+    "message": "Twitter",
+    "description": "The label of footer link with label=Twitter linking to https://x.com/easylayer_io"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/easylayer"
+  },
+  "link.item.label.Privacy Policy": {
+    "message": "Privacy Policy",
+    "description": "The label of footer link with label=Privacy Policy linking to policy"
+  },
+  "link.item.label.Security Policy": {
+    "message": "Security Policy",
+    "description": "The label of footer link with label=Security Policy linking to security"
+  },
+  "link.item.label.Terms & Conditions": {
+    "message": "Terms & Conditions",
+    "description": "The label of footer link with label=Terms & Conditions linking to terms"
+  },
+  "link.item.label.Licenses": {
+    "message": "Licenses",
+    "description": "The label of footer link with label=Licenses linking to licenses"
+  },
+  "copyright": {
+    "message": "Copyright © 2026 EasyLayer Team",
+    "description": "The footer copyright"
+  }
+}

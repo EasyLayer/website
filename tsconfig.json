@@ -4,7 +4,8 @@
     "target": "ESNext",
     "baseUrl": ".",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx"
   },
   "exclude": [
     "build",

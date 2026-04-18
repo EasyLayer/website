@@ -1,59 +1,36 @@
+// src/components/Layouts/Footer.tsx
 import type { FC } from 'react';
 import React from 'react';
 import Link from '@docusaurus/Link';
+import Translate from '@docusaurus/Translate';
 import SectionContainer from './SectionContainer';
 import SubscribeForm from '../SubscribeForm';
-// import DarkModeToggle from '../DarkModeToggle';
 import { SOCIAL_URLS, DOCS_URLS, BLOG_URLS, SITE_URLS } from '../../urls';
 
 interface LinkItem {
   text: string;
+  textId: string;
   url: string;
 }
 
 const docs: LinkItem[] = [
-  {
-    text: 'Get Started',
-    url: DOCS_URLS.SECTIONS.GET_STARTED,
-  },
+  { text: 'Get Started', textId: 'footer.docs.getStarted', url: DOCS_URLS.SECTIONS.GET_STARTED },
+  { text: 'Overview', textId: 'footer.docs.overview', url: DOCS_URLS.SECTIONS.OVERVIEW },
+  { text: 'Bitcoin Crawler', textId: 'footer.docs.bitcoinCrawler', url: DOCS_URLS.SECTIONS.BITCOIN_CRAWLER },
+  { text: 'Transport SDK', textId: 'footer.docs.transportSdk', url: DOCS_URLS.SECTIONS.TRANSPORT_SDK },
 ];
-
 const community: LinkItem[] = [
-  {
-    text: 'Blog',
-    url: BLOG_URLS.BASE,
-  },
-  {
-    text: 'Discussions',
-    url: SOCIAL_URLS.DISCUSSIONS,
-  },
-  {
-    text: 'Twitter',
-    url: SOCIAL_URLS.TWITTER,
-  },
-  {
-    text: 'GitHub',
-    url: SOCIAL_URLS.GITHUB,
-  },
+  { text: 'Blog', textId: 'footer.community.blog', url: BLOG_URLS.BASE },
+  { text: 'Discussions', textId: 'footer.community.discussions', url: SOCIAL_URLS.DISCUSSIONS },
+  { text: 'Twitter', textId: 'footer.community.twitter', url: SOCIAL_URLS.TWITTER },
+  { text: 'GitHub', textId: 'footer.community.github', url: SOCIAL_URLS.GITHUB },
 ];
-
 const company: LinkItem[] = [
-  {
-    text: 'Privacy Policy',
-    url: SITE_URLS.POLICY,
-  },
-  {
-    text: 'Security Policy',
-    url: SITE_URLS.SECURITY,
-  },
-  {
-    text: 'Terms of Service',
-    url: SITE_URLS.TERMS,
-  },
-  {
-    text: 'Licenses',
-    url: SITE_URLS.LICENSES,
-  },
+  { text: 'Enterprise', textId: 'footer.company.enterprise', url: SITE_URLS.ENTERPRISE },
+  { text: 'Privacy Policy', textId: 'footer.company.privacy', url: SITE_URLS.POLICY },
+  { text: 'Security Policy', textId: 'footer.company.security', url: SITE_URLS.SECURITY },
+  { text: 'Terms of Service', textId: 'footer.company.terms', url: SITE_URLS.TERMS },
+  { text: 'Licenses', textId: 'footer.company.licenses', url: SITE_URLS.LICENSES },
 ];
 
 const Logo: FC = () => (
@@ -61,29 +38,23 @@ const Logo: FC = () => (
     <Link to="/">
       <img src="img/logo.png" width={35} height={35} alt="EasyLayer Logo" />
     </Link>
-    <span className="ml-3 text-lg font-semibold text-neutral-700">EasyLayer</span>
+    <span className="ml-3 text-lg font-semibold text-neutral-700 dark:text-neutral-200">EasyLayer</span>
   </div>
 );
 
-interface SegmentProps {
-  title: string;
-  links: LinkItem[];
-}
-
-const Segment: FC<SegmentProps> = ({ title, links }) => (
+const Segment: FC<{ title: string; titleId: string; links: LinkItem[] }> = ({ title, titleId, links }) => (
   <div>
-    <h6 className="text-neutral-700">{title}</h6>
+    <h6 className="text-neutral-700 dark:text-neutral-200">
+      <Translate id={titleId}>{title}</Translate>
+    </h6>
     <ul className="mt-4 space-y-2">
-      {links.map((l, idx) => (
-        <li key={idx}>
+      {links.map((l) => (
+        <li key={l.url}>
           <a
             href={l.url}
-            className={`
-              text-sm text-neutral-500 transition-colors
-              hover:text-neutral-400
-            `}
+            className="text-sm text-neutral-500 dark:text-neutral-400 transition-colors hover:text-neutral-400 dark:hover:text-neutral-300"
           >
-            {l.text}
+            <Translate id={l.textId}>{l.text}</Translate>
           </a>
         </li>
       ))}
@@ -91,38 +62,39 @@ const Segment: FC<SegmentProps> = ({ title, links }) => (
   </div>
 );
 
-const Footer: FC = () => {
-  return (
-    <footer className="border-t">
-      <SectionContainer>
-        <div className="grid grid-cols-1 gap-8 xl:grid xl:grid-cols-3">
-          <div className="grid grid-cols-1 xl:col-span-2">
-            <div className="grid grid-cols-2 gap-8 md:grid-cols-3">
-              <Segment title="Docs" links={docs} />
-              <Segment title="Community" links={community} />
-              <Segment title="Company" links={company} />
-            </div>
+const Footer: FC = () => (
+  <footer className="border-t dark:border-neutral-800">
+    <SectionContainer>
+      <div className="grid grid-cols-1 gap-8 xl:grid xl:grid-cols-3">
+        <div className="grid grid-cols-1 xl:col-span-2">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-3">
+            <Segment title="Docs" titleId="footer.title.docs" links={docs} />
+            <Segment title="Community" titleId="footer.title.community" links={community} />
+            <Segment title="Company" titleId="footer.title.company" links={company} />
           </div>
-
-          <div className="xl:col-span-1">
-            <h3 className="text-base text-neutral-700">Stay up to date</h3>
-            <p className="mt-4 text-sm text-neutral-500">
+        </div>
+        <div className="xl:col-span-1">
+          <h3 className="text-base text-neutral-700 dark:text-neutral-200">
+            <Translate id="footer.stayUpToDate">Stay up to date</Translate>
+          </h3>
+          <p className="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
+            <Translate id="footer.subscribeDescription">
               Subscribe to get timely updates on new releases, bug fixes, and all the latest EasyLayer news.
-            </p>
-
-            <SubscribeForm className="mt-4 sm:max-w-md" inputBgColor="bg-transparent" />
-          </div>
+            </Translate>
+          </p>
+          <SubscribeForm className="mt-4 sm:max-w-md" inputBgColor="bg-transparent" />
         </div>
-        <div className="mt-8 pt-8">
-          <Logo />
-          <div className="flex justify-between">
-            <p className="mt-4 text-xs text-neutral-400">© EasyLayer Team, all rights reserved.</p>
-            {/* <DarkModeToggle /> */}
-          </div>
+      </div>
+      <div className="mt-8 pt-8">
+        <Logo />
+        <div className="flex justify-between">
+          <p className="mt-4 text-xs text-neutral-400">
+            <Translate id="footer.copyright">© EasyLayer Team, all rights reserved.</Translate>
+          </p>
         </div>
-      </SectionContainer>
-    </footer>
-  );
-};
+      </div>
+    </SectionContainer>
+  </footer>
+);
 
 export default Footer;
