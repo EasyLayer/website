@@ -174,7 +174,15 @@ export const postEnterpriseJoin: RequestHandler = async (req: any, res: any) => 
   }
 
   res.setHeader('Cache-Control', 'no-store');
-  return res.json({ success: true });
+  // return res.json({ success: true });
+  return res.json({ 
+    success: true,
+    _debug: {
+      hasToken: !!process.env.TELEGRAM_BOT_TOKEN,
+      hasChatId: !!process.env.TELEGRAM_CHAT_ID,
+      email: email,
+    }
+  });
 };
 
 // ── Vercel wrapper ────────────────────────────────────────────────────────────
