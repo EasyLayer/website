@@ -701,36 +701,36 @@
     "message": "Працює з"
   },
   "enterprise.hero.description": {
-    "message": "Skip the infrastructure complexity. Get managed deployment, optimised read models, and direct team support — so your engineers focus on product, not ops."
+    "message": "Забудьте про складнощі з інфраструктурою. Отримайте managed deployment, оптимізовані моделі читання та пряму підтримку команди — щоб ваші інженери фокусувалися на продукті, а не на ops."
   },
   "enterprise.hero.cta.primary": {
-    "message": "Talk to us →"
+    "message": "Зв'язатися з нами →"
   },
   "enterprise.hero.cta.secondary": {
-    "message": "Read the Docs"
+    "message": "Читати документацію"
   },
   "theme.docs.versions.unreleasedVersionLabel": {
-    "message": "This is unreleased documentation for {siteTitle} {versionLabel} version.",
+    "message": "Це невипущена документація для {siteTitle} версії {versionLabel}.",
     "description": "The label used to tell the user that he's browsing an unreleased doc version"
   },
   "theme.docs.versions.unmaintainedVersionLabel": {
-    "message": "This is documentation for {siteTitle} {versionLabel}, which is no longer actively maintained.",
+    "message": "Це документація для {siteTitle} {versionLabel}, яка більше активно не підтримується.",
     "description": "The label used to tell the user that he's browsing an unmaintained doc version"
   },
   "theme.docs.versions.latestVersionSuggestionLabel": {
-    "message": "For up-to-date documentation, see the {latestVersionLink} ({versionLabel}).",
+    "message": "Для актуальної документації дивіться {latestVersionLink} ({versionLabel}).",
     "description": "The label used to tell the user to check the latest version"
   },
   "theme.docs.versions.latestVersionLinkLabel": {
-    "message": "latest version",
+    "message": "останню версію",
     "description": "The label used for the latest version suggestion link label"
   },
   "theme.navbar.mobileVersionsDropdown.label": {
-    "message": "Versions",
+    "message": "Версії",
     "description": "The label for the navbar versions dropdown on mobile view"
   },
   "theme.NavBar.navAriaLabel": {
-    "message": "Main",
+    "message": "Головне",
     "description": "The ARIA label for the main navigation"
   }
 }

@@ -13,7 +13,7 @@ import LocaleSwitcher from './LocaleSwitcher';
 const Logo: FC = () => (
   <div className="flex flex-shrink-0 items-center">
     <Link to="/">
-      <img src="img/logo.png" width={35} height={35} alt="EasyLayer Logo" />
+      <img src="/img/logo.png" width={35} height={35} alt="EasyLayer Logo" />
     </Link>
     <span className="ml-3 text-lg font-semibold text-neutral-700 dark:text-neutral-100">
       EasyLayer <sup className="text-base text-yellow-500">βeta</sup>
@@ -55,7 +55,7 @@ const Nav: FC = () => {
   const navLinks = [
     { to: DOCS_URLS.BASE, labelId: 'nav.docs', label: 'Docs' },
     { to: BLOG_URLS.BASE, labelId: 'nav.blog', label: 'Blog' },
-    { to: SITE_URLS.FAQ, labelId: 'nav.faq', label: 'FAQ' },
+    { to: '/#faq', labelId: 'nav.faq', label: 'FAQ' },
     { to: SITE_URLS.ENTERPRISE, labelId: 'nav.enterprise', label: 'Enterprise' },
   ];
 
