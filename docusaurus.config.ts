@@ -9,6 +9,15 @@ import { SITE_URLS, SOCIAL_URLS, BLOG_URLS, DOCS_URLS } from './src/urls';
 const isProduction = process.env.NODE_ENV === 'production'
 
 const config: Config = {
+  customFields: {
+    // Public hCaptcha sitekey — safe to expose, used by the frontend widget.
+    // Use the test key locally (always passes without solving).
+    // Replace with your real sitekey from hcaptcha.com for production.
+    HCAPTCHA_SITEKEY: !isProduction
+      ? '10000000-ffff-ffff-ffff-000000000001'
+      : (process.env.HCAPTCHA_SITEKEY || ''),
+  },
+  
   title: 'EasyLayer.io',
   tagline: 'Self-hosted framework for building custom blockchain indexers and parsers. Monitor and index Bitcoin blockchain data - both historical and real-time.',
   favicon: 'img/favicon.ico',
@@ -27,15 +36,29 @@ const config: Config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   
-  trailingSlash: false,
+  trailingSlash: true,
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'ua'],
+    localeConfigs: {
+      ua: {
+        label: 'Українська',
+        direction: 'ltr',
+        htmlLang: 'uk-UA',
+        calendar: 'gregory',
+        path: 'ua'
+      },
+      en: {
+        label: 'English',
+        direction: 'ltr',
+        htmlLang: 'en-US',
+        calendar: 'gregory',
+        // path: 'en',
+      },
+    },
   },
+
 
   headTags: [
     {
@@ -103,6 +126,11 @@ const config: Config = {
             type: null,
           },
         },
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.5,
+          ignorePatterns: ['/tags/**'],
+        },
         theme: {
           // Allows you to set the path to your custom CSS file, allowing you to customize site styles.
           customCss: [resolve('./src/css/custom.css')],
@@ -116,6 +144,17 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
+
+  future: {
+    experimental_faster: {
+      swcJsLoader: true,
+      swcJsMinimizer: true,
+      swcHtmlMinimizer: true,
+      lightningCssMinimizer: true,
+      rspackBundler: true,
+      mdxCrossCompilerCache: true,
+    },
+  },
 
   themeConfig: {
     announcementBar: {
@@ -162,6 +201,10 @@ const config: Config = {
         {
           href: SOCIAL_URLS.TWITTER,
           className: 'navbar-item-twitter',
+          position: 'right',
+        },
+        {
+          type: 'localeDropdown',
           position: 'right',
         },
       ],

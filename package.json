@@ -13,17 +13,20 @@
     "url": "https://github.com/easylayer/website/issues"
   },
   "homepage": "https://github.com/easylayer/website#readme",
+  "resolutions": {
+    "webpack": "5.105.0"
+  },
   "scripts": {
     "clear": "yarn run clear:dist && yarn cache clean && yarn run clear:node_modules",
     "clear:node_modules": "rimraf node_modules",
     "clear:dist": "docusaurus clear",
-    "start:dev": "cross-env NODE_ENV=development docusaurus start",
+    "start:dev": "concurrently -k -n API,WEB -c blue,green \"yarn dev:api\" \"yarn dev:web\"",
     "serve": "cross-env NODE_ENV=development docusaurus serve",
     "start": "cross-env NODE_ENV=production docusaurus serve",
     "build": "cross-env NODE_ENV=production docusaurus build",
     "build:serve": "yarn build && yarn serve",
     "swizzle": "cross-env NODE_ENV=development docusaurus swizzle",
-    "write-translations": "docusaurus write-translations",
+    "write-translations": "docusaurus write-translations --locale ua",
     "write-heading-ids": "docusaurus write-heading-ids",
     "cypress:run": "cypress run",
     "lighthouse:run": "lighthouse http://localhost:3000 --output html --output-path ./lighthouse/reports/lh.html --chrome-flags=\"--headless\" --only-categories=performance,accessibility",
@@ -35,11 +38,16 @@
     "prepare": "husky install",
     "pre-commit": "yarn run lint",
     "pre-push": "",
-    "commit": "cz"
+    "commit": "cz",
+    "dev:api": "cross-env NODE_ENV=development ts-node-dev --project server/tsconfig.server.json --respawn --transpile-only server/dev-server.ts",
+    "dev:web": "cross-env NODE_ENV=development docusaurus start --port 3000 --no-open"
   },
   "dependencies": {
     "@docusaurus/core": "3.7.0",
+    "@docusaurus/faster": "3.7.0",
     "@docusaurus/preset-classic": "3.7.0",
+    "@hcaptcha/react-hcaptcha": "2.0.2",
+    "@vercel/node": "5.2.1",
     "autoprefixer": "10.4.17",
     "classnames": "2.5.1",
     "clsx": "1.2.1",
@@ -50,6 +58,7 @@
     "react-cookie-consent": "9.0.0",
     "react-dom": "18.2.0",
     "react-feather": "2.0.10",
+    "react-hook-form": "7.56.4",
     "react-modal": "3.16.3",
     "react-player": "2.16.0",
     "react-tooltip": "5.28.1",
@@ -59,21 +68,29 @@
   "devDependencies": {
     "@commitlint/cli": "18.4.3",
     "@commitlint/config-conventional": "18.4.3",
-    "@docusaurus/module-type-aliases": "3.0.0",
-    "@docusaurus/tsconfig": "3.0.0",
-    "@docusaurus/types": "3.0.0",
+    "@docusaurus/module-type-aliases": "3.7.0",
+    "@docusaurus/tsconfig": "3.7.0",
+    "@docusaurus/types": "3.7.0",
+    "@types/cors": "2.8.19",
+    "@types/express": "5.0.5",
     "@types/react-transition-group": "4.4.12",
     "@typescript-eslint/eslint-plugin": "8.32.0",
     "@typescript-eslint/parser": "8.32.0",
     "commitizen": "4.3.0",
+    "concurrently": "9.2.1",
+    "cors": "2.8.5",
     "cross-env": "7.0.3",
     "cypress": "14.3.1",
     "cz-conventional-changelog": "3.3.0",
+    "dotenv": "17.2.3",
     "eslint": "9.26.0",
     "eslint-config-prettier": "10.1.5",
     "eslint-plugin-mdx": "3.4.0",
     "eslint-plugin-prettier": "5.4.0",
     "eslint-plugin-react-hooks": "7.0.1",
+    "express": "5.1.0",
+    "express-rate-limit": "8.2.1",
+    "fast-xml-parser": "5.3.3",
     "globals": "16.5.0",
     "husky": "8.0.3",
     "lighthouse": "12.6.0",
@@ -81,6 +98,7 @@
     "rimraf": "5.0.5",
     "start-server-and-test": "2.0.11",
     "string-replace-loader": "3.1.0",
+    "ts-node-dev": "2.0.0",
     "typescript": "5.2.2"
   },
   "browserslist": {
@@ -94,5 +112,8 @@
       "last 3 firefox version",
       "last 5 safari version"
     ]
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

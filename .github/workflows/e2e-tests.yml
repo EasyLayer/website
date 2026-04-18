@@ -2,7 +2,7 @@ name: E2E Tests Workflows
 
 on:
   pull_request:
-    branches: [master, development]
+    branches: [master]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
