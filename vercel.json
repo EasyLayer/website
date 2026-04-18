@@ -5,15 +5,6 @@
       "master": true
     }
   },
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    }
-  ],
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
@@ -125,10 +116,5 @@
         }
       ]
     }
-  ],
-  "functions": {
-    "api/**/*.ts": {
-      "runtime": "nodejs20.x"
-    }
-  }
+  ]
 }
