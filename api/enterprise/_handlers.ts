@@ -136,6 +136,8 @@ export const postEnterpriseJoin: RequestHandler = async (req: any, res: any) => 
 
   // Honeypot
   const hp = sanitize(body.hp, FIELD_LIMITS.hp);
+  return res.json({ success: true, _debug: { hp: body.hp, hpSanitized: hp } });
+
   if (hp) {
     res.setHeader('Cache-Control', 'no-store');
     return res.json({ success: true });
