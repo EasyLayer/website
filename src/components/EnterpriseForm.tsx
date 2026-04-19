@@ -15,9 +15,8 @@ interface FormState {
   serviceType: string;
   scale: string;
   message: string;
-  hp: string;
 }
-const INITIAL: FormState = { email: '', company: '', blockchain: '', serviceType: '', scale: '', message: '', hp: '' };
+const INITIAL: FormState = { email: '', company: '', blockchain: '', serviceType: '', scale: '', message: '' };
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
 const EnterpriseForm: FC = () => {
@@ -50,7 +49,7 @@ const EnterpriseForm: FC = () => {
           serviceType: form.serviceType,
           scale: form.scale,
           message: form.message,
-          hp: form.hp,
+          captchaToken,
         }),
       });
       const data = await res.json().catch(() => ({}));
@@ -104,9 +103,6 @@ const EnterpriseForm: FC = () => {
             onSubmit={handleSubmit}
             className="space-y-5 rounded-lg border border-yellow-500/25 bg-yellow-500/5 dark:bg-neutral-800/50 p-8"
           >
-            <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
-              <input type="text" name="hp" tabIndex={-1} autoComplete="off" value={form.hp} onChange={handleChange} />
-            </div>
             <div>
               <label htmlFor="ent-email" className={lc}>
                 <Translate id="enterprise.form.email">Work email *</Translate>
