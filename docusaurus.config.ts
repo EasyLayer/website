@@ -4,9 +4,11 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
+import smartLocaleRouteMapPlugin from './plugins/smartLocaleRouteMapPlugin';
 import { SITE_URLS, SOCIAL_URLS, BLOG_URLS, DOCS_URLS } from './src/urls';
 
 const isProduction = process.env.NODE_ENV === 'production'
+const siteBaseUrl = '/';
 
 const config: Config = {
   customFields: {
@@ -26,7 +28,7 @@ const config: Config = {
   url: SITE_URLS.BASE,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: siteBaseUrl,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -203,9 +205,11 @@ const config: Config = {
           className: 'navbar-item-twitter',
           position: 'right',
         },
-        {
-          type: 'localeDropdown',
+        { 
+          type: 'custom-smartLocaleDropdown', 
           position: 'right',
+          dropdownItemsAfter: [],
+          // className: 'navbar-locale-dropdown'
         },
       ],
     },
@@ -308,6 +312,14 @@ const config: Config = {
   } satisfies Preset.ThemeConfig,
 
   plugins: [
+    [
+      smartLocaleRouteMapPlugin,
+      {
+        siteBaseUrl,
+        blogRouteBasePath: 'blog',
+        docsRouteBasePath: 'docs',
+      },
+    ],
     async function myPlugin(context, options) {
       return {
         name: 'tailwindcss',
