@@ -15,7 +15,8 @@ const sidebars: SidebarsConfig = {
         'overview/mempool-monitoring',
         'overview/transport-layer',
         'overview/event-store',
-        'overview/system-models'
+        'overview/system-models',
+        'overview/vs-alternatives',
       ]
     },
     {

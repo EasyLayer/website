@@ -1,79 +1,54 @@
 // src/components/Roadmap.tsx
-// Product roadmap section showing current progress and upcoming features.
+// Product roadmap section showing released tools, current progress, and upcoming features.
 
 import type { FC } from 'react';
 import React from 'react';
-import { GitHub, CheckSquare, ArrowRight } from 'react-feather';
+import { CheckSquare } from 'react-feather';
 import Translate from '@docusaurus/Translate';
 import SectionContainer from './Layouts/SectionContainer';
-
-type LinkType = 'issue' | 'task' | 'other';
-
-interface FeatureLink {
-  url: string;
-  label: string;
-  type: LinkType;
-}
 
 interface FeatureItem {
   textId: string;
   textFallback: string;
-  link?: FeatureLink;
 }
 
-const currentPhaseFeatures: FeatureItem[] = [
+const releasedFeatures: FeatureItem[] = [
   {
-    textId: 'roadmap.item.current1',
-    textFallback: 'Testing and improving @bitcoin-crawler',
-    link: { url: '', label: '#1', type: 'issue' },
+    textId: 'roadmap.item.released1',
+    textFallback: '@easylayer/bitcoin-crawler — Bitcoin and Bitcoin-like networks (BTC, BCH, LTC, DOGE)',
   },
+  {
+    textId: 'roadmap.item.released2',
+    textFallback: '@easylayer/evm-crawler — EVM-compatible networks (Ethereum, BSC, Polygon, L2)',
+  },
+  { textId: 'roadmap.item.released3', textFallback: '@easylayer/transport-sdk — multi-transport client SDK' },
+];
+
+const currentPhaseFeatures: FeatureItem[] = [
+  { textId: 'roadmap.item.current1', textFallback: 'Performance improvements for Bitcoin and EVM crawlers' },
+  {
+    textId: 'roadmap.item.current2',
+    textFallback: 'Developer onboarding: collecting feedback, helping teams test and configure',
+  },
+  { textId: 'roadmap.item.current3', textFallback: 'Expanding documentation and examples' },
 ];
 
 const futurePhaseFeatures: FeatureItem[] = [
-  {
-    textId: 'roadmap.item.future1',
-    textFallback: 'Release beta versions of @evm-crawler, ready for developers to use.',
-    link: { url: '', label: '#100', type: 'task' },
-  },
+  { textId: 'roadmap.item.future1', textFallback: '@easylayer/solana-crawler' },
+  { textId: 'roadmap.item.future2', textFallback: '@easylayer/ton-crawler' },
+  { textId: 'roadmap.item.future3', textFallback: '@easylayer/tron-crawler' },
 ];
 
-type IconMap = Record<LinkType, React.ComponentType<{ size?: number; strokeWidth?: number }>>;
-
-const ICON_MAP: IconMap = { issue: GitHub, task: ArrowRight, other: CheckSquare };
-
-const FeatureLinkBadge: FC<FeatureLink> = ({ label, type }) => {
-  const Icon = ICON_MAP[type] || ArrowRight;
-  return (
-    <span className="cursor-pointer rounded-full bg-neutral-600 px-2.5 py-1 text-xs text-white">
-      <div className="group inline-flex items-center gap-1">
-        <span>{label}</span>
-        <div className="transition-all group-hover:ml-0.5">
-          <span className="text-yellow-400">
-            <Icon size={14} />
-          </span>
-        </div>
-      </div>
-    </span>
-  );
-};
-
 const Section: FC<{ features: FeatureItem[] }> = ({ features }) => (
-  <ul className="space-y-6">
-    {features.map(({ textId, textFallback, link }) => (
-      <li className="grid grid-cols-12" key={textId}>
-        <div className="col-span-8 col-start-3 flex items-center">
-          <span>
-            <span className="text-neutral-600 dark:text-neutral-300">
-              <Translate id={textId}>{textFallback}</Translate>
-            </span>
-            {link && (
-              <>
-                &nbsp;
-                <FeatureLinkBadge {...link} />
-              </>
-            )}
-          </span>
-        </div>
+  <ul className="space-y-4">
+    {features.map(({ textId, textFallback }) => (
+      <li key={textId} className="flex items-start gap-2">
+        <span className="mt-0.5 text-yellow-500 shrink-0">
+          <CheckSquare size={16} />
+        </span>
+        <span className="text-neutral-600 dark:text-neutral-300 text-sm">
+          <Translate id={textId}>{textFallback}</Translate>
+        </span>
       </li>
     ))}
   </ul>
@@ -92,7 +67,16 @@ const Roadmap: FC = () => (
       </div>
     </div>
 
-    <div className="grid grid-cols-1 md:gap-16 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      {/* Released */}
+      <div className="rounded-lg border border-green-500/25 bg-green-500/5 p-5">
+        <div className="mb-6 text-center font-bold text-neutral-700 dark:text-neutral-200">
+          <Translate id="roadmap.released">✅ Released</Translate>
+        </div>
+        <Section features={releasedFeatures} />
+      </div>
+
+      {/* In Progress */}
       <div className="rounded-lg border border-yellow-500/25 bg-yellow-500/5 p-5">
         <div className="mb-6 text-center font-bold text-neutral-700 dark:text-neutral-200">
           <Translate id="roadmap.inProgress">🚧 In Progress</Translate>
@@ -100,7 +84,8 @@ const Roadmap: FC = () => (
         <Section features={currentPhaseFeatures} />
       </div>
 
-      <div className="mt-6 rounded-lg border border-yellow-500/25 bg-yellow-500/20 p-5 lg:mt-0">
+      {/* Coming Soon */}
+      <div className="rounded-lg border border-yellow-500/25 bg-yellow-500/20 p-5">
         <div className="mb-6 text-center font-bold text-neutral-700 dark:text-neutral-200">
           <Translate id="roadmap.comingSoon">⏳ Coming Soon</Translate>
         </div>

@@ -1,5 +1,5 @@
 ---
-title: Understanding CQRS and Event Sourcing in Modern Applications
+title: "Understanding CQRS and Event Sourcing in Modern Applications"
 authors: [yarikp]
 tags: [nestjs, cqrs, event sourcing, transactional, nestjs/cqrs, architecture, design patterns, easylayer]
 date: 2024-03-19T10:30:00Z

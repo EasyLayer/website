@@ -1,11 +1,11 @@
 ---
 title: Getting Started
-description: Learn how to get started with our platform
+description: Choose a tool and get your first blockchain state service running in minutes.
 sidebar_class_name: hidden
 ---
 
 # Getting Started
 
-- [Transport SDK](/docs/get-started/transport-sdk/v1.0.16.md)
-- [Bitcoin Crawler](/docs/get-started/bitcoin-crawler/v0.0.10.md)
-<!-- - [EVM Crawler](/docs/get-started/evm-crawler/v0.0.3.md) -->
+- [Bitcoin Crawler](/docs/get-started/bitcoin-crawler/v0.3.0) — Bitcoin and Bitcoin-like networks
+- [EVM Crawler](/docs/get-started/evm-crawler/v0.0.3) — Ethereum and EVM-compatible chains
+- [Transport SDK](/docs/get-started/transport-sdk/v1.3.0) — Client SDK for all transports
