@@ -1,21 +1,21 @@
 {
   "hero.title.prefix": {
-    "message": "Побудуй свій власний"
+    "message": "Побудуй"
   },
   "hero.title.highlight": {
-    "message": "Блокчейн-індексер"
+    "message": "Self-Hosted Blockchain"
   },
   "hero.title.suffix": {
-    "message": "за допомогою нашого фреймворку"
+    "message": "State Service"
   },
   "hero.subtitle": {
-    "message": "Встанови. Опиши свою модель. Запусти індексер за хвилини."
+    "message": "Вкажи на Bitcoin або EVM ноду. Отримай живий, завжди актуальний стан блокчейну на власному сервері."
   },
   "hero.subtitle.highlight": {
-    "message": "Self-hosted, економічно вигідно"
+    "message": "Твої дані, твій сервер, без підписок."
   },
   "hero.subtitle.rest": {
-    "message": "і відчувається як звичайна backend-розробка."
+    "message": "вбудовані HTTP / WebSocket / IPC транспорти. Твої дані. Нуль recurring fees."
   },
   "hero.cta.getStarted": {
     "message": "Почати"
@@ -24,7 +24,7 @@
     "message": "Переглянути можливості"
   },
   "hero.codeBlock.fileExplanation": {
-    "message": "Ваш повний блокчейн-індексер"
+    "message": "Ваш повний blockchain state service"
   },
   "nav.docs": {
     "message": "Документація"
@@ -288,7 +288,7 @@
     "message": "Як обробляються реорганізації?"
   },
   "faq.q4.answer": {
-    "message": "Автоматично за допомогою Event Sourcing. При реорзі система відкочує події з осиротілих блоків і відтворює правильний ланцюг."
+    "message": "Реорги обробляються автоматично через Event Sourcing. Кожна зміна стану зберігається як незмінна подія з висотою блоку. При реорзі фреймворк відкочує події з відкинутих блоків у зворотному порядку і відтворює правильний ланцюг. Стан знову консистентний без жодного коду з твого боку."
   },
   "faq.q5.question": {
     "message": "Які дані можна відстежувати?"
@@ -635,16 +635,16 @@
     "message": "Як це працює? 🧐"
   },
   "howItWorks.description1": {
-    "message": "Встанови пакет crawler та опиши свою кастомну модель — які дані блокчейну тобі потрібно відстежувати. Налаштуй Node Provider (свою ноду або зовнішній сервіс як QuickNode) та Event Store (SQLite, PostgreSQL або IndexedDB). Все — фреймворк бере на себе все інше."
+    "message": "Встанови crawler-пакет для свого блокчейну. Визнач який on-chain стан потрібно підтримувати твоєму застосунку. Вкажи на ноду або зовнішній провайдер. Запускай."
   },
   "howItWorks.description2": {
-    "message": "Твоя модель парсить блоки та генерує доменні події. Фреймворк зберігає їх за патерном Event Sourcing, автоматично обробляє реорги блокчейну та надає Transport API (HTTP, WebSocket, IPC) для запитів та потоків подій у реальному часі."
+    "message": "Фреймворк читає блоки з будь-якої висоти, підтримує твій стан актуальним на кожному новому блоці, відновлюється після реорганізацій автоматично та надає твої дані через HTTP, WebSocket або IPC. Все запускається на твоєму сервері. Твої дані ніколи не покидають твою інфраструктуру."
   },
   "roadmap.item.current1": {
-    "message": "Тестування та покращення @bitcoin-crawler"
+    "message": "Покращення продуктивності Bitcoin та EVM crawlers"
   },
   "roadmap.item.future1": {
-    "message": "Випуск бета-версій @evm-crawler, готових для розробників."
+    "message": "@easylayer/solana-crawler"
   },
   "enterprise.proServices.title": {
     "message": "PRO Сервіси"
@@ -732,5 +732,50 @@
   "theme.NavBar.navAriaLabel": {
     "message": "Головне",
     "description": "The ARIA label for the main navigation"
+  },
+  "hero.subtitle.line2": {
+    "message": "Кожен блок оновлює твій стан автоматично. Реорги обробляються. Запит через HTTP або WebSocket."
+  },
+  "roadmap.released": {
+    "message": "✅ Випущено"
+  },
+  "roadmap.item.released1": {
+    "message": "@easylayer/bitcoin-crawler — Bitcoin та Bitcoin-подібні мережі (BTC, BCH, LTC, DOGE)"
+  },
+  "roadmap.item.released2": {
+    "message": "@easylayer/evm-crawler — EVM-сумісні мережі (Ethereum, BSC, Polygon, L2)"
+  },
+  "roadmap.item.released3": {
+    "message": "@easylayer/transport-sdk — клієнтський SDK для всіх транспортів"
+  },
+  "roadmap.item.current2": {
+    "message": "Онбординг розробників: збір фідбеку, допомога з тестуванням та налаштуванням"
+  },
+  "roadmap.item.current3": {
+    "message": "Розширення документації та прикладів"
+  },
+  "roadmap.item.future2": {
+    "message": "@easylayer/ton-crawler"
+  },
+  "roadmap.item.future3": {
+    "message": "@easylayer/tron-crawler"
+  },
+  "faq.q0.question": {
+    "message": "Що таке EasyLayer і чим він відрізняється від The Graph або SQD?"
+  },
+  "faq.q0.answer": {
+    "message": "EasyLayer — це фреймворк для побудови real-time сервісів стану блокчейну. Ти визначаєш які on-chain дані відстежувати, а фреймворк підтримує цей стан живим і консистентним на кожному новому блоці з автоматичною обробкою реорганізацій. Він також self-hosted: сервіс працює на твоїй інфраструктурі, твої дані нікуди не залишають твоїх серверів. Open-source Write Model обробляє real-time стан, моніторинг мемпулу та Event Sourcing. Для команд що потребують зберігати великі датасети як вся історія ланцюга або всі адреси, enterprise Read Model будує SQL або S3 проекції поверх того самого потоку подій без обмежень по розміру. The Graph і SQD — хмарні платформи для запитів до публічних протоколів через GraphQL. EasyLayer відрізняється за фокусом: підтримка real-time стану з автоматичною обробкою реоргів, self-hosted, нативна підтримка Bitcoin і EVM."
+  },
+  "faq.q00.question": {
+    "message": "Що означає «blockchain state service» на практиці?"
+  },
+  "faq.q00.answer": {
+    "message": "Ти кажеш фреймворку які on-chain дані важливі для твого застосунку: баланси гаманців, події контрактів, UTXO, статистика комісій. Він читає кожен блок, оновлює цей стан у реальному часі та підтримує його консистентним через реорганізації автоматично. Твій застосунок запитує поточний стан або підписується на live-оновлення через HTTP, WebSocket або IPC."
+  },
+  "faq.q_browser.question": {
+    "message": "Чи можна використовувати EasyLayer у браузері або desktop-застосунку?"
+  },
+  "faq.q_browser.answer": {
+    "message": "Так. Фреймворк постачається з browser-safe збірками, що використовують IndexedDB (через sql.js) як EventStore. Використовуй у Electron desktop-застосунках, браузерних розширеннях або браузерних SPA. IPC транспорт підтримує Node.js мікросервісні архітектури. HTTP та WebSocket транспорти працюють всюди."
   }
 }

@@ -7,21 +7,44 @@ import HeroHeadline from './HeroHeadline';
 import HeroCTAButtons from './HeroCTAButtons';
 import HeroCodeBlock from './HeroCodeBlock';
 
+const chains = [
+  'Nodejs',
+  'Bitcoin',
+  'Ethereum',
+  'BNB Chain',
+  'Polygon',
+  'Arbitrum',
+  'Optimism',
+  'Dogecoin',
+  'Litecoin',
+  'Bitcoin Cash',
+  // '+ more',
+];
+
+const ChainBadges: FC = () => (
+  <div className="flex flex-wrap gap-2">
+    {chains.map((name) => (
+      <span
+        key={name}
+        className="rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-xs font-medium text-neutral-500"
+      >
+        {name}
+      </span>
+    ))}
+  </div>
+);
+
 const Hero: FC = () => (
   <SectionContainer className="pb-5 pt-24">
     <div className="lg:grid lg:grid-cols-12 lg:gap-16">
       <div className="z-10 space-y-12 lg:col-span-6">
         <HeroHeadline />
         <HeroCTAButtons />
-        <div className="flex flex-col gap-4">
-          <small className="text-xs text-neutral-500 dark:text-neutral-400">
-            {translate({ id: 'hero.worksOn', message: 'Works on' })}
+        <div className="flex flex-col gap-3">
+          <small className="text-xs text-neutral-500">
+            {translate({ id: 'hero.worksOn', message: 'Works on/with' })}
           </small>
-          <div className="flex">
-            <img className="h-8 pr-5 md:h-10 md:pr-10" src="img/lending/nodejs-logo.svg" alt="Node.js" loading="lazy" />
-            <img className="h-8 pr-5 md:h-10 md:pr-10" src="img/lending/bitcoin.svg" alt="Bitcoin" loading="lazy" />
-            <img className="h-8 pr-5 md:h-10 md:pr-10" src="img/lending/ethereum.svg" alt="Ethereum" loading="lazy" />
-          </div>
+          <ChainBadges />
         </div>
       </div>
       <div className="mt-16 flex flex-col gap-4 lg:col-span-6 lg:mt-0">

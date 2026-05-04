@@ -3,137 +3,152 @@ id: intro
 title: Introduction to EasyLayer
 slug: /
 sidebar_label: Introduction
-description: Learn about EasyLayer's self-hosted blockchain frameworks for developers. Build custom blockchain indexers and parsers with TypeScript-based tools.
-keywords: ['blockchain frameworks', 'self-hosted', 'TypeScript', 'blockchain indexer', 'blockchain parser', 'data indexing', 'event sourcing', 'CQRS', 'Bitcoin', 'real-time blockchain data']
+description: EasyLayer is a self-hosted framework for building blockchain state services. Define what on-chain state to track, point at a node, and get a running service with Event Sourcing, automatic reorg handling, and built-in transports.
+keywords: ['blockchain state service', 'self-hosted blockchain framework', 'TypeScript', 'event sourcing', 'CQRS', 'bitcoin indexer', 'ethereum indexer', 'blockchain data', 'real-time blockchain', 'no recurring fees']
 image: /img/el_twitter_default.png
 ---
 
-Welcome to EasyLayer, a suite of **self-hosted blockchain frameworks** built with [TypeScript](https://www.typescriptlang.org) and powered by [Node.js](https://nodejs.org). Our mission is simple: make blockchain data integration so straightforward that developers can focus entirely on their business logic instead of wrestling with complex infrastructure.
+EasyLayer is an open-source, self-hosted framework for building real-time blockchain state services. You define what on-chain data to track. The framework keeps that state live and consistent on every new block, with automatic reorganization handling built in. Your data stays on your infrastructure.
 
-## What We Build
+For large-scale historical datasets where you need to store entire chain history or handle high-volume reads, the enterprise Read Model layer builds on top of the same event stream and projects it into SQL or S3 storage. The open-source Write Model handles real-time state and is the source of truth. The Read Model handles scale.
 
-EasyLayer creates frameworks distributed through npm that let you build custom blockchain indexers and parsers. You install the package, describe what data you need in a model, and deploy on your own infrastructure. We handle the intricate blockchain mechanics—node connections, block processing, reorganizations, and state management.
+## What Makes EasyLayer Different
 
-Currently, our ecosystem includes:
+Most blockchain data tools give you a stream of raw transactions and leave the rest to you. Maintaining consistent state, handling reorgs, serving live data to your application: all your problem. Cloud indexing platforms solve some of this but on their infrastructure, on their terms, with their schema constraints.
 
-- **Blockchain Crawlers**: Frameworks for building custom indexers that monitor and parse blockchain data (Bitcoin, and more coming soon)
-- **Transport SDK**: Client library for easy integration with crawler applications across all transport protocols
+EasyLayer is different in three ways.
 
-Our frameworks use Event Sourcing architecture, storing every state change as an immutable event. This provides complete audit trails, automatic blockchain reorganization handling, and the ability to reconstruct any past state. We support SQLite, PostgreSQL, and IndexedDB as storage backends.
+**Real-time state with automatic reorg handling.** Every new block updates your state immediately. When the chain reorganizes, orphaned block events are rolled back and the correct chain is replayed automatically. Your state is always consistent with the canonical chain, without any reorg code in your application.
 
-## Core Features
+**You define the state, not the platform.** Tell the framework what data matters: wallet balances, contract events, UTXOs, fee statistics, anything. It tracks exactly that. Other tools give you a generic dataset and make you filter it. EasyLayer maintains the precise state your application needs.
 
-### Self-Hosted & Cost-Effective
-Deploy on your infrastructure with complete control. No vendor lock-in, no recurring API fees that scale with usage. Run on lightweight servers (2-4 vCPUs) and save money compared to third-party blockchain APIs.
+**Self-hosted, Bitcoin and EVM natively.** The service runs on your server. Nothing leaves your infrastructure. Both UTXO chains (Bitcoin, BCH, LTC, DOGE) and account-based chains (Ethereum, BSC, Polygon, L2s) are supported with dedicated crawlers built for each model type.
 
-### Custom Data Models
-Define exactly what blockchain data matters to your business using simple TypeScript models. Track specific addresses, monitor transaction fees, or parse scripts—store only what you need, not the entire blockchain. This dramatically reduces storage costs and speeds up queries.
+**Write Model vs Read Model.** The open-source crawler is the Write Model: real-time state, mempool monitoring, Event Sourcing with full history. For teams that need to store enormous datasets (full UTXO set, all on-chain transfers, entire chain history), the enterprise Read Model builds SQL or S3 projections on top of the same event stream and handles high-volume reads without limits. [See Enterprise](/enterprise).
 
-### Real-Time & Historical Data
-Process blockchain data from any block height—genesis block, recent history, or current tip. Crawlers handle both historical backfilling and real-time monitoring seamlessly through the same interface. Add mempool monitoring to track unconfirmed transactions in real-time.
+For a detailed comparison with The Graph, SQD, and blockchain APIs, see [EasyLayer vs Alternatives](/docs/vs-alternatives).
 
-### Minimal Node Requests
-Optimized for cost efficiency: just **2 RPC requests per block** (plus periodic height checks). This means you can use external providers like QuickNode without exceeding free tier limits, or run your own node with minimal load.
+## Available Tools
 
-### Automatic Reorganization Handling
-Blockchain reorgs are handled automatically through Event Sourcing. When a fork occurs, the system rolls back events from orphaned blocks and replays the correct chain. Your data stays consistent without any manual intervention.
+| Package | Status | Networks |
+|---|---|---|
+| `@easylayer/bitcoin-crawler` | Stable beta | Bitcoin, BCH, LTC, DOGE, and Bitcoin-like chains |
+| `@easylayer/evm-crawler` | Released beta | Ethereum, BSC, Polygon, Arbitrum, Optimism, and EVM-compatible chains |
+| `@easylayer/transport-sdk` | Stable | Client SDK for all transports (HTTP, WebSocket, IPC, Electron, Browser) |
 
-### Multiple Transports
-Access your data through various protocols:
-- **HTTP RPC**: Request-response queries
-- **WebSocket**: Real-time event streams and queries
-- **IPC**: Inter-process communication for Node.js applications
-- **Electron**: Desktop application support
-- **Browser**: Limited support for browser extensions
+In development: `@easylayer/solana-crawler`, `@easylayer/ton-crawler`, `@easylayer/tron-crawler`.
 
-All transports use the same message format and APIs—switch between them without code changes.
+## How It Works
 
-### Cross-Platform Support
-Works on servers, desktop applications, and browsers:
-- **Server**: Production deployments with PostgreSQL
-- **Desktop**: Offline-capable applications with SQLite
-- **Browser**: Extensions and privacy-focused apps with IndexedDB
+### 1. Install
 
-### Event Sourcing Architecture
-Every state change is stored as an event, providing:
-- Complete audit trails (perfect for fintech, gaming, compliance)
-- Full history of all state changes
-- Ability to query state at any past block height
-- Automatic rollback and replay during reorganizations
-- Scalable architecture with CQRS pattern
+```bash
+npm install @easylayer/bitcoin-crawler
+# or for EVM chains:
+npm install @easylayer/evm-crawler
+```
 
-## Network Support
+### 2. Define your State Model
 
-**Currently available:**
-- **Bitcoin Crawler**: Bitcoin and Bitcoin-like networks (Bitcoin Cash, Litecoin, Dogecoin, and forks)
+The model describes what blockchain state your service maintains. You write it; the framework calls it per block.
 
-**Coming soon:**
-- EVM-compatible chains crawler
-- Solana crawler
-- TON crawler
+```ts
+// Declarative style
+export const WalletTrackerModel = {
+  modelId: 'wallet-tracker',
+  state: { balances: new Map<string, bigint>() },
+  sources: {
+    async vout(ctx) {
+      return { address: ctx.vout.scriptPubKey.addresses?.[0], value: ctx.vout.value };
+    },
+    async block(ctx) {
+      ctx.applyEvent('Deposit', ctx.block.height, { outputs: ctx.locals.vout });
+    },
+  },
+  reducers: {
+    Deposit(state, event) {
+      for (const { address, value } of event.payload.outputs ?? []) {
+        state.balances.set(address, (state.balances.get(address) ?? 0n) + BigInt(value));
+      }
+    },
+  },
+};
+```
 
-Need a specific network prioritized? [Contact our team](https://github.com/easylayer/easylayer/discussions).
+### 3. Configure and run
 
-## Architecture & Technology
+```bash
+PROVIDER_NETWORK_RPC_URLS=http://user:pass@your-node:8332
+START_BLOCK_HEIGHT=840000
+EVENTSTORE_DB_TYPE=sqlite
+TRANSPORT_HTTP_PORT=3000
+```
 
-Our frameworks utilize modern architectural patterns:
+```ts
+import { bootstrap } from '@easylayer/bitcoin-crawler';
+bootstrap({ Models: [WalletTrackerModel] });
+```
 
-- **Event Sourcing**: Complete audit trail and state reconstruction capabilities
-- **Command Query Responsibility Segregation (CQRS)**: Separate write and read operations for optimal performance
-- **Domain-Driven Design (DDD)**: Business logic organization that scales with complexity
+### 4. Query from your application
 
-This foundation ensures solutions are maintainable, testable, and extensible for enterprise use. The "write side" (parsing and indexing) is built into crawlers. For high-load scenarios, you can build custom "read side" with optimized projections.
+```ts
+import { Client } from '@easylayer/transport-sdk';
 
-## Getting Started
+const client = new Client({ transport: { type: 'http', query: { baseUrl: 'http://localhost:3000' } } });
+const result = await client.query('GetModelsQuery', { modelIds: ['wallet-tracker'] });
+```
 
-Ready to build your blockchain indexer? Check out our [tools documentation](/docs/get-started) to choose the right framework for your needs and start building.
+## Core Concepts
 
-## Use Cases
+### State Model
+The State Model is the code you write. It defines what on-chain data to maintain (balances, UTXOs, contract events, anything your app needs), what changes to record when a block arrives, and how those changes update your state. The framework provides both class-based and declarative APIs.
 
-**Who uses EasyLayer?**
+See [State Models](/docs/data-modeling) for the full API.
 
-- **Payment processors**: Track Bitcoin payments, monitor confirmations, process deposits
-- **Wallets**: Sync transaction history, track balances and UTXOs
-- **Exchanges**: Process deposits/withdrawals with complete audit trails
-- **Gaming platforms**: Monitor blockchain-based payments with provable fairness
-- **Analytics platforms**: Build custom explorers, fee analyzers, UTXO trackers
-- **Compliance teams**: Maintain complete audit trails for regulatory requirements
-- **DeFi protocols**: Index smart contract events (coming with EVM crawler)
+### EventStore
+Every state change is stored as an immutable event — this is Event Sourcing. The EventStore is built into the crawler and supports:
+
+- **SQLite** — development, small projects, desktop apps
+- **PostgreSQL** — production, large datasets
+- **IndexedDB** — browser extensions, Electron apps
+
+Because state is reconstructed from events, you can query your model at any historical block height, and reorganizations are handled automatically: orphaned block events are rolled back, the correct chain is replayed.
+
+See [Event Store & Databases](/docs/event-store).
+
+### Transport Layer
+Five built-in transports expose your data to client applications:
+
+- **HTTP RPC** — request/response queries
+- **WebSocket** — real-time event streams
+- **IPC Parent/Child** — Node.js process communication
+- **Electron IPC** — desktop applications
+- **Browser (SharedWorker)** — browser extensions and SPAs
+
+All use the same message format. Switch transports without changing your application code.
+
+See [Transport Layer & SDK](/docs/transport-layer).
+
+### Write Model vs Read Model
+
+The crawler is the **Write Model**: the source of truth for real-time state. It handles live block processing, mempool monitoring, Event Sourcing with full history, and serves data through transport APIs. This is the open-source layer, free to use.
+
+The **Enterprise Read Model** builds on top of the same event stream for teams that need to store and query very large datasets: full chain history, all wallet addresses, high-volume concurrent reads. It projects events into SQL or S3 storage and scales independently of the Write Model. [Contact us](/enterprise).
+
+## Key Features
+
+- **Self-hosted** — your servers, your data, no vendor lock-in
+- **Zero recurring fees** — a 2-4 vCPU server + QuickNode free tier is enough for most use cases
+- **Historical queries** — query model state at any block height (Event Sourcing)
+- **Automatic reorg handling** — orphaned events rolled back and replayed, any length reorg
+- **Mempool monitoring** — optional real-time unconfirmed transaction tracking
+- **Cross-platform** — Node.js server, Electron desktop, browser extensions with IndexedDB
+- **Bitcoin and EVM** — native support for both UTXO and account-based chains
 
 ## Community
 
-EasyLayer is an open-source project built on transparency and collaboration. Join our growing community:
+- **[GitHub Discussions](https://github.com/easylayer/core/discussions)** — questions, ideas, show & tell
+- **[Blog](/blog)** — releases, tutorials, comparisons
+- **[Twitter](https://twitter.com/easylayer_io)** — updates
 
-- **GitHub Discussions**: Share ideas and get help in our [forum](https://github.com/easylayer/easylayer/discussions)
-- **Blog**: Stay updated with developments on our [blog](https://easylayer.io/blog)
-- **Twitter**: Follow [@easylayer](https://twitter.com/easylayer) for updates
-
-## Support
-
-**Community Support (Free):**
-- GitHub Discussions for questions and issues
-- Open-source documentation and examples
-- Community-driven troubleshooting
-
-**Enterprise Support (Paid):**
-- Priority assistance and direct expert access
-- Custom read-side solutions for high-load scenarios
-- Custom network implementations
-- Architecture consulting
-
-This model sustains the project while ensuring the community always has access to free, high-quality tools.
-
-## Philosophy
-
-EasyLayer is built on three foundational principles:
-
-### Simplicity
-Blockchain data should be accessible to all developers, not just cryptography experts. By abstracting complex mechanisms behind simple model definitions, we enable developers to build solutions in minutes instead of months.
-
-### Cost-Efficiency
-Why pay recurring API fees or maintain expensive infrastructure? Self-hosted frameworks with minimal node requests mean you can run production indexers on small servers or free provider tiers.
-
-### Flexibility
-Every business has unique needs. Our framework approach—where you define only the data model—ensures you can build exactly what you need without unnecessary complexity or storage overhead.
-
-By combining these principles with proven architectural patterns (Event Sourcing, CQRS) and modern technology, EasyLayer empowers developers to build blockchain applications with confidence and speed.
+EasyLayer is open source. The framework is free. [Enterprise services](/enterprise) exist for teams that need managed infrastructure or high-load read models.

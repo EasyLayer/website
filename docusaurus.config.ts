@@ -159,12 +159,16 @@ const config: Config = {
   },
 
   themeConfig: {
+    colorMode: {
+      disableSwitch: true,
+      defaultMode: 'light',
+    },
     announcementBar: {
-      id: 'announcement-bar-id',
+      id: 'evm-crawler-released-2025',
       content:
-        '<strong>Bitcoin Crawler beta is here!</strong> 🚀 ' +
-        `<a href="${BLOG_URLS.BASE}/welcome-bitcoin-crawler-beta-app" target="_blank" rel="noopener" ` +
-        'style="text-decoration: underline; font-weight: bold;">See how it works →</a>',
+        '<strong>EVM Crawler is now available!</strong> 🚀 ' +
+        `<a href="${BLOG_URLS.BASE}/introducing-evm-crawler" target="_blank" rel="noopener" ` +
+        'style="text-decoration: underline; font-weight: bold;">See what\'s new →</a>',
       backgroundColor: '#22d3ee',
       textColor: '#ffffff',
       isCloseable: false,
@@ -200,11 +204,11 @@ const config: Config = {
           className: 'navbar-item-github',
           position: 'right',
         },
-        {
-          href: SOCIAL_URLS.TWITTER,
-          className: 'navbar-item-twitter',
-          position: 'right',
-        },
+        // {
+        //   href: SOCIAL_URLS.TWITTER,
+        //   className: 'navbar-item-twitter',
+        //   position: 'right',
+        // },
         { 
           type: 'custom-smartLocaleDropdown', 
           position: 'right',
@@ -248,10 +252,10 @@ const config: Config = {
               label: 'Discussion',
               href: SOCIAL_URLS.DISCUSSIONS,
             },
-            {
-              label: 'Twitter',
-              href: SOCIAL_URLS.TWITTER,
-            },
+            // {
+            //   label: 'Twitter',
+            //   href: SOCIAL_URLS.TWITTER,
+            // },
             {
               label: 'GitHub',
               href: SOCIAL_URLS.GITHUB,

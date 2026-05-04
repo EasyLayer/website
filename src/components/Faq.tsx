@@ -18,74 +18,95 @@ interface FAQItem {
 
 const FAQS: FAQItem[] = [
   {
+    questionId: 'faq.q0.question',
+    questionFallback: 'What is EasyLayer and how is it different from The Graph or SQD?',
+    answerId: 'faq.q0.answer',
+    answerFallback:
+      'EasyLayer is a framework for building real-time blockchain state services. You define what on-chain data to track, and the framework keeps that state live and consistent on every new block, with automatic reorganization handling built in. It is also self-hosted: the service runs on your infrastructure, your data never leaves your servers. The open-source Write Model handles real-time state, mempool monitoring, and Event Sourcing with full history. For teams that need to store very large datasets like entire chain history or all wallet addresses, the enterprise Read Model builds SQL or S3 projections on top of the same event stream with no size limits. The Graph and SQD are cloud indexing platforms focused on querying public protocol data through a GraphQL schema. EasyLayer is different in focus: real-time state maintenance with automatic reorg handling, self-hosted, and working with both Bitcoin and EVM chains natively.',
+  },
+  {
+    questionId: 'faq.q00.question',
+    questionFallback: 'What does "blockchain state service" mean in practice?',
+    answerId: 'faq.q00.answer',
+    answerFallback:
+      'You tell the framework what on-chain data matters to your application: wallet balances, contract events, UTXOs, fee statistics, anything. It reads every block, updates that state in real time, and keeps it consistent through chain reorganizations automatically. Your application queries the current state or subscribes to live updates over HTTP, WebSocket, or IPC. No polling, no stale data, no manual reorg handling.',
+  },
+  {
     questionId: 'faq.q1.question',
     questionFallback: 'What blockchains are supported?',
     answerId: 'faq.q1.answer',
     answerFallback:
-      "Currently Bitcoin Crawler supports Bitcoin and Bitcoin-like networks (Bitcoin Cash, Litecoin, Dogecoin). We're actively developing crawlers for EVM-compatible chains, Solana, and TON. Need a specific network? Contact us — we prioritize based on demand.",
+      'Bitcoin Crawler supports Bitcoin and Bitcoin-compatible networks: Bitcoin Cash, Litecoin, Dogecoin, and others. EVM Crawler supports Ethereum and EVM-compatible networks: BSC, Polygon, Arbitrum, Optimism, and other L2s. Solana, TON, and Tron crawlers are in development. Need a specific network? Open a discussion on GitHub.',
+  },
+  {
+    questionId: 'faq.q4.question',
+    questionFallback: 'How does reorganization handling work?',
+    answerId: 'faq.q4.answer',
+    answerFallback:
+      'Reorgs are handled automatically through Event Sourcing. Every state change is stored as an immutable event with its block height. When a reorg occurs, the framework rolls back events from orphaned blocks in reverse order and replays the correct chain. Your state is consistent again without any code from you, regardless of how long the reorg is.',
+  },
+  {
+    questionId: 'faq.q6.question',
+    questionFallback: 'Can I query state at a past block height?',
+    answerId: 'faq.q6.answer',
+    answerFallback:
+      'Yes. Because every change is stored as an ordered event log, you can reconstruct what the state looked like at any block in the past. Query balances as they were at block 850000, replay events from any point, or build audit trails for compliance. This is part of the core architecture, not an add-on.',
   },
   {
     questionId: 'faq.q2.question',
     questionFallback: 'Do I need to run my own blockchain node?',
     answerId: 'faq.q2.answer',
     answerFallback:
-      'No. Bitcoin Crawler makes just 2 RPC requests per block, so you can use external providers like QuickNode without exceeding free tiers. Running your own node is optional and only recommended for very high-volume operations or specific privacy requirements.',
+      'No. Bitcoin Crawler uses 2 RPC calls per block, so free tiers on providers like QuickNode cover most use cases. Running your own node is optional and only worth it at very high volumes or for specific privacy requirements.',
   },
   {
     questionId: 'faq.q3.question',
     questionFallback: 'How much does it cost to run?',
     answerId: 'faq.q3.answer',
     answerFallback:
-      'A lightweight server with 2-4 virtual CPUs is enough for most use cases. With our minimal request design (2 per block), external provider costs are negligible — often free. No monthly API subscriptions, no expensive infrastructure. You control the costs.',
-  },
-  {
-    questionId: 'faq.q4.question',
-    questionFallback: 'How do blockchain reorganizations work?',
-    answerId: 'faq.q4.answer',
-    answerFallback:
-      'Automatically handled under the hood using Event Sourcing. When a reorg happens, the system rolls back events from orphaned blocks and replays the correct chain. Your state updates automatically — no manual intervention needed.',
+      'A 2-4 vCPU server covers most production workloads. With the minimal RPC design, external provider costs are often zero on free tiers. Total cost for a typical deployment runs from free up to around $20 per month for server and provider combined.',
   },
   {
     questionId: 'faq.q5.question',
-    questionFallback: 'What data can I track with custom models?',
+    questionFallback: 'What data can I track?',
     answerId: 'faq.q5.answer',
     answerFallback:
-      'Anything you need: wallet balances, UTXOs, transaction fees, specific addresses, payment monitoring, mempool activity. You describe what matters in your model — framework handles parsing, storage, and indexing.',
+      'Anything on-chain: wallet balances, UTXOs, transaction fees, specific address activity, contract events, token transfers, mempool state. You define the state shape in your model. The framework handles fetching, parsing, storage, and keeping it current.',
   },
   {
-    questionId: 'faq.q6.question',
-    questionFallback: 'Can I query historical data at specific block heights?',
-    answerId: 'faq.q6.answer',
+    questionId: 'faq.q_browser.question',
+    questionFallback: 'Can I use EasyLayer in a browser or desktop app?',
+    answerId: 'faq.q_browser.answer',
     answerFallback:
-      'Yes. Event Sourcing gives you complete history. Query any model state at any block height — see balances as they were at block 850000, replay events from any point, maintain complete audit trails for compliance.',
-  },
-  {
-    questionId: 'faq.q7.question',
-    questionFallback: 'How do I access the data from my application?',
-    answerId: 'faq.q7.answer',
-    answerFallback:
-      'Built-in Transport APIs work out of the box: HTTP for simple queries, WebSocket for real-time event streams, IPC for Node.js microservices. Use @easylayer/transport-sdk for easy client integration.',
+      'Yes. The framework ships browser-safe bundles with IndexedDB as the storage backend. You can run a full blockchain state service inside an Electron desktop app or a browser extension with no server required.',
   },
   {
     questionId: 'faq.q8.question',
     questionFallback: 'What about mempool monitoring?',
     answerId: 'faq.q8.answer',
     answerFallback:
-      'Mempool monitoring is optional (disabled by default). Enable it to track unconfirmed transactions, detect pending payments, analyze fee markets, or spot double-spend attempts.',
+      'Mempool monitoring is optional and disabled by default. Enable it to track unconfirmed transactions in real time before they land in blocks. Useful for payment detection, fee market analysis, or double-spend monitoring.',
+  },
+  {
+    questionId: 'faq.q7.question',
+    questionFallback: 'How does my application read the data?',
+    answerId: 'faq.q7.answer',
+    answerFallback:
+      'Five built-in transports: HTTP for queries, WebSocket for real-time event streams, IPC for Node.js process communication, Electron IPC for desktop apps, and SharedWorker for browser environments. Use @easylayer/transport-sdk for a unified client API across all of them.',
   },
   {
     questionId: 'faq.q9.question',
-    questionFallback: 'Which database should I use — SQLite or PostgreSQL?',
+    questionFallback: 'Which database should I use?',
     answerId: 'faq.q9.answer',
     answerFallback:
-      'SQLite for development, testing, and small projects (< 1M events). PostgreSQL for production and larger datasets. IndexedDB available for browser environments. Framework manages schema automatically.',
+      'SQLite for development and small projects. PostgreSQL for production and larger datasets. IndexedDB for browser and Electron environments. The framework manages the schema automatically in all cases.',
   },
   {
     questionId: 'faq.q10.question',
-    questionFallback: 'Is this suitable for production applications?',
+    questionFallback: 'Is this ready for production?',
     answerId: 'faq.q10.answer',
     answerFallback:
-      'Absolutely. Event Sourcing provides complete audit trails, automatic reorg handling ensures data consistency, and self-hosted deployment gives you full control. Already used by payment processors, wallets, and analytics platforms.',
+      'Both Bitcoin Crawler and EVM Crawler are in stable beta. The automatic reorg handling and Event Sourcing architecture are core to the design, not afterthoughts. If you run into issues, bring them to GitHub Discussions.',
   },
 ];
 

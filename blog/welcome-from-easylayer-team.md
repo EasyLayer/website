@@ -1,98 +1,56 @@
 ---
-title: Welcome from EasyLayer team
+title: "Welcome to EasyLayer: Blockchain State That Lives on Your Server"
 authors: [yarikp]
-tags: [blockchain, web3, easylayer, welcome, indexing, framework]
+tags: [blockchain, easylayer, welcome, self-hosted, open-source]
 date: 2025-03-15T10:30:00Z
-description: Welcome to EasyLayer - a self-hosted blockchain framework that makes reading blockchain data as simple as building a regular backend. No infrastructure headaches, no expensive APIs.
-keywords: ['EasyLayer', 'blockchain framework', 'self-hosted', 'blockchain data', 'real-time indexing', 'event sourcing', 'developer tools', 'cost-effective']
+description: EasyLayer is an open-source framework for building self-hosted blockchain state services. Your data, your server, no recurring fees. Here is why we built it and what is available now.
+keywords: ['EasyLayer', 'blockchain state service', 'self-hosted blockchain', 'open source blockchain', 'bitcoin state', 'ethereum state', 'blockchain developer tools']
 image: /img/blog/main-default-img.png
 ---
 
-Welcome to EasyLayer! We're excited to introduce you to a framework that changes how you work with blockchain data. But first, let's answer the main question.
-
-## What is EasyLayer?
-
-EasyLayer is a **framework for building self-hosted blockchain data indexers**. Think of it like building a regular Node.js backend, but for parsing and monitoring blockchain data.
-
-Here's how it works:
-- You install our package (like [@easylayer/bitcoin-crawler](https://www.npmjs.com/package/@easylayer/bitcoin-crawler))
-- You describe **what data you need** from the blockchain using a simple model
-- You run your Node.js project
-- That's it. Everything else works under the hood.
-
-No need to store the entire blockchain. No need to build complex infrastructure. Just describe your data model in the format our framework provides, and we handle the parsing, indexing, and storage.
+Blockchain data should be as easy to work with as any other backend data store. In 2025, it still is not. This post explains what EasyLayer is, why it exists, and what is available today.
 
 <!--truncate-->
 
-Why is this a framework? Because you only write the model - your business logic about what data matters. We've already built everything under the hood: connections to nodes, block processing, data storage (SQLite, PostgreSQL, or IndexedDB out of the box), APIs, real-time updates, and more. You handle the deployment yourself, but all the heavy lifting is done.
+## The Problem
 
-## Why Should Your Business Care?
+When a developer needs live blockchain data in their application, they face a short list of options that all come with significant trade-offs.
 
-Let's talk money and resources. Every business working with blockchain faces the same problems:
+Third-party blockchain APIs are fast to set up. They are also expensive at scale, opaque about their infrastructure, and put your data under someone else's control. When an API goes down, your product goes down with it. When pricing changes, your unit economics change with it.
 
-**Problem 1: Expensive API services**  
-Third-party blockchain APIs charge you for every request. Scale up your app, and costs skyrocket. Plus, your data lives on someone else's servers.
+Running a full node solves the control problem. It creates a different one: months of engineering to build sync infrastructure, reorg handling, storage management, and query APIs before you have written a single line of product logic.
 
-**Problem 2: Building custom solutions**  
-Hiring a team to build blockchain infrastructure? That's months of development, ongoing maintenance, and specialized developers who don't come cheap.
+Cloud indexing services like The Graph occupy a middle ground. They work well for querying public protocol data from well-known smart contracts. They are not built for Bitcoin. They are not built for custom state logic. And your data still lives on their infrastructure.
 
-**Problem 3: Complex and expensive infrastructure**  
-Building your own indexing solution means setting up nodes, synchronization logic and dealing with blockchain-specific challenges. It's complex and costly.
+## What EasyLayer Is
 
-**EasyLayer solves all three:**
-- **Self-hosted** = your servers, your data, no recurring API fees
-- **Framework approach** = small team, fast development, works like regular backend
-- **Smart indexing** = only stores data you actually need, efficient node communication
+EasyLayer is a framework for building real-time blockchain state services. You define what on-chain data to track. The framework keeps that state live and consistent on every new block, with automatic reorganization handling built in. It is also self-hosted: the service runs on your server, your data stays on your infrastructure.
 
-One virtual server with 2-3 CPUs is enough. Your database (SQLite, PostgreSQL, or IndexedDB for browser) stays with you. Your data stays secure and private.
+The core idea: you tell the framework what matters to your application. Wallet balances, contract events, UTXOs, fee statistics, anything. It reads every block from the connected node, updates your state, and keeps it consistent through chain reorgs without any intervention from you. State changes are stored as an immutable event log, so you can also query what the state looked like at any past block height.
 
-## Who Needs This?
+Your application reads the live state over HTTP, WebSocket, IPC, or a browser transport. The same framework works in server applications, Node.js microservices, Electron desktop apps, and browser extensions.
 
-Do you need blockchain data in your business? Specifically - transactions, smart contract events, token transfers, balance changes, or any other on-chain activity? Then you need EasyLayer.
+**Write Model and Read Model.** The open-source crawler is the Write Model: real-time state, mempool monitoring, Event Sourcing. For teams that need to store large datasets like full chain history or all on-chain addresses, the enterprise Read Model builds SQL or S3 projections on top of the same event stream and handles unlimited data volume. Most developers start with the Write Model and only reach for the Read Model when their dataset grows beyond what fits comfortably in process memory.
 
-- **Fintech companies**: Track payments, maintain transaction history, comply with regulations
-- **Gaming platforms**: Monitor deposits, withdrawals, verify fairness with full event history  
-- **DeFi platforms**: Index smart contract events, track token movements, analyze liquidity
-- **Exchanges and wallets**: Sync blockchain state, monitor transactions, process confirmations
-- **Analytics companies**: Build custom blockchain explorers and data dashboards
-- **Compliance teams**: Maintain complete audit trails with Event Sourcing
+## What Is Available
 
-If you're currently paying for blockchain APIs or considering building custom infrastructure, EasyLayer is your answer.
+**@easylayer/bitcoin-crawler** tracks state on Bitcoin and Bitcoin-compatible chains: BTC, BCH, LTC, DOGE, and others. It includes mempool monitoring for real-time unconfirmed transaction tracking.
 
-## Our Mission
+**@easylayer/evm-crawler** does the same for Ethereum and EVM-compatible chains: Ethereum mainnet, BSC, Polygon, Arbitrum, Optimism, Base, and any other EVM chain. It supports logs, receipts, and traces.
 
-Blockchain technology shouldn't require a team of specialists. Integration shouldn't take months. Costs shouldn't scale exponentially.
+**@easylayer/transport-sdk** is the client library for connecting your application to either crawler. It provides a single API over HTTP, WebSocket, IPC, and Electron transports.
 
-We believe blockchain data should be accessible to any development team. You shouldn't need to choose between expensive API services and building everything from scratch.
+All three packages are in public beta on npm. The core framework is open source and will remain free.
 
-Our mission is simple: **remove the barriers** between developers and blockchain data. Make it as straightforward as working with any other database or API in your stack.
+## The Business Model
 
-The blockchain revolution isn't just for crypto companies. It's for every business ready to build transparent, auditable, decentralized applications. But the technology barrier is real. We're here to remove it.
+The open-source framework is the complete product. You can build production applications with it at no cost.
 
-Think about it: why should reading transaction data be harder than querying PostgreSQL? Why should you store terabytes of irrelevant blockchain data? Why should you pay monthly fees for data you could host yourself?
+For teams that need managed infrastructure, SQL read models for high-volume query workloads, or direct engineering support, we offer enterprise services. The open-source community gets working tools. Companies that need more pay for that layer.
 
-You shouldn't. That's why we built EasyLayer.
+## Come Help Test
 
-## What's Next?
+The tools are built. What I need now is developers using them on real projects to find what breaks, what is confusing, and what is missing.
 
-Ready to try it yourself? Here's where to start:
-
-- **Read the [documentation](/docs)**: Step-by-step guides to build your first blockchain indexer in minutes
-
-We're continuously expanding:
-- Multi-chain support (Bitcoin-like, EVM-like, Solana, TON)
-- Performance optimizations  
-- More transport options
-- Enhanced monitoring tools
-
-## Join Our Community
-
-We're building this in the open. Join developers who are already simplifying their blockchain infrastructure:
-
-- Join the conversation in our [GitHub discussions](https://github.com/easylayer/easylayer/discussions)
-- Contribute to our [open-source development](https://github.com/easylayer)
-- Follow us on [Twitter](https://twitter.com/easylayer) for updates, insights, and the occasional blockchain meme
-
-Whether you're a CTO evaluating blockchain solutions, a developer tired of complex infrastructure, or a business owner exploring Web3 - there's a place for you here.
-
-Welcome to EasyLayer. Where blockchain complexity comes to die, and business innovation comes to life.
+If you are building anything that needs blockchain data, come to [GitHub Discussions](https://github.com/easylayer/core/discussions). Tell me what you are working on. I will help you get it running.
+"

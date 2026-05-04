@@ -1,5 +1,5 @@
 ---
-title: Different Ways to Start NestJS Applications - A Simple Guide
+title: "Different Ways to Start NestJS Applications - A Simple Guide"
 authors: [yarikp]
 tags: [nestjs, http, websocket, microservices, tcp, context, launch modes, typescript, backend, development, easylayer]
 date: 2024-03-20T10:30:00Z

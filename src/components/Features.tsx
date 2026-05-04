@@ -93,7 +93,7 @@ const FEATURES: Omit<FeatureProps, 'learnMoreId' | 'learnMoreFallback'>[] = [
     titleFallback: 'Custom Data Models',
     descriptionId: 'features.customModels.description',
     descriptionFallback:
-      'Describe what blockchain data you need—wallet balances, fees, specific addresses. Store only relevant data, not the entire blockchain. Simple declarative or class-based syntax.',
+      'Tell the framework what on-chain state to track: wallet balances, contract events, UTXOs, anything your app needs. It reads every block, updates your state in real time, and handles chain reorgs automatically. You control the data structure and the server.',
     url: '/docs/data-modeling',
     ariaId: 'features.customModels.aria',
     ariaFallback: 'Learn more about Custom Data Models',
@@ -104,7 +104,7 @@ const FEATURES: Omit<FeatureProps, 'learnMoreId' | 'learnMoreFallback'>[] = [
     titleFallback: 'Network Providers',
     descriptionId: 'features.networkProviders.description',
     descriptionFallback:
-      'Just 2 RPC requests per block for Bitcoin. Connect to your node or external providers like QuickNode. Multiple strategies: RPC pulling, P2P, ZMQ subscriptions with automatic failover.',
+      'Connect Bitcoin or EVM nodes via JSON-RPC, WebSocket, P2P, or ZMQ. Use QuickNode, Alchemy, or your own node. Just 2 RPC calls per Bitcoin block. Automatic failover between providers. Historical sync + real-time mode.',
     url: '/docs/network-providers',
     ariaId: 'features.networkProviders.aria',
     ariaFallback: 'Learn more about Network Providers',
@@ -115,7 +115,7 @@ const FEATURES: Omit<FeatureProps, 'learnMoreId' | 'learnMoreFallback'>[] = [
     titleFallback: 'Mempool Monitoring',
     descriptionId: 'features.mempool.description',
     descriptionFallback:
-      'Track unconfirmed transactions in real time before they hit blocks. Built-in mempool model or integrate into custom models. Essential for payment processors and wallets.',
+      'Track unconfirmed transactions in real time before they hit blocks. Optional for Bitcoin and EVM crawlers. Essential for payment processors, wallets, and fee market analysis.',
     url: '/docs/mempool-monitoring',
     ariaId: 'features.mempool.aria',
     ariaFallback: 'Learn more about Mempool Monitoring',
@@ -126,7 +126,7 @@ const FEATURES: Omit<FeatureProps, 'learnMoreId' | 'learnMoreFallback'>[] = [
     titleFallback: 'API & Transports',
     descriptionId: 'features.transports.description',
     descriptionFallback:
-      'Built-in APIs over HTTP, WebSocket, IPC, Electron, and browser. Real-time event streams and request–response queries. Use the Transport SDK for easy client integration.',
+      'Five built-in transports: HTTP, WebSocket, IPC (parent/child), Electron, and Browser. Real-time event streams and request–response queries. Use @easylayer/transport-sdk for a unified client API across all of them.',
     url: '/docs/transport-layer',
     ariaId: 'features.transports.aria',
     ariaFallback: 'Learn more about API & Transports',
@@ -137,7 +137,7 @@ const FEATURES: Omit<FeatureProps, 'learnMoreId' | 'learnMoreFallback'>[] = [
     titleFallback: 'Event Store & Databases',
     descriptionId: 'features.eventStore.description',
     descriptionFallback:
-      'Event Sourcing with automatic reorg handling. Choose SQLite for development, PostgreSQL for production, or IndexedDB for browser. Your infra, your data, auto-managed schema.',
+      'Event Sourcing out of the box: every state change is an immutable event. Query model state at any block height. Choose SQLite (dev/desktop), PostgreSQL (production), or IndexedDB (browser). Schema managed automatically.',
     url: '/docs/event-store',
     ariaId: 'features.eventStore.aria',
     ariaFallback: 'Learn more about Event Store & Databases',
@@ -148,7 +148,7 @@ const FEATURES: Omit<FeatureProps, 'learnMoreId' | 'learnMoreFallback'>[] = [
     titleFallback: 'System Models',
     descriptionId: 'features.systemModels.description',
     descriptionFallback:
-      'Built-in models for chain validation and mempool monitoring work out of the box. Subscribe to their events immediately. Network integrity checks with Merkle proofs (configurable).',
+      'Built-in chain validation and mempool models work out of the box — subscribe to their events immediately. Automatic reorg detection and rollback regardless of reorg length. Network integrity checks configurable per deployment.',
     url: '/docs/system-models',
     ariaId: 'features.systemModels.aria',
     ariaFallback: 'Learn more about System Models',

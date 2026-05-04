@@ -108,7 +108,7 @@ const Nav: FC = () => {
                   </button>
                 </Link>
                 <SocialIcon Icon={GitHubIcon} url={SOCIAL_URLS.GITHUB} />
-                <SocialIcon Icon={TwitterIcon} url={SOCIAL_URLS.TWITTER} />
+                {/* <SocialIcon Icon={TwitterIcon} url={SOCIAL_URLS.TWITTER} /> */}
                 <LocaleSwitcher />
               </div>
             </div>
@@ -147,7 +147,7 @@ const Nav: FC = () => {
                 {[
                   ...navLinks,
                   { to: SOCIAL_URLS.GITHUB, labelId: 'nav.github', label: '⭐️ GitHub' },
-                  { to: SOCIAL_URLS.TWITTER, labelId: 'nav.twitter', label: '🐦 Twitter' },
+                  // { to: SOCIAL_URLS.TWITTER, labelId: 'nav.twitter', label: '🐦 Twitter' },
                 ].map(({ to, label }) => (
                   <div key={to} className="space-y-1 pb-4 pt-2">
                     <Link to={to}>

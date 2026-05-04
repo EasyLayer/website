@@ -25,6 +25,7 @@ docs_dir="docs"
 repos=(
   "bitcoin-crawler"
   "transport-sdk"
+  "evm-crawler"
 )
 
 git config user.name "github-actions"

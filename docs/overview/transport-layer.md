@@ -1,414 +1,183 @@
 ---
-title: 'Transport Layer & SDK'
-sidebar_label: 'Transport Layer & SDK'
+title: 'Transport Layer and SDK'
+sidebar_label: 'Transport Layer and SDK'
 slug: /transport-layer
-description: Learn about transport protocols in EasyLayer's framework. Access blockchain data through HTTP, WebSocket, IPC, and more with the Transport SDK.
-keywords: ['transport layer', 'HTTP RPC', 'WebSocket', 'IPC', 'transport SDK', 'blockchain API', 'real-time events', 'event streaming']
+description: Access blockchain state via HTTP, WebSocket, IPC, Electron, or Browser transports. Use @easylayer/transport-sdk for a unified client API across all environments.
+keywords: ['transport layer', 'http blockchain api', 'websocket blockchain', 'ipc blockchain', 'electron blockchain', 'browser blockchain', 'transport sdk', 'blockchain query api']
 image: /img/el_twitter_default.png
 ---
 
-# Transport Layer & SDK
+# Transport Layer and SDK
 
-The transport layer handles communication between Bitcoin Crawler and your applications. Access real-time event streams and query data through multiple protocols - all using the same message format and APIs.
+The transport layer is how your application talks to the crawler. EasyLayer ships five built-in transports, and every one of them uses the same query format. Switch transports without changing your application code.
 
 ---
 
-## What is Transport?
-
-Transport is how data flows between the crawler (indexer) and your applications:
-
-**From crawler**:
-- Event streams (real-time state changes)
-- Query responses (current state, historical data)
-- Error messages
-
-**To crawler**:
-- Queries (get model state, fetch events)
-- Subscriptions (subscribe to event streams)
-
-All transports use identical message formats - switch between them without code changes.
-
-## Transport Flow
-
-```
-┌──────────────────────────────────────────────────────────┐
-│                Transport Architecture                     │
-└──────────────────────────────────────────────────────────┘
-
-┌────────────────────┐
-│  Bitcoin Crawler   │
-│                    │
-│  - Models          │
-│  - Event Store     │
-│  - State           │
-└────────────────────┘
-         │
-         ▼
-┌────────────────────┐
-│  Transport Layer   │◄──── Built-in, automatic
-│                    │
-│  - HTTP RPC        │
-│  - WebSocket       │
-│  - IPC             │
-│  - Electron        │
-│  - Browser         │
-└────────────────────┘
-         │
-         ▼
-┌────────────────────┐
-│   Your Client      │
-│   Application      │
-│                    │
-│  - Query data      │
-│  - Subscribe events│
-└────────────────────┘
-```
-
 ## Available Transports
 
-### HTTP RPC
+| Transport | Use case | Parallel queries |
+|---|---|---|
+| **HTTP RPC** | Server apps, serverless, webhooks | No (single-flight) |
+| **WebSocket** | Real-time event streams | No |
+| **IPC Parent** | Your app spawns the crawler as a child process | Yes (correlationId) |
+| **IPC Child** | Crawler spawns your app as a child process | Yes |
+| **Electron IPC** | Desktop app (main process to renderer) | N/A |
+| **SharedWorker** | Browser extension or SPA | N/A |
 
-Request-response pattern over HTTP. Simple and reliable.
+---
 
-**Use cases**:
-- One-time queries
-- Serverless functions
-- Cron jobs
-- External integrations
-- When you don't need real-time updates
+## Client SDK
 
-**Endpoints**:
-- `GET /health` - Health check
-- `POST /` - Send queries
+Install `@easylayer/transport-sdk` in your application. It provides a single `Client` class that wraps all transports.
 
-**Example query** (conceptual):
-```bash
-POST http://localhost:3000/
-Content-Type: application/json
-
-{
-  "action": "query",
-  "payload": {
-    "constructorName": "GetModelsQuery",
-    "dto": { "modelIds": ["my-model"] }
-  }
-}
-```
-
-### HTTP Streaming (NDJSON)
-
-Stream large query results as newline-delimited JSON.
-
-**Use cases**:
-- Large datasets (thousands of events)
-- Memory-efficient processing
-- Progressive rendering
-- When response doesn't fit in single HTTP response
-
-**Endpoint**:
-- `POST /stream` - Streaming queries
-
-**Behavior**:
-- Returns `Transfer-Encoding: chunked`
-- Each line is separate JSON object
-- Client processes as data arrives
-
-### WebSocket
-
-Real-time bidirectional communication. Best for interactive applications.
-
-**Use cases**:
-- Real-time dashboards
-- Live monitoring
-- Interactive applications
-- When you need both queries and event streams
-- Most web applications
-
-**Features**:
-- Subscribe to event streams
-- Send queries
-- Receive responses
-- Heartbeat (ping/pong) for connection health
-- Automatic reconnection (with SDK)
-
-**Connection**:
-```
-ws://localhost:3001/
-or
-wss://localhost:3001/ (SSL)
-```
-
-### IPC (Inter-Process Communication)
-
-Communication between Node.js processes.
-
-**Use cases**:
-- Microservices architecture (Node.js)
-- Process isolation
-- Resource management
-- When you need separate memory spaces
-
-**How it works**:
-- Uses Node.js `process.send()` and `process.on('message')`
-- Available when crawler runs as child process
-- Same message format as other transports
-
-### Electron
-
-Desktop application support.
-
-**Use cases**:
-- Desktop applications
-- Offline-capable apps
-- Native OS integration
-- Local-first applications
-
-**Configuration**: Similar to IPC with Electron-specific setup
-
-### Browser
-
-Limited support for browser environments.
-
-**Use cases**:
-- Browser extensions
-- Client-side explorers
-- Privacy-focused apps
-- When server deployment not possible
-
-**Limitations**:
-- No external server (runs in browser)
-- Uses IndexedDB for storage
-- Event streaming works differently
-- Reduced functionality vs server deployment
-
-## Transport SDK
-
-**@easylayer/transport-sdk** is an open-source client library that simplifies integration:
-
-**Without SDK**:
-- Manual WebSocket connection handling
-- Custom message formatting
-- Implement reconnection logic
-- Handle different transports differently
-
-**With SDK**:
-- Simple, unified API across all transports
-- Automatic reconnection
-- Type-safe queries
-- Built-in error handling
-
-**Installation**:
 ```bash
 npm install @easylayer/transport-sdk
 ```
 
-**Benefits**:
-- Write less code
-- Consistent interface
-- Focus on business logic
-- Easier testing
+### subscribe() and query()
 
-## Message Format
+Two methods cover all use cases:
 
-All transports use the same message structure:
+- **`subscribe(eventType, handler)`** — receive events pushed by the crawler as they happen
+- **`query(name, dto?)`** — request current or historical state
 
-### Request Messages
+```ts
+import { Client } from '@easylayer/transport-sdk';
 
-```
-{
-  "requestId": "optional-uuid",
-  "action": "query" | "streamQuery" | "ping" | "pong",
-  "payload": {
-    "constructorName": "QueryClassName",
-    "dto": { /* query parameters */ }
+const client = new Client({
+  transport: {
+    type: 'http',
+    inbound: { webhookUrl: 'http://0.0.0.0:4000/events', pongPassword: 'pw' },
+    query: { baseUrl: 'http://localhost:3000' },
   },
-  "timestamp": 1234567890
-}
+});
+
+// Receive events in real time
+client.subscribe('Deposit', (event) => {
+  console.log('New deposit at block', event.blockHeight, event.payload);
+});
+
+// Query current state
+const [model] = await client.query('GetModelsQuery', { modelIds: ['wallet-tracker'] });
+console.log(model.state.balances);
 ```
 
-### Response Messages
+---
 
-```
-{
-  "requestId": "matches-request-id",
-  "action": "queryResponse" | "event" | "error",
-  "payload": { /* response data */ },
-  "timestamp": 1234567890
-}
-```
+## HTTP Transport
 
-### Event Messages
+The HTTP client mounts a webhook handler on your existing server. Inbound events arrive as POST requests; outbound queries are POST requests to the crawler.
 
-```
-{
-  "action": "event",
-  "payload": {
-    "aggregateId": "model-id",
-    "version": 5,
-    "blockHeight": 850000,
-    "type": "EventTypeName",
-    "payload": { /* event data */ },
-    "timestamp": 1234567890
-  }
-}
+```ts
+import { createServer } from 'http';
+const client = new Client({
+  transport: {
+    type: 'http',
+    inbound: { webhookUrl: 'http://0.0.0.0:4000/events', pongPassword: 'secret' },
+    query: { baseUrl: 'http://localhost:3000' },
+  },
+});
+createServer(client.nodeHttpHandler()).listen(4000);
+// or: app.use(client.expressRouter())
 ```
 
-## Event Streaming
+---
 
-Subscribe to real-time events from your models:
+## WebSocket Transport
 
-**All events** (WebSocket):
-- Connect to WebSocket
-- All events from all models stream to client
-- Filter client-side as needed
+For persistent connections and real-time event streams.
 
-**Filtered events**:
-- Subscribe and filter by model ID
-- Subscribe and filter by event type
-- Handle only relevant events
+```ts
+const client = new Client({
+  transport: {
+    type: 'ws',
+    options: { url: 'ws://localhost:3001', pongPassword: 'secret' },
+  },
+});
+await client.connect();
+client.subscribe('BlockConfirmed', (event) => { /* ... */ });
+```
 
-**Event batches**:
-- For efficiency, events may be batched
-- Multiple events in single message
-- Reduces message overhead
+`connect()` never rejects. If the initial connection fails, it starts a background reconnect loop silently.
 
-## Querying Data
+---
 
-Through any transport you can:
+## IPC Transport
 
-**Query current model state**:
-- Get latest balances, statistics, etc.
-- Request-response pattern
+For Node.js microservice setups where the crawler and your app run as separate processes.
 
-**Query state at specific block height**:
-- Time-travel queries
-- See state as it was historically
+```ts
+// Parent process spawns crawler as child
+import { spawn } from 'child_process';
+const crawlerProcess = spawn('node', ['crawler.js']);
 
-**Query event history**:
-- Fetch events with filters
-- Pagination support
-- Stream large result sets
+const client = new Client({
+  transport: { type: 'ipc-parent', options: { process: crawlerProcess, pongPassword: 'secret' } },
+});
+```
 
-**Query system models**:
-- Network chain validation data
-- Mempool statistics
-- Built-in models work same as custom
+IPC supports parallel queries via `correlationId` matching, which makes it the highest-throughput option for process-local communication.
 
-All queries use same message format across transports.
+---
 
-## Configuration
+## Electron Transport
 
-Transport configuration through environment variables:
+For desktop applications. The crawler runs in the main process; your UI queries it from the renderer.
 
-**HTTP settings**:
-- Host and port
-- SSL certificates
-- Message size limits
+```ts
+// In the renderer process
+const client = new Client({
+  transport: { type: 'electron-renderer', options: { channel: 'crawler', pongPassword: 'secret' } },
+});
+```
 
-**WebSocket settings**:
-- Host, port, and path
-- SSL certificates
-- CORS configuration
-- Message size limits
+---
 
-**All transports**:
-- Heartbeat timeout
-- Connection timeout
-- Maximum message size
+## SharedWorker (Browser)
 
-Detailed configuration in framework documentation.
+For browser extensions and SPAs where the crawler runs inside a SharedWorker with IndexedDB storage.
 
-## Cross-Platform Support
+```ts
+// In the extension or SPA
+const client = new Client({
+  transport: { type: 'shared-worker', options: { workerUrl: './crawler.worker.js', pongPassword: 'secret' } },
+});
+```
 
-Different transports suit different platforms:
+---
 
-**Server deployments**:
-- HTTP RPC for external APIs
-- WebSocket for web clients
-- IPC for microservices
+## How Event Delivery Works
 
-**Desktop applications**:
-- Electron transport
-- Local HTTP for testing
-- SQLite for storage
+The crawler keeps an outbox table. When your model produces events, they go into the outbox. The transport reads the outbox, sends a batch to your client, and waits for an acknowledgment (ACK). Once the ACK arrives, the batch is deleted from the outbox.
 
-**Browser**:
-- Limited browser support
-- IndexedDB for storage
-- No external server needed
+If your handler throws or takes too long (default timeout: 3000 ms), the crawler retries. This gives you at-least-once delivery for every event.
 
-Choose transport based on deployment target.
+To increase the timeout for slow handlers (e.g. writing to a database on every event):
 
-## Security
+```ts
+const client = new Client({
+  transport: {
+    type: 'ws',
+    options: { url: 'ws://localhost:3001', pongPassword: 'secret', processTimeoutMs: 10_000 },
+  },
+});
+```
 
-**SSL/TLS**:
-- Enable for production
-- Secure data in transit
-- Configure certificates
+---
 
-**Authentication**:
-- Not built into framework
-- Implement in your API gateway/proxy
-- Or add middleware layer
+## Built-in Query Types
 
-**CORS** (WebSocket):
-- Configure allowed origins
-- Restrict in production
-- Allow * only for development
+| Query | Description |
+|---|---|
+| `GetModelsQuery` | Current state of one or more models (optionally at a specific block height) |
+| `FetchEventsQuery` | Paginated event history with optional filtering |
+| `GetNetworkStatsQuery` | Sync status, block height, chain info |
+| `GetNetworkLastBlockQuery` | Latest indexed block |
 
-**Rate limiting**:
-- Implement in proxy/gateway
-- Prevent abuse
-- Protect your infrastructure
+---
 
-## Best Practices
+## Related
 
-### Transport Selection
-
-**HTTP RPC**:
-- Simple queries without real-time needs
-- External integrations
-- Batch operations
-
-**WebSocket**:
-- Real-time dashboards
-- Live monitoring
-- Most interactive applications
-
-**IPC**:
-- Microservices (Node.js)
-- Process isolation needs
-
-**Electron**:
-- Desktop applications
-- Offline capability
-
-**Browser**:
-- When server impossible
-- Privacy-first applications
-
-### Performance
-
-1. **Use appropriate transport**: Don't use WebSocket if HTTP RPC sufficient
-2. **Batch queries**: Make fewer large queries vs many small
-3. **Filter events**: Subscribe only to needed events
-4. **Stream large results**: Use streaming for big datasets
-5. **Connection pooling**: Reuse connections when possible
-
-### Reliability
-
-1. **Use SDK**: Automatic reconnection logic
-2. **Handle errors**: Always catch and handle errors
-3. **Implement timeouts**: Don't wait forever
-4. **Monitor connections**: Track health status
-5. **Fallback strategy**: Support degraded functionality
-
-## Architecture Context
-
-Transport layer connects all components:
-
-**Models** generate events → **Transport** broadcasts
-**Event Store** provides data → **Transport** delivers
-**Clients** query → **Transport** routes to appropriate handler
-
-Transport is the communication bridge - everything else is processing and storage.
+- [State Models](/docs/data-modeling) — what produces the events you subscribe to
+- [Event Store](/docs/event-store) — where events are persisted before delivery
+- [Transport SDK docs](/docs/get-started/transport-sdk) — full configuration reference

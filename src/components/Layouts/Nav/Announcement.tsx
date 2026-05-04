@@ -7,7 +7,7 @@ import { BLOG_URLS } from '../../../urls';
 const Announcement: React.FC = () => {
   const history = useHistory();
   const handleLink = () => {
-    history.push(`${BLOG_URLS.BASE}/welcome-bitcoin-crawler-beta-app`);
+    history.push(`${BLOG_URLS.BASE}/introducing-evm-crawler`);
   };
   return (
     <div
@@ -31,7 +31,7 @@ const Announcement: React.FC = () => {
       >
         <span className="item-center flex gap-2 px-3">
           <span>
-            <b>🚀 Bitcoin Crawler is live! Build your blockchain indexer in minutes</b>
+            <b>🚀 EVM Crawler is live! Track Ethereum, BSC, Polygon and any EVM chain</b>
           </span>
         </span>
         <span className="hidden items-center space-x-2 px-3 lg:flex">
