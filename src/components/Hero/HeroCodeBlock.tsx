@@ -1,8 +1,7 @@
 // src/components/Hero/HeroCodeBlock.tsx
 import type { FC } from 'react';
-import React, { Suspense, useState } from 'react';
-
-const CodeHighlight = React.lazy(() => import('../CodeHighlight'));
+import React, { useState } from 'react';
+import CodeHighlight from '../CodeHighlight';
 
 const BITCOIN_CODE = `import { bootstrap } from '@easylayer/bitcoin-crawler';
 
@@ -83,9 +82,7 @@ const HeroCodeBlock: FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('bitcoin');
   return (
     <FileViewer activeTab={activeTab} onTabChange={setActiveTab}>
-      <Suspense fallback={<div className="h-64 w-full animate-pulse bg-neutral-100" />}>
-        <CodeHighlight language="ts" source={activeTab === 'bitcoin' ? BITCOIN_CODE : EVM_CODE} />
-      </Suspense>
+      <CodeHighlight language="ts" source={activeTab === 'bitcoin' ? BITCOIN_CODE : EVM_CODE} />
     </FileViewer>
   );
 };
