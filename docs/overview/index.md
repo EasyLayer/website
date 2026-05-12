@@ -1,15 +1,21 @@
 ---
 title: Overview
-description: Core concepts and architecture overview
+description: Practical overview of EasyLayer concepts and components.
 sidebar_class_name: hidden
 ---
 
 # Overview
 
-- [Introduction](./intro.md)
-- [Custom Data Modeling](./data-modeling.md)
+Start with one page, then read only the component docs relevant to your proof.
+
+- [Start Here](./intro.md)
+- [When to Use EasyLayer](./when-to-use.md)
+- [State Models](./data-modeling.md)
+- [EventStore](./event-store.md)
 - [Network Providers](./network-providers.md)
-- [Mempool Monitoring](./mempool-monitoring.md)
-- [API & Transports](./transport-layer.md)
-- [Event Store & Databases](./event-store.md)
+- [Transport Layer](./transport-layer.md)
 - [System Models](./system-models.md)
+- [Mempool Monitoring](./mempool-monitoring.md)
+- [vs Alternatives](./vs-alternatives.md)
+- [Quickstart Path](./quickstart.md)
+- [First Custom Model](./first-custom-model.md)

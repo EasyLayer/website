@@ -9,6 +9,7 @@ import Translate, { translate } from '@docusaurus/Translate';
 import { Database, Clock, Link2, RefreshCw, ArrowRight, Type, Zap } from 'react-feather';
 import SectionContainer from './Layouts/SectionContainer';
 import styles from '../pages/styles.module.css';
+import { DOCS_URLS } from '../urls';
 
 interface TextLinkProps {
   url: string;
@@ -22,11 +23,11 @@ const TextLink: FC<TextLinkProps> = ({ url, labelId, labelFallback, ariaId, aria
   const ariaLabel = translate({ id: ariaId, message: ariaFallback });
   return (
     <Link to={url} aria-label={ariaLabel} className="mt-3 inline-block text-sm">
-      <span className="group inline-flex items-center gap-1 text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100">
+      <span className="group inline-flex items-center gap-1 text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-100">
         <span>
           <Translate id={labelId}>{labelFallback}</Translate>
         </span>
-        <span className="transition-all group-hover:ml-0.5 text-yellow-600" aria-hidden="true">
+        <span className="text-yellow-600 transition-all group-hover:ml-0.5" aria-hidden="true">
           <ArrowRight size={14} strokeWidth={2} />
         </span>
       </span>
@@ -90,73 +91,81 @@ const FEATURES: Omit<FeatureProps, 'learnMoreId' | 'learnMoreFallback'>[] = [
   {
     Icon: Type,
     titleId: 'features.customModels.title',
-    titleFallback: 'Custom Data Models',
+    titleFallback: 'Custom state models',
     descriptionId: 'features.customModels.description',
     descriptionFallback:
-      'Tell the framework what on-chain state to track: wallet balances, contract events, UTXOs, anything your app needs. It reads every block, updates your state in real time, and handles chain reorgs automatically. You control the data structure and the server.',
-    url: '/docs/data-modeling',
+      'Define the state your application needs: wallet balances, UTXOs, contract events, fee statistics, or another model. EasyLayer feeds blockchain data into your model and stores state changes as events.',
+    url: DOCS_URLS.SECTIONS.DATA_MODELING,
     ariaId: 'features.customModels.aria',
-    ariaFallback: 'Learn more about Custom Data Models',
+    ariaFallback: 'Learn more about custom state models',
   },
   {
     Icon: Zap,
     titleId: 'features.networkProviders.title',
-    titleFallback: 'Network Providers',
+    titleFallback: 'Node and provider input',
     descriptionId: 'features.networkProviders.description',
     descriptionFallback:
-      'Connect Bitcoin or EVM nodes via JSON-RPC, WebSocket, P2P, or ZMQ. Use QuickNode, Alchemy, or your own node. Just 2 RPC calls per Bitcoin block. Automatic failover between providers. Historical sync + real-time mode.',
-    url: '/docs/network-providers',
+      'Connect to your own node or supported external providers. The crawler packages separate chain-specific data loading from your application state logic.',
+    url: DOCS_URLS.SECTIONS.NETWORK_PROVIDERS,
     ariaId: 'features.networkProviders.aria',
-    ariaFallback: 'Learn more about Network Providers',
+    ariaFallback: 'Learn more about network providers',
   },
   {
     Icon: Clock,
     titleId: 'features.mempool.title',
-    titleFallback: 'Mempool Monitoring',
+    titleFallback: 'Optional mempool workflows',
     descriptionId: 'features.mempool.description',
     descriptionFallback:
-      'Track unconfirmed transactions in real time before they hit blocks. Optional for Bitcoin and EVM crawlers. Essential for payment processors, wallets, and fee market analysis.',
-    url: '/docs/mempool-monitoring',
+      'Use mempool monitoring when your application needs pending transaction awareness. Keep it disabled when confirmed-block state is enough.',
+    url: DOCS_URLS.SECTIONS.MEMPOOL_MONITORING,
     ariaId: 'features.mempool.aria',
-    ariaFallback: 'Learn more about Mempool Monitoring',
+    ariaFallback: 'Learn more about mempool monitoring',
   },
   {
     Icon: Link2,
     titleId: 'features.transports.title',
-    titleFallback: 'API & Transports',
+    titleFallback: 'API and transports',
     descriptionId: 'features.transports.description',
     descriptionFallback:
-      'Five built-in transports: HTTP, WebSocket, IPC (parent/child), Electron, and Browser. Real-time event streams and request–response queries. Use @easylayer/transport-sdk for a unified client API across all of them.',
-    url: '/docs/transport-layer',
+      'Expose query and event flows through HTTP, WebSocket, IPC, Electron IPC, or browser/shared-worker transports, then consume them through @easylayer/transport-sdk.',
+    url: DOCS_URLS.SECTIONS.TRANSPORT_LAYER,
     ariaId: 'features.transports.aria',
-    ariaFallback: 'Learn more about API & Transports',
+    ariaFallback: 'Learn more about API and transports',
   },
   {
     Icon: Database,
     titleId: 'features.eventStore.title',
-    titleFallback: 'Event Store & Databases',
+    titleFallback: 'EventStore and historical reads',
     descriptionId: 'features.eventStore.description',
     descriptionFallback:
-      'Event Sourcing out of the box: every state change is an immutable event. Query model state at any block height. Choose SQLite (dev/desktop), PostgreSQL (production), or IndexedDB (browser). Schema managed automatically.',
-    url: '/docs/event-store',
+      'Persist model changes as ordered events and restore state at previous heights. SQLite, PostgreSQL, and browser storage paths are documented separately by runtime.',
+    url: DOCS_URLS.SECTIONS.EVENT_STORE,
     ariaId: 'features.eventStore.aria',
-    ariaFallback: 'Learn more about Event Store & Databases',
+    ariaFallback: 'Learn more about EventStore and databases',
   },
   {
     Icon: RefreshCw,
     titleId: 'features.systemModels.title',
-    titleFallback: 'System Models',
+    titleFallback: 'Reorg-aware architecture',
     descriptionId: 'features.systemModels.description',
     descriptionFallback:
-      'Built-in chain validation and mempool models work out of the box — subscribe to their events immediately. Automatic reorg detection and rollback regardless of reorg length. Network integrity checks configurable per deployment.',
-    url: '/docs/system-models',
+      'The core architecture is built around persisted events, rollback, and state restoration so application models do not need ad-hoc reorg handling code.',
+    url: DOCS_URLS.SECTIONS.SYSTEM_MODELS,
     ariaId: 'features.systemModels.aria',
-    ariaFallback: 'Learn more about System Models',
+    ariaFallback: 'Learn more about system models',
   },
 ];
 
 const Features: FC = () => (
-  <SectionContainer id="features" className="lg:py-18 space-y-16">
+  <SectionContainer id="features" className="space-y-16 lg:py-18">
+    <div className="mx-auto max-w-3xl text-center">
+      <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-yellow-600">
+        <Translate id="features.eyebrow">Core capabilities</Translate>
+      </p>
+      <h2 className="text-2xl font-bold text-neutral-700 dark:text-neutral-100 lg:text-3xl">
+        <Translate id="features.title">Infrastructure pieces you would otherwise build yourself</Translate>
+      </h2>
+    </div>
     <dl className="grid grid-cols-1 md:gap-16 lg:grid-cols-3 lg:gap-x-8 xl:gap-x-16">
       {FEATURES.map((f) => (
         <Feature key={f.titleId} {...f} learnMoreId="features.learnMore" learnMoreFallback="Learn more" />

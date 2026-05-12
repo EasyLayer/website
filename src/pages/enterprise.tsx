@@ -13,9 +13,9 @@ import './preflight.css';
 
 const EnterprisePage: FC = () => {
   const { siteConfig } = useDocusaurusContext();
-  const pageTitle = 'EasyLayer Enterprise — Managed Blockchain Infrastructure';
+  const pageTitle = 'EasyLayer Enterprise — Custom Blockchain State Infrastructure Support';
   const pageDescription =
-    'Get managed deployment, SQL read models, S3 pipelines, and priority support for your blockchain data needs.';
+    'Ask the EasyLayer team about custom state models, self-hosted deployment support, and blockchain indexing architecture help.';
   return (
     <div className="twLandingPage">
       <Head>

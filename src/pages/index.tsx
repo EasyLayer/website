@@ -13,6 +13,8 @@ import Hero from '../components/Hero/index';
 import Features from '../components/Features';
 import HowItWorks from '../components/HowItWorks';
 import ExampleApps from '../components/ExampleApps';
+import ProofHighlights from '../components/ProofHighlights';
+import DeveloperDecisionFlow from '../components/DeveloperDecisionFlow';
 import Newsletter from '../components/Newsletter';
 import Roadmap from '../components/Roadmap';
 import Faq from '../components/Faq';
@@ -35,15 +37,16 @@ const LightsTwo: FC = () => (
 
 const EnterpriseBanner: FC = () => (
   <SectionContainer className="pb-16">
-    <div className="rounded-lg border border-yellow-500/30 bg-yellow-500/10 dark:bg-neutral-800/60 px-8 py-10 text-center">
-      <p className="text-xs font-semibold uppercase tracking-widest text-yellow-600 mb-3">For teams</p>
-      <h2 className="text-2xl font-bold text-neutral-700 dark:text-neutral-100 mb-3">Building something big?</h2>
-      <p className="text-neutral-500 dark:text-neutral-400 mb-6 max-w-xl mx-auto">
-        Get managed infrastructure, SQL &amp; S3 read models, and direct support from the EasyLayer team.
+    <div className="rounded-lg border border-yellow-500/30 bg-yellow-500/10 px-8 py-10 text-center dark:bg-neutral-800/60">
+      <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-yellow-600">For teams</p>
+      <h2 className="mb-3 text-2xl font-bold text-neutral-700 dark:text-neutral-100">Need custom deployment help?</h2>
+      <p className="mx-auto mb-6 max-w-xl text-neutral-500 dark:text-neutral-400">
+        If your team needs a custom state model, self-hosted deployment support, or architecture help, describe the use
+        case and we will review whether EasyLayer fits.
       </p>
       <Link to="/enterprise">
         <button className="inline-flex items-center rounded border border-yellow-500 bg-yellow-500 px-6 py-2.5 text-sm font-medium text-white transition duration-200 ease-out hover:bg-yellow-400">
-          Talk to us →
+          Contact for custom support →
         </button>
       </Link>
     </div>
@@ -57,21 +60,21 @@ const Index: FC = () => {
   return (
     <div className="twLandingPage">
       <Head>
-        <title>EasyLayer — Self-hosted Blockchain Tools</title>
+        <title>EasyLayer — Self-hosted Blockchain State Services</title>
         <meta
           name="description"
-          content="EasyLayer provides self-hosted tools for integrating crypto processing and data indexing into your business."
+          content="EasyLayer helps developers build self-hosted blockchain state services with custom models, event persistence, reorg-aware workflows, and multiple transports."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://easylayer.io/" />
-        <meta property="og:title" content="EasyLayer — Self-hosted Blockchain Tools" />
+        <meta property="og:title" content="EasyLayer — Self-hosted Blockchain State Services" />
         <meta
           property="og:description"
-          content="EasyLayer provides self-hosted tools for integrating crypto processing and data indexing into your business."
+          content="EasyLayer helps developers build self-hosted blockchain state services with custom models, event persistence, reorg-aware workflows, and multiple transports."
         />
         <meta property="og:image" content={coverPhotoAbsoluteUrl} />
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content="EasyLayer — Self-hosted Blockchain Tools" />
+        <meta property="twitter:title" content="EasyLayer — Self-hosted Blockchain State Services" />
         <meta property="twitter:image" content={coverPhotoAbsoluteUrl} />
       </Head>
       <Nav />
@@ -80,7 +83,9 @@ const Index: FC = () => {
           <Background />
           <Hero />
           <Features />
+          <ProofHighlights />
           <HowItWorks />
+          <DeveloperDecisionFlow />
           <ExampleApps />
           <LightsTwo />
           <Newsletter />

@@ -6,13 +6,13 @@ import type { FormEvent, ChangeEvent, FC } from 'react';
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import Translate, { translate } from '@docusaurus/Translate';
+import { API_URLS } from '../urls';
+import { trackEvent } from '../lib/analytics';
 
 interface SubscribeFormProps {
   className?: string;
   inputBgColor?: string;
 }
-
-const LOOPS_ENDPOINT = 'https://app.loops.so/api/newsletter-form/cm9mjezmt4kn9x98ppgfr1h67';
 
 const SubscribeForm: FC<SubscribeFormProps> = ({ className, inputBgColor = '' }) => {
   const [email, setEmail] = useState('');
@@ -35,7 +35,7 @@ const SubscribeForm: FC<SubscribeFormProps> = ({ className, inputBgColor = '' })
       params.set('userGroup', '');
       params.set('email', email);
 
-      const res = await fetch(LOOPS_ENDPOINT, {
+      const res = await fetch(API_URLS.NEWSLETTER, {
         method: 'POST',
         body: params.toString(),
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -43,6 +43,7 @@ const SubscribeForm: FC<SubscribeFormProps> = ({ className, inputBgColor = '' })
 
       if (res.ok) {
         setMessage(translate({ id: 'newsletter.success', message: 'Thank you for subscribing! 🙏' }));
+        trackEvent('newsletter_submit_success');
         setEmail('');
       } else {
         setMessage(translate({ id: 'newsletter.error', message: '🛑 Oops! Something went wrong. Please try again.' }));

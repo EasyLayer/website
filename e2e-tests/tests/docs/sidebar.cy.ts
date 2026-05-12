@@ -27,8 +27,10 @@ describe('Docs sidebar', () => {
     });
   });
 
-  it('Overview section exists in sidebar', () => {
+  it('Overview section exists in sidebar and includes evaluation pages', () => {
     cy.visit('/docs');
     cy.get('nav.menu').contains('Overview').should('exist');
+    cy.get('nav.menu').contains('Quickstart Evaluation').should('exist');
+    cy.get('nav.menu').contains('First Custom Model').should('exist');
   });
 });

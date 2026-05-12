@@ -10,11 +10,14 @@ describe('Home page', () => {
   });
   it('renders main sections', () => {
     cy.get('#features').should('exist');
+    cy.get('#proof-highlights').should('exist');
     cy.get('#subscribe').should('exist');
     cy.get('#faq').should('exist');
   });
-  it('hero CTA links to docs', () => {
-    cy.get('a[href*="/docs"]').first().should('exist');
+  it('hero CTA links to quickstart, proof, and GitHub', () => {
+    cy.get('a[href*="/docs/quickstart"]').should('exist');
+    cy.get('a[href="/proof"]').should('exist');
+    cy.get('a[href*="github.com/easylayer/core"]').should('exist');
   });
   it('enterprise banner links to /enterprise', () => {
     cy.get('a[href="/enterprise"]').should('exist');

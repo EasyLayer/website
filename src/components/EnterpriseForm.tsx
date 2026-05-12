@@ -2,9 +2,10 @@
 // Enterprise lead form — sends to /api/enterprise/join → Telegram bot.
 
 import type { FC, FormEvent, ChangeEvent } from 'react';
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Translate, { translate } from '@docusaurus/Translate';
 import SectionContainer from './Layouts/SectionContainer';
+import { trackEvent } from '../lib/analytics';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
@@ -28,6 +29,10 @@ const EnterpriseForm: FC = () => {
   const [captchaToken, setCaptchaToken] = useState('');
   const [status, setStatus] = useState<Status>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+
+  useEffect(() => {
+    trackEvent('enterprise_form_open');
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -55,6 +60,7 @@ const EnterpriseForm: FC = () => {
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.success) {
         setStatus('success');
+        trackEvent('enterprise_form_submit_success');
         setForm(INITIAL);
       } else if (res.status === 429) {
         setStatus('error');

@@ -26,10 +26,20 @@ export const DOCS_URLS = {
   BASE: BASE_URLS.DOCS,
   SECTIONS: {
     GET_STARTED: `${BASE_URLS.DOCS}/get-started`,
+    QUICKSTART: `${BASE_URLS.DOCS}/quickstart`,
+    FIRST_CUSTOM_MODEL: `${BASE_URLS.DOCS}/first-custom-model`,
     OVERVIEW: `${BASE_URLS.DOCS}/overview`,
+    WHEN_TO_USE: `${BASE_URLS.DOCS}/when-to-use`,
     BITCOIN_CRAWLER: `${BASE_URLS.DOCS}/get-started/bitcoin-crawler`,
     TRANSPORT_SDK: `${BASE_URLS.DOCS}/get-started/transport-sdk`,
     EXAMPLES: `${BASE_URLS.DOCS}/examples`,
+    DATA_MODELING: `${BASE_URLS.DOCS}/data-modeling`,
+    NETWORK_PROVIDERS: `${BASE_URLS.DOCS}/network-providers`,
+    MEMPOOL_MONITORING: `${BASE_URLS.DOCS}/mempool-monitoring`,
+    TRANSPORT_LAYER: `${BASE_URLS.DOCS}/transport-layer`,
+    EVENT_STORE: `${BASE_URLS.DOCS}/event-store`,
+    SYSTEM_MODELS: `${BASE_URLS.DOCS}/system-models`,
+    VS_ALTERNATIVES: `${BASE_URLS.DOCS}/vs-alternatives`,
   },
 } as const;
 
@@ -41,6 +51,9 @@ export const EXAMPLE_APPS = {
 
 export const SITE_URLS = {
   BASE: BASE_URLS.SITE,
+  HOME: '/',
+  PROOF: '/proof',
+  WHY: '/why',
   ENTERPRISE: '/enterprise',
   POLICY: '/policy',
   SECURITY: '/security',
@@ -49,6 +62,7 @@ export const SITE_URLS = {
   FAQ: '#faq',
   SUBSCRIBE: '#subscribe',
   FEATURES: '#features',
+  EXAMPLES: '#examples',
 } as const;
 
 export const API_URLS = { NEWSLETTER: BASE_URLS.API.LOOPS } as const;

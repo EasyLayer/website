@@ -1,104 +1,149 @@
 ---
-title: 'State Models'
-sidebar_label: 'State Models'
+title: State Models
 slug: /data-modeling
-description: Define what blockchain state your application needs to track. EasyLayer keeps it live and consistent on every block.
-keywords: ['blockchain state model', 'custom blockchain data', 'blockchain state tracking', 'on-chain state', 'EasyLayer models', 'bitcoin state', 'ethereum state']
+sidebar_label: State Models
+description: Define the focused blockchain state your application needs and let EasyLayer maintain it from blocks, logs, transactions, or mempool data.
+keywords: ['blockchain state model', 'custom blockchain state', 'EasyLayer models', 'Bitcoin state model', 'EVM state model']
 image: /img/el_twitter_default.png
 ---
 
 # State Models
 
-You tell EasyLayer what on-chain state to maintain. The framework keeps it current, handles reorgs, and serves it to your app. You never touch block parsing infrastructure.
+A State Model is the part you own. It defines what blockchain data becomes product state.
 
----
+EasyLayer owns the runtime around it: block loading, persistence, event history, state restore, transport delivery, and integration with system models.
 
-## The Core Idea
+## The model boundary
 
-Traditional blockchain indexers store everything first, then let you query. You get a massive generic dataset and fight to extract what you need.
+```text
+Raw blockchain data
+        |
+        v
+Model filter / processing logic
+        |
+        v
+Domain events produced by your model
+        |
+        v
+Model state reconstructed from events
+```
 
-EasyLayer works differently. You define a State Model: exactly the data your application cares about. The framework feeds blocks into your model, tracks changes as events, and keeps the state live. Your database stays focused and fast. A model tracking a few thousand addresses might use tens of megabytes where a full-node index uses terabytes.
+A model should not try to keep everything. It should keep the state your product needs.
 
----
+Examples:
 
-## What a Model Defines
+| Product state | Model responsibility |
+|---|---|
+| Selected wallet balances | Track outputs/transfers relevant to the selected addresses. |
+| One contract state | Read logs/calls for that contract and maintain domain state. |
+| Fee dashboard | Aggregate block/transaction fee data into current statistics. |
+| Protocol monitor | Convert protocol-specific events into alerts or status. |
+| Desktop wallet data | Keep local state in a desktop/browser-compatible store. |
 
-Every model has three parts:
+## Why this matters for storage
 
-**State** is the data you maintain. It can be anything: a map of wallet balances, a list of contract events, a UTXO set, running fee statistics, whatever your application needs. You define the shape.
+A full blockchain dataset can be large because it stores every block, transaction, log, input, output, and historical detail.
 
-**Block processing logic** is the code that runs on every new block. It decides which parts of the block matter and records what changed. This is where your business logic lives.
+A focused EasyLayer model can store only the events/state your application needs. For example, if your product monitors one smart contract, the model does not need to persist unrelated contracts. If your wallet tracks selected addresses, the model does not need to keep every address on the chain.
 
-**Event reducers** describe how each recorded change updates the state. Because changes are stored as an ordered log before being applied, the framework can replay or reverse them during a reorg without any extra work from you.
+Do not publish exact storage numbers until they are measured for a concrete workload. The correct public claim is qualitative:
 
----
+```text
+EasyLayer lets the application persist focused model state instead of storing unrelated full-chain data.
+```
 
-## Two Styles
+## What a model contains
 
-**Declarative** models are objects with `state`, `sources`, and `reducers` fields. Good for most use cases: tracking balances, monitoring addresses, indexing contract events.
+A model normally has three parts:
+
+| Part | Purpose |
+|---|---|
+| State | The data you want to query later. |
+| Event decisions | The logic that decides when a block/log/transaction changes that state. |
+| Reducers | The logic that applies each event to state. |
+
+## Small first model
+
+A useful first model is small enough to verify manually.
+
+```text
+Track one contract or address list
+        |
+        v
+Emit one event type
+        |
+        v
+Maintain one state object
+        |
+        v
+Expose one query
+```
+
+After that works, expand the model.
+
+## Model styles
+
+Package-specific docs show the exact API for each package/version. Conceptually, EasyLayer supports two model styles.
+
+### Declarative model
+
+Good for straightforward scanning and reducers.
 
 ```ts
-const WalletTracker = {
-  modelId: 'wallets',
-  state: { balances: new Map<string, bigint>() },
+const ContractEventsModel = {
+  modelId: 'contract-events',
+  state: {
+    totalEvents: 0,
+  },
   sources: {
-    async vout(ctx) {
-      const addr = ctx.vout.scriptPubKey.addresses?.[0];
-      if (addr) return { addr, value: ctx.vout.value };
+    async log(ctx) {
+      if (ctx.log.address !== TARGET_CONTRACT) return;
+      return { transactionHash: ctx.log.transactionHash };
     },
     async block(ctx) {
-      if (ctx.locals.vout?.length)
-        ctx.applyEvent('Deposit', ctx.block.height, { outputs: ctx.locals.vout });
+      const events = ctx.locals.log ?? [];
+      if (events.length > 0) {
+        ctx.applyEvent('ContractEventsObserved', ctx.blockNumber, { events });
+      }
     },
   },
   reducers: {
-    Deposit(state, event) {
-      for (const { addr, value } of event.payload.outputs ?? []) {
-        state.balances.set(addr, (state.balances.get(addr) ?? 0n) + BigInt(value * 1e8));
-      }
+    ContractEventsObserved(state, event) {
+      state.totalEvents += event.payload.events.length;
     },
   },
 };
 ```
 
-**Class-based** models extend `Model` for complex logic, custom validation, or when you want full TypeScript class features.
+### Class-based model
 
----
-
-## What You Get from One Model
-
-- **Live state**: updated on every block, always reflects the current chain tip
-- **Historical queries**: query state as it was at any past block height
-- **Reorg recovery**: orphaned blocks rolled back, correct chain replayed, state stays consistent
-- **Event history**: full log of every change, queryable and filterable
-- **Multiple transports**: HTTP, WebSocket, IPC, Electron, Browser
-
----
-
-## Running Multiple Models
-
-You can run several models in a single crawler instance. Each handles a different concern:
+Good when the model needs more control over iteration, validation, branching, or cross-transaction logic.
 
 ```ts
-bootstrap({
-  Models: [WalletTracker, FeeMonitor, MempoolWatcher],
-});
+export class WalletActivityModel extends Model {
+  static override modelId = 'wallet-activity';
+
+  public activity = [];
+
+  async processBlock(ctx) {
+    for (const tx of ctx.block.tx ?? []) {
+      // inspect only the transactions relevant to your product
+      // then emit a domain event
+    }
+  }
+}
 ```
 
-Each model processes the same blocks independently and maintains its own state. Query them separately or together.
+## What not to put into a model
 
----
+Do not put unrelated full-chain storage into a model just because the raw data is available.
 
-## State Size
+A model is not a warehouse. It is a product-specific state boundary.
 
-A focused model is small. Tracking 10,000 wallet balances on Bitcoin: a few megabytes. Tracking all ERC-20 transfers for one contract over the last year: a few hundred megabytes in SQLite, easily.
-
-For very large datasets (full UTXO set, all addresses on-chain), the in-process state grows accordingly. At that scale, the enterprise Read Model layer is the right tool: SQL projections optimized for high-volume reads, updated from the same event stream. See [Enterprise](/enterprise).
-
----
+If the product later needs large historical projections, design a separate read model/projection path instead of overloading the live state model.
 
 ## Related
 
-- [Event Store and Databases](/docs/event-store) — how events are persisted
-- [Network Providers](/docs/network-providers) — how blocks are fetched
-- [Transport Layer](/docs/transport-layer) — how clients access your state
+- [EventStore](/docs/event-store)
+- [Network Providers](/docs/network-providers)
+- [Transport Layer](/docs/transport-layer)

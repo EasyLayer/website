@@ -13,27 +13,23 @@ const HowItWorks: FC = () => (
         </h2>
         <p className="text-neutral-700">
           <Translate id="howItWorks.description1">
-            Install the crawler package for your chain. Define what on-chain data your app needs to track. Point at a
-            node or external provider. Run it.
+            Choose the crawler package for your chain, define the state model your application needs, point the runtime
+            at a node or provider, and run it as a self-hosted service.
           </Translate>
         </p>
         <br />
         <p className="text-neutral-700">
           <Translate id="howItWorks.description2">
-            The framework reads blocks from any height, keeps your state current on every new block, recovers from chain
-            reorgs automatically, and serves your data over HTTP, WebSocket, or IPC. Everything runs on your server.
-            Your data never leaves your infrastructure.
+            The framework turns chain data into persisted events, restores state through the EventStore, and exposes
+            query/stream access through supported transports. Reorg-aware behavior is part of the architecture, but each
+            deployment should still be validated against its chain, provider, and workload.
           </Translate>
         </p>
       </div>
 
-      <div
-        className="col-span-12 lg:col-span-7 xl:col-span-7 xl:col-start-6
-                    self-center justify-self-center
-                    mt-8 lg:mt-0 px-4 sm:px-6 lg:px-0"
-      >
+      <div className="col-span-12 mt-8 self-center justify-self-center px-4 sm:px-6 lg:col-span-7 lg:mt-0 lg:px-0 xl:col-span-7 xl:col-start-6">
         <img
-          className="block max-w-full h-auto"
+          className="block h-auto max-w-full"
           src="img/how_it_works_diagram.png"
           alt="EasyLayer architecture diagram"
           loading="lazy"

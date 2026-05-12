@@ -35,6 +35,9 @@
   "nav.faq": {
     "message": "FAQ"
   },
+  "nav.learn": {
+    "message": "Дізнатися"
+  },
   "nav.enterprise": {
     "message": "Для бізнесу"
   },
@@ -777,5 +780,32 @@
   },
   "faq.q_browser.answer": {
     "message": "Так. Фреймворк постачається з browser-safe збірками, що використовують IndexedDB (через sql.js) як EventStore. Використовуй у Electron desktop-застосунках, браузерних розширеннях або браузерних SPA. IPC транспорт підтримує Node.js мікросервісні архітектури. HTTP та WebSocket транспорти працюють всюди."
+  },
+  "nav.proof": {
+    "message": "Докази"
+  },
+  "nav.why": {
+    "message": "Чому EasyLayer"
+  },
+  "footer.title.product": {
+    "message": "Продукт"
+  },
+  "footer.docs.quickstart": {
+    "message": "Швидка перевірка"
+  },
+  "footer.docs.firstCustomModel": {
+    "message": "Перша власна модель"
+  },
+  "footer.product.proof": {
+    "message": "Докази"
+  },
+  "footer.product.why": {
+    "message": "Чому EasyLayer"
+  },
+  "footer.product.examples": {
+    "message": "Приклади"
+  },
+  "footer.product.enterprise": {
+    "message": "Для бізнесу"
   }
 }

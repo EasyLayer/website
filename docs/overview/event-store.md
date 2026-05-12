@@ -1,128 +1,128 @@
 ---
-title: 'Event Store and Databases'
-sidebar_label: 'Event Store and Databases'
+title: EventStore
 slug: /event-store
-description: EasyLayer stores all state changes as an immutable event log. Choose SQLite, PostgreSQL, or IndexedDB. Query state at any block height. Reorgs handled automatically.
-keywords: ['event store', 'sqlite blockchain', 'postgresql blockchain', 'indexeddb blockchain', 'blockchain database', 'event sourcing blockchain', 'blockchain reorg', 'immutable event log']
+sidebar_label: EventStore
+description: Understand how EasyLayer persists model events, restores state, supports historical reads, and separates local-only mode from remote outbox delivery.
+keywords: ['EasyLayer EventStore', 'event sourcing blockchain', 'blockchain reorg handling', 'SQLite blockchain state', 'PostgreSQL blockchain state']
 image: /img/el_twitter_default.png
 ---
 
-# Event Store and Databases
+# EventStore
 
-The Event Store is where EasyLayer persists all state changes. Every block your model processes produces events. Those events are stored in an append-only log. Your model's current state is always reconstructable by replaying that log.
+EventStore is the persistence layer for model changes.
 
-This design is what makes historical queries and automatic reorg handling possible.
+When your model emits events, EasyLayer stores them and reconstructs state from them. This is why the framework can restore models, query historical state, and support reorg-aware workflows.
 
----
+## Runtime flow
 
-## How It Works
-
-When a block arrives, your state model processes it and calls `applyEvent()` for relevant changes. The framework:
-
-1. Writes each event to the log with its block height and sequence number
-2. Applies the event to reconstruct current state
-3. Makes the updated state available for queries
-
-When a blockchain reorganization occurs, the framework reverses events from orphaned blocks in reverse order, then replays events from the canonical chain. State becomes consistent again without any action from your code.
-
----
-
-## Storage Options
-
-### SQLite
-
-Default option. Zero configuration, file-based, no extra services to run.
-
-```bash
-EVENTSTORE_DB_TYPE=sqlite
-EVENTSTORE_DB_NAME=./data/eventstore   # folder path
+```text
+Model emits events
+        |
+        v
+EventStore transaction
+        |
+        +--> aggregate/model event table
+        |
+        +--> outbox table only when remote transport is configured
+        |
+        v
+Local system events and/or remote delivery
 ```
 
-Best for: development, small projects, desktop applications, up to a few million events.
+The important point: model events are the source of truth for the model state.
 
-### PostgreSQL
+## What gets stored
 
-For production workloads, large datasets, or applications that need concurrent reads.
+Each persisted event contains the data needed to rebuild state:
 
-```bash
-EVENTSTORE_DB_TYPE=postgres
-EVENTSTORE_DB_NAME=myapp_events
-EVENTSTORE_DB_HOST=localhost
-EVENTSTORE_DB_PORT=5432
-EVENTSTORE_DB_USERNAME=app
-EVENTSTORE_DB_PASSWORD=secret
+| Field | Why it matters |
+|---|---|
+| aggregate/model id | Which model instance owns the event. |
+| event type | Which reducer should apply it. |
+| payload | The domain change. |
+| version/sequence | Ordering inside the model. |
+| block height | Historical state and rollback boundary. |
+| request id | Traceability through a write flow. |
+| timestamp | Operational inspection. |
+
+## Local-only vs remote delivery
+
+EasyLayer can run with no remote transport configured. This is useful for tests, embedded runtimes, desktop/browser experiments, or services that only need local processing.
+
+In local-only mode:
+
+```text
+model events are persisted
+local subscribers can run
+outbox rows are not written
+remote delivery is not attempted
 ```
 
-The framework manages the schema automatically. You manage the database server.
+When a remote transport is configured:
 
-### IndexedDB (Browser)
-
-For browser extensions and Electron desktop apps. Uses `sql.js` (SQLite compiled to WebAssembly) with IndexedDB as the persistence layer.
-
-```bash
-EVENTSTORE_DB_TYPE=indexeddb
+```text
+model events are persisted
+outbox rows are written in the same persistence flow
+transport sends batches
+client ACK confirms delivery
+outbox rows are deleted after ACK
 ```
 
-No server required. The state service runs entirely in the browser process.
+This avoids fake delivery. If there is no remote transport, EasyLayer does not pretend that remote delivery happened.
 
----
+## Historical reads
 
-## Querying Historical State
+Because model state is built from events, the framework can restore state at a block height that has already been processed.
 
-Because events are stored with block heights, you can reconstruct what the state looked like at any point in the past:
+Typical use cases:
 
-```ts
-// What was the state at block 850000?
-const result = await client.query('GetModelsQuery', {
-  modelIds: ['wallet-tracker'],
-  filter: { blockHeight: 850000 },
-});
+- show what a tracked balance was at a previous block;
+- debug why a model reached a certain state;
+- replay a model after changing infrastructure;
+- inspect event history for audits.
+
+## Reorg-aware workflow
+
+A blockchain reorganization means previously accepted blocks are no longer canonical.
+
+The high-level workflow is:
+
+```text
+new block does not connect to current chain tip
+        |
+        v
+find rollback boundary
+        |
+        v
+remove/reverse events after that boundary
+        |
+        v
+apply canonical replacement blocks
+        |
+        v
+state matches the canonical chain again
 ```
 
-This works for any block the crawler has processed. Useful for:
+The exact behavior depends on the crawler package, network, provider data, and configured start/checkpoint state. Public docs should describe this as a runtime capability, not as an unmeasured production guarantee.
 
-- Auditing: prove what a balance was at a specific date
-- Debugging: investigate what happened at a specific block
-- Analytics: compute metrics at different points in time
+## Storage backends
 
----
+| Backend | Best for |
+|---|---|
+| SQLite | Local development, tests, smaller self-hosted services, desktop-style deployments. |
+| PostgreSQL | Production services, stronger operational tooling, larger event histories, concurrent access. |
+| Browser/IndexedDB-backed runtime | Browser or desktop flows where server-side storage is not the target. |
 
-## Reorg Handling in Detail
+Use package-specific docs for exact environment variables and version-specific setup.
 
-Blockchain reorganizations are a normal part of how Bitcoin and EVM chains work. EasyLayer handles them automatically:
+## Design rule
 
-1. Crawler detects that a new block's parent hash doesn't match the last indexed block
-2. The framework identifies the divergence point
-3. Events from all orphaned blocks are reversed in reverse order (reducers applied in reverse)
-4. Events from the new canonical chain are applied
-5. State is consistent again
+Do not design the EventStore as a generic full-chain database unless the product really needs that. The EventStore should persist the events required to rebuild your models.
 
-This works for reorgs of any length. Your application code does not change.
-
----
-
-## Schema Management
-
-The framework creates and migrates the event store schema automatically. You do not write migrations. On startup, the framework checks the schema version and updates it if needed.
-
-You can inspect the event log directly in SQLite or PostgreSQL using standard database tools. The schema is documented in the repository.
-
----
-
-## Storage Size Estimates
-
-| Use case | Events per block | 1M blocks |
-|---|---|---|
-| Tracking 1000 Bitcoin addresses | 0-50 | ~500 MB SQLite |
-| ERC-20 Transfer index (1 contract) | 0-500 | a few GB PostgreSQL |
-| Full UTXO set tracking | 1000-5000 | large, use PostgreSQL |
-
-For very large datasets, consider the enterprise Read Model layer which uses SQL projections optimized for high-volume reads. See [Enterprise](/enterprise).
-
----
+For large analytical datasets, use a dedicated projection/read-model strategy rather than turning every live model into a warehouse.
 
 ## Related
 
-- [State Models](/docs/data-modeling) — what produces events
-- [Transport Layer](/docs/transport-layer) — how to query your state
-- [System Models](/docs/system-models) — built-in events you can subscribe to
+- [State Models](/docs/data-modeling)
+- [Transport Layer](/docs/transport-layer)
+- [System Models](/docs/system-models)
