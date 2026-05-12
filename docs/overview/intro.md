@@ -20,22 +20,25 @@ The framework gives you the runtime around that model: block fetching, event per
 
 Follow this path before reading the versioned package pages.
 
-```text
-1. Choose the state your product needs
-2. Choose the crawler package
-3. Define one small model
-4. Run it against a node or provider
-5. Query the model state
-6. Add the transport your app needs
-7. Only then expand the model
+```mermaid
+flowchart LR
+  A[Choose focused state] --> B[Pick crawler package]
+  B --> C[Define one small model]
+  C --> D[Run against node or provider]
+  D --> E[Query model state]
+  E --> F[Add transport]
+  F --> G[Expand only after proof]
 ```
 
 ## Step 1: define the state, not the dataset
 
 Start with one concrete question:
 
-```text
-What state does my application need to know right now?
+```mermaid
+flowchart LR
+  A[Product question] --> B[Required blockchain state]
+  B --> C[Smallest useful model]
+  C --> D[Query or event stream]
 ```
 
 Good first targets:
@@ -63,17 +66,14 @@ The package-specific pages under **Get Started** contain versioned setup details
 
 ## Step 3: understand the runtime shape
 
-```text
-Blockchain node / RPC provider
-        |
-        v
-Crawler package
-        |
-        v
-Your State Models  --->  EventStore  --->  current state + historical reads
-        |
-        v
-Transports  --->  backend, worker, desktop app, browser app, or another service
+```mermaid
+flowchart LR
+  A[Node or RPC provider] --> B[Crawler package]
+  B --> C[Your state model]
+  C --> D[EventStore]
+  D --> E[Current state and history]
+  E --> F[Transport layer]
+  F --> G[Backend, worker, desktop, or browser]
 ```
 
 The important part is the model boundary. Your model decides what becomes application state. EasyLayer does not force your database to store unrelated blocks, transactions, or logs if your product only needs a focused subset.

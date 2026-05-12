@@ -27,12 +27,10 @@ Use system models to answer operational questions:
 
 ## How they fit with custom models
 
-```text
-System models
-  track crawler/network state
-
-Custom models
-  track your product state
+```mermaid
+flowchart LR
+  A[System models] --> B[Crawler and network state]
+  C[Custom models] --> D[Product state]
 ```
 
 Do not put product logic into a system model. Use system models for runtime visibility and custom models for application state.
@@ -41,17 +39,11 @@ Do not put product logic into a system model. Use system models for runtime visi
 
 A first evaluation can start with only system models:
 
-```text
-bootstrap crawler
-        |
-        v
-wait for network initialization
-        |
-        v
-query latest indexed block
-        |
-        v
-subscribe to blocks-added events
+```mermaid
+flowchart LR
+  A[Bootstrap crawler] --> B[Wait for network initialization]
+  B --> C[Query latest indexed block]
+  C --> D[Subscribe to blocks-added events]
 ```
 
 This proves the runtime and provider connection before you add product-specific state.

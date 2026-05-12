@@ -50,13 +50,13 @@ EasyLayer is probably not the first tool to use when:
 
 Before implementing, answer these questions:
 
-```text
-1. What exact state do we need to maintain?
-2. Which chain/network produces that state?
-3. Do we need live updates, historical reads, or both?
-4. Which application will consume the state?
-5. Which transport fits that application?
-6. What is the smallest model that proves the idea?
+```mermaid
+flowchart TD
+  A[What exact state do we need?] --> B[Which chain produces it?]
+  B --> C[Live updates, history, or both?]
+  C --> D[Which application consumes it?]
+  D --> E[Which transport fits?]
+  E --> F[What is the smallest proof model?]
 ```
 
 If the answers are still vague, start with a smaller model. EasyLayer works best when the state boundary is clear.

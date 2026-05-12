@@ -63,8 +63,12 @@ Build internally when:
 
 Choose EasyLayer when this sentence is true:
 
-```text
-The product value depends on focused blockchain state that we want to own and operate.
+```mermaid
+flowchart TD
+  A[Do we need focused custom state?] -->|no| B[Use a simpler hosted API]
+  A -->|yes| C[Do we want to own the runtime?]
+  C -->|no| D[Consider a managed indexer]
+  C -->|yes| E[Evaluate EasyLayer]
 ```
 
 If the product only needs a generic answer from a blockchain API, start simpler.

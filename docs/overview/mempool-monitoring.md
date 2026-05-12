@@ -31,12 +31,11 @@ Not a good use case:
 
 ## Confirmed state vs pending state
 
-```text
-Confirmed blocks
-  -> source of truth for confirmed model state
-
-Mempool transactions
-  -> temporary pending state / alerts / UX hints
+```mermaid
+flowchart TD
+  A[Confirmed blocks] --> B[Confirmed model state]
+  C[Mempool transactions] --> D[Pending state, alerts, or UX hints]
+  D -. reconcile after confirmation .-> B
 ```
 
 Keep these concepts separate in your model. A pending transaction can disappear, be replaced, or confirm differently than expected.

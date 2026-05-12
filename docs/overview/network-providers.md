@@ -15,17 +15,12 @@ EasyLayer does not replace the blockchain node or RPC provider. It uses one to f
 
 ## Provider role
 
-```text
-Node / RPC provider
-        |
-        v
-Crawler package
-        |
-        v
-Model processing
-        |
-        v
-EventStore + transports
+```mermaid
+flowchart LR
+  A[Node or RPC provider] --> B[Crawler package]
+  B --> C[Model processing]
+  C --> D[EventStore]
+  C --> E[Transports]
 ```
 
 The provider supplies raw chain data. Your model decides what part becomes application state.
@@ -67,13 +62,11 @@ Provider performance is not only requests per second. Large block responses, tra
 
 Start with a narrow model and measure:
 
-```text
-blocks processed per minute
-provider latency
-timeouts/retries
-payload size
-EventStore growth
-model state growth
+```mermaid
+flowchart LR
+  A[Narrow model] --> B[Measure provider latency]
+  B --> C[Measure retries and payload size]
+  C --> D[Measure EventStore and model growth]
 ```
 
 Do not publish benchmark numbers until they are measured for the exact package, network, provider, model, and storage backend.
@@ -84,10 +77,10 @@ A crawler normally needs a start height or checkpoint strategy.
 
 For evaluation:
 
-```text
-start from a recent block range
-prove the model logic
-then decide how much history to replay
+```mermaid
+flowchart LR
+  A[Recent block range] --> B[Prove model logic]
+  B --> C[Choose historical replay scope]
 ```
 
 Do not begin with full-history sync unless it is necessary for the proof.

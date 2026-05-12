@@ -37,12 +37,12 @@ Do not start with full-chain indexing unless that is the actual proof.
 
 Your first proof should produce:
 
-```text
-one model id
-one event type
-one persisted event history
-one query result
-one transport path
+```mermaid
+flowchart LR
+  A[One model id] --> B[One event type]
+  B --> C[Persisted event history]
+  C --> D[One query result]
+  D --> E[One transport path]
 ```
 
 That is enough to verify the architecture.

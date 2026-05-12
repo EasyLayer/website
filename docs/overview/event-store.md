@@ -15,18 +15,15 @@ When your model emits events, EasyLayer stores them and reconstructs state from 
 
 ## Runtime flow
 
-```text
-Model emits events
-        |
-        v
-EventStore transaction
-        |
-        +--> aggregate/model event table
-        |
-        +--> outbox table only when remote transport is configured
-        |
-        v
-Local system events and/or remote delivery
+```mermaid
+flowchart TD
+  A[Model emits events] --> B[EventStore transaction]
+  B --> C[Model event table]
+  B --> D{Remote transport configured?}
+  D -->|yes| E[Outbox rows]
+  D -->|no| F[No outbox rows]
+  C --> G[State restore and historical reads]
+  E --> H[Remote delivery with ACK]
 ```
 
 The important point: model events are the source of truth for the model state.
@@ -51,21 +48,21 @@ EasyLayer can run with no remote transport configured. This is useful for tests,
 
 In local-only mode:
 
-```text
-model events are persisted
-local subscribers can run
-outbox rows are not written
-remote delivery is not attempted
+```mermaid
+flowchart LR
+  A[Save model events] --> B[Persist event rows]
+  B --> C[Emit local system events]
+  C --> D[No outbox writes]
 ```
 
 When a remote transport is configured:
 
-```text
-model events are persisted
-outbox rows are written in the same persistence flow
-transport sends batches
-client ACK confirms delivery
-outbox rows are deleted after ACK
+```mermaid
+flowchart LR
+  A[Save model events] --> B[Persist events and outbox]
+  B --> C[Send batch]
+  C --> D[Client ACK]
+  D --> E[Delete delivered outbox rows]
 ```
 
 This avoids fake delivery. If there is no remote transport, EasyLayer does not pretend that remote delivery happened.
@@ -87,20 +84,12 @@ A blockchain reorganization means previously accepted blocks are no longer canon
 
 The high-level workflow is:
 
-```text
-new block does not connect to current chain tip
-        |
-        v
-find rollback boundary
-        |
-        v
-remove/reverse events after that boundary
-        |
-        v
-apply canonical replacement blocks
-        |
-        v
-state matches the canonical chain again
+```mermaid
+flowchart TD
+  A[New block does not connect] --> B[Find rollback boundary]
+  B --> C[Remove events after boundary]
+  C --> D[Apply canonical blocks]
+  D --> E[State matches canonical chain]
 ```
 
 The exact behavior depends on the crawler package, network, provider data, and configured start/checkpoint state. Public docs should describe this as a runtime capability, not as an unmeasured production guarantee.

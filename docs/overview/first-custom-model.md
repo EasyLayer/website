@@ -28,20 +28,12 @@ Fill this in before coding:
 
 ## Minimal model flow
 
-```text
-block/log/transaction arrives
-        |
-        v
-model decides whether it matters
-        |
-        v
-model emits a domain event
-        |
-        v
-reducer updates state
-        |
-        v
-client queries or subscribes
+```mermaid
+flowchart TD
+  A[Block, log, or transaction arrives] --> B[Model checks relevance]
+  B --> C[Model emits domain event]
+  C --> D[Reducer updates state]
+  D --> E[Client queries or subscribes]
 ```
 
 ## Keep the first version narrow

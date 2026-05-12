@@ -46,6 +46,7 @@
     "@docusaurus/core": "3.7.0",
     "@docusaurus/faster": "3.7.0",
     "@docusaurus/preset-classic": "3.7.0",
+    "@docusaurus/theme-mermaid": "3.7.0",
     "@hcaptcha/react-hcaptcha": "2.0.2",
     "@vercel/node": "5.2.1",
     "autoprefixer": "10.4.17",

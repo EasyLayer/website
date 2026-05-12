@@ -25,14 +25,13 @@ It is not the state model. Build the model first, then choose the transport that
 
 ## Runtime shape
 
-```text
-EasyLayer crawler
-        |
-        +--> HTTP query endpoint
-        +--> WebSocket live events
-        +--> IPC process channel
-        +--> Electron IPC
-        +--> Browser/shared-worker runtime
+```mermaid
+flowchart LR
+  A[EasyLayer crawler] --> B[HTTP queries]
+  A --> C[WebSocket events]
+  A --> D[IPC process channel]
+  A --> E[Electron IPC]
+  A --> F[Browser or SharedWorker]
 ```
 
 The client uses `@easylayer/transport-sdk` so application code can use the same high-level operations across transports.
@@ -49,20 +48,15 @@ The client uses `@easylayer/transport-sdk` so application code can use the same 
 
 When a remote transport is configured, model events can be delivered through an outbox/ACK flow.
 
-```text
-model event persisted
-        |
-        v
-outbox batch sent
-        |
-        v
-client processes events
-        |
-        v
-client ACK confirms batch
-        |
-        v
-outbox rows removed
+```mermaid
+sequenceDiagram
+  participant E as EventStore
+  participant T as Transport
+  participant C as Client
+  E->>T: Persist event and create outbox batch
+  T->>C: Send batch with correlationId
+  C-->>T: ACK with same correlationId
+  T->>E: Delete delivered outbox rows
 ```
 
 If no remote transport is configured, the crawler can still run local-only. In that mode the EventStore persists model events, but remote outbox rows are not written.

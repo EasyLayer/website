@@ -15,17 +15,11 @@ EasyLayer owns the runtime around it: block loading, persistence, event history,
 
 ## The model boundary
 
-```text
-Raw blockchain data
-        |
-        v
-Model filter / processing logic
-        |
-        v
-Domain events produced by your model
-        |
-        v
-Model state reconstructed from events
+```mermaid
+flowchart TD
+  A[Raw blockchain data] --> B[Model filter and processing]
+  B --> C[Domain events]
+  C --> D[Reconstructed model state]
 ```
 
 A model should not try to keep everything. It should keep the state your product needs.
@@ -48,8 +42,11 @@ A focused EasyLayer model can store only the events/state your application needs
 
 Do not publish exact storage numbers until they are measured for a concrete workload. The correct public claim is qualitative:
 
-```text
-EasyLayer lets the application persist focused model state instead of storing unrelated full-chain data.
+```mermaid
+flowchart LR
+  A[Full-chain data] --> B{Relevant to product?}
+  B -->|yes| C[Persist model events and state]
+  B -->|no| D[Ignore for this model]
 ```
 
 ## What a model contains
@@ -66,17 +63,11 @@ A model normally has three parts:
 
 A useful first model is small enough to verify manually.
 
-```text
-Track one contract or address list
-        |
-        v
-Emit one event type
-        |
-        v
-Maintain one state object
-        |
-        v
-Expose one query
+```mermaid
+flowchart LR
+  A[One contract or address list] --> B[One event type]
+  B --> C[One state object]
+  C --> D[One query]
 ```
 
 After that works, expand the model.

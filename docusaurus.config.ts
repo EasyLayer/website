@@ -91,6 +91,12 @@ const config: Config = {
     }] : [])
   ],
 
+  markdown: {
+    mermaid: true,
+  },
+
+  themes: ['@docusaurus/theme-mermaid'],
+
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -159,6 +165,9 @@ const config: Config = {
   },
 
   themeConfig: {
+    mermaid: {
+      theme: { light: 'neutral', dark: 'dark' },
+    },
     colorMode: {
       disableSwitch: true,
       defaultMode: 'light',
