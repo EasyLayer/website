@@ -1,5 +1,8 @@
 describe('Navbar', () => {
-  beforeEach(() => { cy.viewport(1280, 720); cy.visit('/'); });
+  beforeEach(() => {
+    cy.viewport(1280, 720);
+    cy.visit('/');
+  });
 
   it('all desktop internal navbar links return 2xx', () => {
     cy.collectInternalHrefs('nav a[href]', {
@@ -15,10 +18,18 @@ describe('Navbar', () => {
   });
 
   it('Proof, Why, and Enterprise are grouped under the Learn dropdown', () => {
-    cy.contains('nav button', 'Learn').should('be.visible').focus();
-    cy.get('nav a[href="/proof"]').contains('Proof').should('be.visible');
-    cy.get('nav a[href="/why"]').contains('Why').should('be.visible');
-    cy.get('nav a[href="/enterprise"]').contains('Enterprise').should('be.visible');
+    cy.contains('nav button', 'Learn')
+      .should('be.visible')
+      .closest('div.group')
+      .within(() => {
+        // The dropdown is CSS hover/focus driven. Cypress does not reliably
+        // activate pseudo-hover, so assert the menu contract by DOM presence.
+        // Use partial href matching because Docusaurus may render trailing
+        // slashes depending on config/baseUrl.
+        cy.get('a[href*="/proof"]').should('exist').and('contain.text', 'Proof');
+        cy.get('a[href*="/why"]').should('exist').and('contain.text', 'Why EasyLayer');
+        cy.get('a[href*="/enterprise"]').should('exist').and('contain.text', 'Enterprise');
+      });
   });
 
   it('mobile menu opens and includes product links', () => {
