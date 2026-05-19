@@ -14,10 +14,17 @@ interface LinkItem {
 }
 
 const docs: LinkItem[] = [
-  { text: 'Get Started', textId: 'footer.docs.getStarted', url: DOCS_URLS.SECTIONS.GET_STARTED },
   { text: 'Overview', textId: 'footer.docs.overview', url: DOCS_URLS.SECTIONS.OVERVIEW },
+  { text: 'Quickstart', textId: 'footer.docs.quickstart', url: DOCS_URLS.SECTIONS.QUICKSTART },
+  { text: 'First Custom Model', textId: 'footer.docs.firstCustomModel', url: DOCS_URLS.SECTIONS.FIRST_CUSTOM_MODEL },
   { text: 'Bitcoin Crawler', textId: 'footer.docs.bitcoinCrawler', url: DOCS_URLS.SECTIONS.BITCOIN_CRAWLER },
   { text: 'Transport SDK', textId: 'footer.docs.transportSdk', url: DOCS_URLS.SECTIONS.TRANSPORT_SDK },
+];
+const product: LinkItem[] = [
+  { text: 'Proof', textId: 'footer.product.proof', url: SITE_URLS.PROOF },
+  { text: 'Why EasyLayer', textId: 'footer.product.why', url: SITE_URLS.WHY },
+  { text: 'Examples', textId: 'footer.product.examples', url: DOCS_URLS.SECTIONS.EXAMPLES },
+  { text: 'Enterprise', textId: 'footer.product.enterprise', url: SITE_URLS.ENTERPRISE },
 ];
 const community: LinkItem[] = [
   { text: 'Blog', textId: 'footer.community.blog', url: BLOG_URLS.BASE },
@@ -26,7 +33,6 @@ const community: LinkItem[] = [
   { text: 'GitHub', textId: 'footer.community.github', url: SOCIAL_URLS.GITHUB },
 ];
 const company: LinkItem[] = [
-  { text: 'Enterprise', textId: 'footer.company.enterprise', url: SITE_URLS.ENTERPRISE },
   { text: 'Privacy Policy', textId: 'footer.company.privacy', url: SITE_URLS.POLICY },
   { text: 'Security Policy', textId: 'footer.company.security', url: SITE_URLS.SECURITY },
   { text: 'Terms of Service', textId: 'footer.company.terms', url: SITE_URLS.TERMS },
@@ -67,8 +73,9 @@ const Footer: FC = () => (
     <SectionContainer>
       <div className="grid grid-cols-1 gap-8 xl:grid xl:grid-cols-3">
         <div className="grid grid-cols-1 xl:col-span-2">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-3">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             <Segment title="Docs" titleId="footer.title.docs" links={docs} />
+            <Segment title="Product" titleId="footer.title.product" links={product} />
             <Segment title="Community" titleId="footer.title.community" links={community} />
             <Segment title="Company" titleId="footer.title.company" links={company} />
           </div>

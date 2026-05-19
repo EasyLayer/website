@@ -1,6 +1,6 @@
 {
   "name": "@easylayer/website",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "",
   "author": "Yaroslav Pavliuk",
   "packageManager": "yarn@4.5.0",
@@ -46,6 +46,7 @@
     "@docusaurus/core": "3.7.0",
     "@docusaurus/faster": "3.7.0",
     "@docusaurus/preset-classic": "3.7.0",
+    "@docusaurus/theme-mermaid": "3.7.0",
     "@hcaptcha/react-hcaptcha": "2.0.2",
     "@vercel/node": "5.2.1",
     "autoprefixer": "10.4.17",

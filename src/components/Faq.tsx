@@ -22,28 +22,28 @@ const FAQS: FAQItem[] = [
     questionFallback: 'What is EasyLayer and how is it different from The Graph or SQD?',
     answerId: 'faq.q0.answer',
     answerFallback:
-      'EasyLayer is a framework for building real-time blockchain state services. You define what on-chain data to track, and the framework keeps that state live and consistent on every new block, with automatic reorganization handling built in. It is also self-hosted: the service runs on your infrastructure, your data never leaves your servers. The open-source Write Model handles real-time state, mempool monitoring, and Event Sourcing with full history. For teams that need to store very large datasets like entire chain history or all wallet addresses, the enterprise Read Model builds SQL or S3 projections on top of the same event stream with no size limits. The Graph and SQD are cloud indexing platforms focused on querying public protocol data through a GraphQL schema. EasyLayer is different in focus: real-time state maintenance with automatic reorg handling, self-hosted, and working with both Bitcoin and EVM chains natively.',
+      'EasyLayer is a self-hosted framework for building blockchain state services and custom indexers. You define the state model your product needs, then run the service on your infrastructure. It is a better fit when you need custom state, event history, reorg-aware workflows, and runtime control. Hosted APIs or managed indexing platforms may be a better fit when you only need simple generic data quickly.',
   },
   {
     questionId: 'faq.q00.question',
     questionFallback: 'What does "blockchain state service" mean in practice?',
     answerId: 'faq.q00.answer',
     answerFallback:
-      'You tell the framework what on-chain data matters to your application: wallet balances, contract events, UTXOs, fee statistics, anything. It reads every block, updates that state in real time, and keeps it consistent through chain reorganizations automatically. Your application queries the current state or subscribes to live updates over HTTP, WebSocket, or IPC. No polling, no stale data, no manual reorg handling.',
+      'You tell the framework what on-chain data matters to your application: wallet balances, contract events, UTXOs, fee statistics, or another state shape. The crawler feeds chain data into your model, persists state changes as events, and lets your application query state or subscribe to updates through supported transports.',
   },
   {
     questionId: 'faq.q1.question',
     questionFallback: 'What blockchains are supported?',
     answerId: 'faq.q1.answer',
     answerFallback:
-      'Bitcoin Crawler supports Bitcoin and Bitcoin-compatible networks: Bitcoin Cash, Litecoin, Dogecoin, and others. EVM Crawler supports Ethereum and EVM-compatible networks: BSC, Polygon, Arbitrum, Optimism, and other L2s. Solana, TON, and Tron crawlers are in development. Need a specific network? Open a discussion on GitHub.',
+      'Current public packages focus on Bitcoin/Bitcoin-like networks and EVM-compatible networks. Check the package docs and examples for the exact supported crawler version and runtime you plan to use.',
   },
   {
     questionId: 'faq.q4.question',
     questionFallback: 'How does reorganization handling work?',
     answerId: 'faq.q4.answer',
     answerFallback:
-      'Reorgs are handled automatically through Event Sourcing. Every state change is stored as an immutable event with its block height. When a reorg occurs, the framework rolls back events from orphaned blocks in reverse order and replays the correct chain. Your state is consistent again without any code from you, regardless of how long the reorg is.',
+      'EasyLayer is designed around Event Sourcing, rollback, and state restoration. State changes are stored with block context, so the framework can restore models when the canonical chain changes. The exact behavior depends on the crawler/runtime version and should be validated for your deployment.',
   },
   {
     questionId: 'faq.q6.question',
@@ -57,14 +57,14 @@ const FAQS: FAQItem[] = [
     questionFallback: 'Do I need to run my own blockchain node?',
     answerId: 'faq.q2.answer',
     answerFallback:
-      'No. Bitcoin Crawler uses 2 RPC calls per block, so free tiers on providers like QuickNode cover most use cases. Running your own node is optional and only worth it at very high volumes or for specific privacy requirements.',
+      'No. You can use supported external providers or your own node, depending on your chain, privacy needs, and expected workload. Validate provider limits before relying on a free tier for production.',
   },
   {
     questionId: 'faq.q3.question',
     questionFallback: 'How much does it cost to run?',
     answerId: 'faq.q3.answer',
     answerFallback:
-      'A 2-4 vCPU server covers most production workloads. With the minimal RPC design, external provider costs are often zero on free tiers. Total cost for a typical deployment runs from free up to around $20 per month for server and provider combined.',
+      'Cost depends on chain, block range, provider limits, model complexity, storage backend, and traffic. The site should publish exact benchmark or cost numbers only after they are measured for a documented setup.',
   },
   {
     questionId: 'faq.q5.question',
@@ -78,7 +78,7 @@ const FAQS: FAQItem[] = [
     questionFallback: 'Can I use EasyLayer in a browser or desktop app?',
     answerId: 'faq.q_browser.answer',
     answerFallback:
-      'Yes. The framework ships browser-safe bundles with IndexedDB as the storage backend. You can run a full blockchain state service inside an Electron desktop app or a browser extension with no server required.',
+      'Some packages include browser or desktop-oriented transport/storage paths, such as Electron IPC and browser/shared-worker clients. Use the package docs and tests to confirm whether your exact runtime is supported before committing to that architecture.',
   },
   {
     questionId: 'faq.q8.question',
@@ -106,7 +106,7 @@ const FAQS: FAQItem[] = [
     questionFallback: 'Is this ready for production?',
     answerId: 'faq.q10.answer',
     answerFallback:
-      'Both Bitcoin Crawler and EVM Crawler are in stable beta. The automatic reorg handling and Event Sourcing architecture are core to the design, not afterthoughts. If you run into issues, bring them to GitHub Discussions.',
+      'EasyLayer is actively developed. The architecture is built around Event Sourcing and reorg-aware workflows, but teams should validate the current package versions against their use case before treating them as production infrastructure. If you run into issues, bring them to GitHub Discussions.',
   },
 ];
 

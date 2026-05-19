@@ -10,6 +10,10 @@ describe('Footer', () => {
   it('footer contains EasyLayer branding', () => {
     cy.get('footer').contains('EasyLayer').should('exist');
   });
+  it('footer links to proof and why pages', () => {
+    cy.get('footer a[href="/proof"]').contains('Proof').should('exist');
+    cy.get('footer a[href="/why"]').contains('Why EasyLayer').should('exist');
+  });
   it('privacy policy link works', () => {
     cy.get('footer a[href*="policy"]').first().then(($a) => {
       cy.assertInternalUrlOk($a.attr('href') || '/policy');

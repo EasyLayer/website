@@ -1,126 +1,69 @@
 ---
-title: 'Mempool Monitoring'
-sidebar_label: 'Mempool Monitoring'
+title: Mempool Monitoring
 slug: /mempool-monitoring
-description: Track unconfirmed Bitcoin and EVM transactions in real time before they land in blocks. Build payment detection, fee market tools, and pre-confirmation alerts with EasyLayer.
-keywords: ['mempool monitoring', 'unconfirmed transactions', 'bitcoin mempool', 'ethereum mempool', 'pending transactions', 'real-time blockchain', 'payment detection', 'fee market']
+sidebar_label: Mempool Monitoring
+description: Use mempool monitoring only when pending transactions are part of the product, and keep confirmed-chain state separate from pending state.
+keywords: ['mempool monitoring', 'Bitcoin mempool', 'EVM mempool', 'pending transactions', 'EasyLayer mempool']
 image: /img/el_twitter_default.png
 ---
 
 # Mempool Monitoring
 
-Mempool monitoring lets you track unconfirmed transactions before they get confirmed in a block. It's optional and disabled by default. Enable it when your application needs to react to pending activity.
+Mempool monitoring is for pending transactions. It is optional.
 
----
+Use it when the product needs to react before transactions are confirmed. Do not enable it just because it exists.
 
-## What the Mempool Is
+## When to use it
 
-Every unconfirmed transaction broadcasts to the network and sits in the mempool until a miner or validator includes it in a block. The mempool is a live, constantly-changing pool of pending activity.
+Good use cases:
 
-Applications that need pre-confirmation awareness rely on mempool access:
+- wallet UX that shows pending incoming/outgoing transactions;
+- fee or congestion monitoring;
+- alerting for pending contract interactions;
+- pre-confirmation risk checks;
+- dashboards that separate pending and confirmed activity.
 
-- Payment processors that want to detect incoming payments instantly, before the first confirmation
-- Wallet apps showing pending outbound transactions
-- Fee estimation tools that analyze current mempool congestion
-- Double-spend monitors for high-value transactions
+Not a good use case:
 
----
+- building confirmed historical state;
+- replacing block processing;
+- making final business decisions before confirmation without a risk policy.
 
-## How It Works in EasyLayer
+## Confirmed state vs pending state
 
-When mempool monitoring is enabled, the crawler polls the connected node for mempool contents on a configurable interval. Each snapshot produces a `MempoolRefreshed` system event containing the current pending transactions.
-
-Your state model can include a `mempool` source handler to process these snapshots and track whatever pending state your application needs.
-
-Confirmed mempool transactions are automatically removed from your mempool state when the crawler sees them included in a block. Your model always reflects the accurate distinction between confirmed and pending.
-
----
-
-## Enabling Mempool Monitoring
-
-### Bitcoin
-
-```bash
-MEMPOOL_ENABLED=true
-MEMPOOL_PROVIDER_TYPE=rpc        # uses same node as main provider
-PROVIDER_MEMPOOL_RPC_URLS=https://your-node-endpoint
-
-# Optional: custom polling interval (milliseconds)
-MEMPOOL_LOADER_TIME=5000
+```mermaid
+flowchart TD
+  A[Confirmed blocks] --> B[Confirmed model state]
+  C[Mempool transactions] --> D[Pending state, alerts, or UX hints]
+  D -. reconcile after confirmation .-> B
 ```
 
-### EVM
+Keep these concepts separate in your model. A pending transaction can disappear, be replaced, or confirm differently than expected.
 
-```bash
-MEMPOOL_ENABLED=true
-PROVIDER_MEMPOOL_RPC_URLS=https://your-evm-endpoint
-```
+## Model design
 
----
+A mempool-aware model should usually keep two state areas:
 
-## System Event
+| State area | Meaning |
+|---|---|
+| confirmed | State produced by canonical blocks. |
+| pending | Temporary observations from mempool data. |
 
-When mempool monitoring is active, the crawler emits a built-in system event you can subscribe to directly without writing any model code:
+When a transaction confirms, the confirmed block flow should update the confirmed state. The pending state can then be cleared or reconciled.
 
-- **Bitcoin**: `BitcoinNetworkMempoolRefreshedEvent`
-- **EVM**: `EvmMempoolRefreshedEvent`
+## Provider dependency
 
-```ts
-client.subscribe('BitcoinNetworkMempoolRefreshedEvent', (event) => {
-  const { transactions } = event.payload;
-  console.log(`Mempool: ${transactions.length} pending transactions`);
-});
-```
+Mempool support depends on the network and provider. Some providers expose enough pending transaction data; others limit or omit it.
 
----
+Before building around mempool data, verify:
 
-## Including Mempool State in Your Model
-
-Add a `mempool` source to your declarative model to track pending transactions in your own state:
-
-```ts
-const PaymentWatcher = {
-  modelId: 'payment-watcher',
-  state: {
-    confirmed: new Map<string, number>(),
-    pending: new Map<string, number>(),
-  },
-  sources: {
-    async mempool(ctx) {
-      // ctx.transactions contains all current mempool transactions
-      const relevant = ctx.transactions.filter(tx =>
-        tx.vout?.some(o => o.scriptPubKey.addresses?.includes('1YourAddress'))
-      );
-      if (relevant.length) return relevant;
-    },
-    async block(ctx) {
-      if (ctx.locals.mempool?.length) {
-        ctx.applyEvent('PendingDeposit', ctx.block.height, { txs: ctx.locals.mempool });
-      }
-    },
-  },
-  reducers: {
-    PendingDeposit(state, event) {
-      for (const tx of event.payload.txs) {
-        state.pending.set(tx.txid, tx.vout[0].value);
-      }
-    },
-  },
-};
-```
-
----
-
-## Performance Considerations
-
-The mempool can contain tens of thousands of transactions. Processing the full mempool on every poll interval can be CPU-intensive if your filtering logic is not efficient. Keep mempool source handlers lightweight: filter early, process only what you need.
-
-For high-frequency mempool analysis (sub-second updates), consider connecting via ZMQ on Bitcoin, which delivers individual transaction broadcasts rather than full snapshots.
-
----
+- whether the provider exposes the needed fields;
+- how often data can be polled/streamed;
+- whether rate limits allow the workflow;
+- how replacements/drops are represented.
 
 ## Related
 
-- [Network Providers](/docs/network-providers) — configure the node connection for mempool access
-- [System Models](/docs/system-models) — built-in mempool events available without custom model code
-- [State Models](/docs/data-modeling) — how to include mempool data in your custom state
+- [Network Providers](/docs/network-providers)
+- [System Models](/docs/system-models)
+- [State Models](/docs/data-modeling)

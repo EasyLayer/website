@@ -7,7 +7,7 @@ import autoprefixer from 'autoprefixer';
 import smartLocaleRouteMapPlugin from './plugins/smartLocaleRouteMapPlugin';
 import { SITE_URLS, SOCIAL_URLS, BLOG_URLS, DOCS_URLS } from './src/urls';
 
-const isProduction = process.env.NODE_ENV === 'production'
+const isProduction = process.env.NODE_ENV === 'production';
 const siteBaseUrl = '/';
 
 const config: Config = {
@@ -21,7 +21,7 @@ const config: Config = {
   },
   
   title: 'EasyLayer.io',
-  tagline: 'Self-hosted framework for building custom blockchain indexers and parsers. Monitor and index Bitcoin blockchain data - both historical and real-time.',
+  tagline: 'Self-hosted framework for building blockchain state services and custom indexers.',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -91,6 +91,12 @@ const config: Config = {
     }] : [])
   ],
 
+  markdown: {
+    mermaid: true,
+  },
+
+  themes: ['@docusaurus/theme-mermaid'],
+
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -159,6 +165,9 @@ const config: Config = {
   },
 
   themeConfig: {
+    mermaid: {
+      theme: { light: 'neutral', dark: 'dark' },
+    },
     colorMode: {
       disableSwitch: true,
       defaultMode: 'light',
@@ -195,6 +204,16 @@ const config: Config = {
           position: 'left',
         },
         {
+          to: SITE_URLS.PROOF,
+          label: 'Proof',
+          position: 'left',
+        },
+        {
+          to: SITE_URLS.WHY,
+          label: 'Why',
+          position: 'left',
+        },
+        {
           href: SOCIAL_URLS.DISCUSSIONS,
           label: 'Discussions',
           position: 'right',
@@ -224,12 +243,16 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Get Started',
-              to: DOCS_URLS.SECTIONS.GET_STARTED,
-            },
-            {
               label: 'Overview',
               to: DOCS_URLS.SECTIONS.OVERVIEW,
+            },
+            {
+              label: 'Quickstart',
+              to: DOCS_URLS.SECTIONS.QUICKSTART,
+            },
+            {
+              label: 'First Custom Model',
+              to: DOCS_URLS.SECTIONS.FIRST_CUSTOM_MODEL,
             },
             {
               label: 'Bitcoin Crawler',
@@ -238,6 +261,14 @@ const config: Config = {
             {
               label: 'Transport SDK',
               to: DOCS_URLS.SECTIONS.TRANSPORT_SDK,
+            },
+            {
+              label: 'Proof',
+              to: SITE_URLS.PROOF,
+            },
+            {
+              label: 'Why EasyLayer',
+              to: SITE_URLS.WHY,
             },
           ],
         },
@@ -300,15 +331,15 @@ const config: Config = {
       { name: 'twitter:site', content: '@easylayer_io' },
       { name: 'twitter:creator', content: '@easylayer_io' },
       { name: 'twitter:title', content: 'EasyLayer.io' },
-      { name: 'twitter:description', content: 'Self hosted tools for integrating crypto processing and data indexing into your business' },
+      { name: 'twitter:description', content: 'Self-hosted blockchain state services and custom indexers for developers.' },
       { name: 'twitter:image', content: 'https://easylayer.io/img/el_twitter_default.png' },
-      { name: 'description', content: 'Self hosted tools for integrating crypto processing and data indexing into your business' },
-      { name: 'keywords', content: 'crypto, blockchain, bitcoin, ethereum, data indexing, self hosted, tools' },
+      { name: 'description', content: 'Self-hosted blockchain state services and custom indexers for developers.' },
+      { name: 'keywords', content: 'blockchain state service, blockchain indexer, self hosted, event sourcing, CQRS, bitcoin, ethereum, TypeScript' },
       { name: 'author', content: 'EasyLayer Team' },
       { name: 'robots', content: 'index, follow' },
       { property: 'og:type', content: 'website' },
       { property: 'og:title', content: 'EasyLayer.io' },
-      { property: 'og:description', content: 'Self hosted tools for integrating crypto processing and data indexing into your business' },
+      { property: 'og:description', content: 'Self-hosted blockchain state services and custom indexers for developers.' },
       { property: 'og:image', content: 'https://easylayer.io/img/el_twitter_default.png' },
       { property: 'og:url', content: 'https://easylayer.io' },
       { property: 'og:site_name', content: 'EasyLayer.io' },

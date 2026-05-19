@@ -1,120 +1,79 @@
 ---
-title: 'System Models'
-sidebar_label: 'System Models'
+title: System Models
 slug: /system-models
-description: EasyLayer ships built-in system models for chain validation and mempool monitoring. Subscribe to their events and query their state without writing any model code.
-keywords: ['system models', 'blockchain chain validation', 'built-in blockchain models', 'easylayer system events', 'network model', 'mempool model']
+sidebar_label: System Models
+description: Built-in EasyLayer models expose network progress, chain state, and runtime events without requiring every application to write its own monitoring model.
+keywords: ['EasyLayer system models', 'network model', 'blockchain sync status', 'crawler system events']
 image: /img/el_twitter_default.png
 ---
 
 # System Models
 
-EasyLayer includes built-in models that run automatically alongside your custom models. They handle chain integrity monitoring and mempool state out of the box. You can subscribe to their events and query their state without writing any model code.
+System models are built-in models that describe the crawler/runtime itself.
 
----
+They are useful even before you write a custom model because they can show whether the crawler is connected, initialized, and processing blocks.
 
-## Network Chain Model
+## What they are for
 
-The Network Chain Model tracks the state of the blockchain as the crawler sees it. It runs on every crawler instance.
+Use system models to answer operational questions:
 
-**What it does:**
+| Question | System-model use |
+|---|---|
+| Has the crawler initialized? | Subscribe to initialization events. |
+| Which block is the crawler at? | Query network state or latest block. |
+| Did new blocks arrive? | Subscribe to blocks-added events. |
+| Did a reorg happen? | Subscribe to network/reorg events where supported. |
+| Is the service healthy? | Use network state in a health/monitoring endpoint. |
 
-- Maintains the current chain tip: block height, hash, and timestamp
-- Detects and records blockchain reorganizations as they happen
-- Optionally validates block headers using Merkle proofs
+## How they fit with custom models
 
-**Events it emits:**
-
-| Event | When | Payload |
-|---|---|---|
-| `BitcoinNetworkInitializedEvent` | Crawler starts | chain info, start height |
-| `BitcoinNetworkBlocksAddedEvent` | New blocks confirmed | block heights, hashes |
-| `BitcoinNetworkReorganizedEvent` | Reorg detected and resolved | orphaned blocks, new blocks |
-| `EvmNetworkInitializedEvent` | EVM crawler starts | chain ID, start block |
-| `EvmNetworkBlocksAddedEvent` | New EVM blocks confirmed | block numbers, hashes |
-| `EvmNetworkReorganizedEvent` | EVM reorg detected | orphaned and new blocks |
-
-**Subscribing:**
-
-```ts
-client.subscribe('BitcoinNetworkBlocksAddedEvent', (event) => {
-  console.log('New blocks:', event.payload.blocks.map(b => b.height));
-});
-
-client.subscribe('BitcoinNetworkReorganizedEvent', (event) => {
-  console.log('Reorg! Orphaned:', event.payload.orphanedBlocks.length, 'blocks');
-});
+```mermaid
+flowchart LR
+  A[System models] --> B[Crawler and network state]
+  C[Custom models] --> D[Product state]
 ```
 
-**Querying chain state:**
+Do not put product logic into a system model. Use system models for runtime visibility and custom models for application state.
 
-```ts
-const stats = await client.query('GetNetworkStatsQuery');
-console.log(stats.currentHeight, stats.syncProgress);
+## Common first use
 
-const latest = await client.query('GetNetworkLastBlockQuery');
-console.log(latest.height, latest.hash);
+A first evaluation can start with only system models:
+
+```mermaid
+flowchart LR
+  A[Bootstrap crawler] --> B[Wait for network initialization]
+  B --> C[Query latest indexed block]
+  C --> D[Subscribe to blocks-added events]
 ```
 
----
+This proves the runtime and provider connection before you add product-specific state.
 
-## Mempool Model
+## Event examples
 
-The Mempool Model is available when mempool monitoring is enabled. It maintains a snapshot of current pending transactions.
+Exact event names differ by package and version. Common categories are:
 
-**What it does:**
+| Event category | Meaning |
+|---|---|
+| network initialized | The crawler created/restored network state. |
+| blocks added | New canonical blocks were processed. |
+| reorg detected/resolved | The crawler adjusted state after chain reorganization. |
+| mempool refreshed | Pending transaction state changed, when mempool monitoring is enabled. |
 
-- Polls the connected node for mempool contents on a configurable interval
-- Emits a refresh event on every poll
-- Tracks which mempool transactions get confirmed vs dropped
+Use package-specific docs for current event names.
 
-**Events it emits:**
+## Query examples
 
-| Event | When | Payload |
-|---|---|---|
-| `BitcoinNetworkMempoolRefreshedEvent` | Each mempool poll | list of pending transactions |
-| `EvmMempoolRefreshedEvent` | Each EVM mempool poll | list of pending transactions |
+Common query categories:
 
-**Subscribing:**
+- get current network model;
+- get latest indexed block;
+- fetch network/system events;
+- get sync/progress state where exposed by the package.
 
-```ts
-client.subscribe('BitcoinNetworkMempoolRefreshedEvent', (event) => {
-  const { transactions } = event.payload;
-  console.log(`${transactions.length} unconfirmed transactions in mempool`);
-});
-```
-
-See [Mempool Monitoring](/docs/mempool-monitoring) for configuration and custom model integration.
-
----
-
-## Merkle Validation (Bitcoin)
-
-Optionally enable Merkle proof validation to cryptographically verify that each block's transactions match its header commitment. Useful for high-integrity deployments where you want to catch any data integrity issues.
-
-```bash
-BITCOIN_MERKLE_VALIDATION=true
-```
-
-When enabled, the crawler verifies every block before processing it. Invalid blocks are rejected and the crawler reconnects to the provider.
-
----
-
-## Using System Events in Your App
-
-System events use the same transport as your custom model events. You subscribe with the same `client.subscribe()` call. No extra configuration needed.
-
-Common patterns:
-
-- Listen to `BlocksAdded` to trigger downstream processing in your own service
-- Listen to `Reorg` events to invalidate caches or send alerts
-- Poll `GetNetworkStatsQuery` to display sync progress in a dashboard
-- Use `GetNetworkLastBlockQuery` to check crawler health in a monitoring endpoint
-
----
+System model queries are often the first thing to wire into dashboards, health checks, or tests.
 
 ## Related
 
-- [Transport Layer](/docs/transport-layer) — how to subscribe and query
-- [Mempool Monitoring](/docs/mempool-monitoring) — detailed mempool configuration
-- [Event Store](/docs/event-store) — how system events are stored alongside custom events
+- [Network Providers](/docs/network-providers)
+- [Transport Layer](/docs/transport-layer)
+- [Mempool Monitoring](/docs/mempool-monitoring)

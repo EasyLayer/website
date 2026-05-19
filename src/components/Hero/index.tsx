@@ -9,6 +9,8 @@ import HeroCodeBlock from './HeroCodeBlock';
 
 const chains = [
   'Nodejs',
+  'TypeScript',
+  'Rust',
   'Bitcoin',
   'Ethereum',
   'BNB Chain',

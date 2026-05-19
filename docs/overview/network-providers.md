@@ -1,119 +1,92 @@
 ---
-title: 'Network Providers'
-sidebar_label: 'Network Providers'
+title: Network Providers
 slug: /network-providers
-description: Connect EasyLayer to a Bitcoin or EVM blockchain node via RPC, WebSocket, P2P, or ZMQ. Supports external providers like QuickNode and Alchemy.
-keywords: ['blockchain node connection', 'bitcoin rpc', 'ethereum rpc', 'quicknode', 'alchemy', 'p2p bitcoin', 'zmq bitcoin', 'blockchain provider']
+sidebar_label: Network Providers
+description: Understand how EasyLayer connects to blockchain nodes and RPC providers without forcing your application to store unrelated chain data.
+keywords: ['blockchain RPC provider', 'Bitcoin node', 'EVM RPC', 'EasyLayer provider', 'self-hosted blockchain crawler']
 image: /img/el_twitter_default.png
 ---
 
 # Network Providers
 
-A network provider is how the crawler connects to a blockchain node and fetches blocks. EasyLayer supports multiple connection strategies for Bitcoin-like and EVM chains, and works with both self-hosted nodes and external providers.
+A network provider is how the crawler reads blockchain data.
 
----
+EasyLayer does not replace the blockchain node or RPC provider. It uses one to fetch blocks, transactions, logs, traces, mempool data, or network status, then feeds only the relevant data into your models.
 
-## Bitcoin Providers
+## Provider role
 
-### RPC (recommended for most setups)
-
-Connects via JSON-RPC over HTTP. Works with any Bitcoin node and all major external providers. The crawler uses **2 RPC calls per block** during historical sync, which means the QuickNode free tier covers millions of blocks without extra cost.
-
-```bash
-PROVIDER_NETWORK_RPC_URLS=https://user:pass@your-node:8332
-# or external provider:
-PROVIDER_NETWORK_RPC_URLS=https://your-endpoint.quicknode.pro/abc123
+```mermaid
+flowchart LR
+  A[Node or RPC provider] --> B[Crawler package]
+  B --> C[Model processing]
+  C --> D[EventStore]
+  C --> E[Transports]
 ```
 
-**Failover**: provide comma-separated URLs. The crawler switches automatically when a provider fails.
+The provider supplies raw chain data. Your model decides what part becomes application state.
 
-```bash
-PROVIDER_NETWORK_RPC_URLS=https://primary-node:8332,https://fallback-node:8332
-```
+## Own node vs RPC provider
 
-### RPC + ZMQ
-
-Combines RPC for historical blocks with ZMQ subscriptions for real-time new-block notifications. Lower latency for live mode, requires ZMQ enabled on your node.
-
-```bash
-NETWORK_PROVIDER_TYPE=rpc-zmq
-PROVIDER_NETWORK_ZMQ_URL=tcp://your-node:28332
-```
-
-### P2P
-
-Connects directly using the Bitcoin peer-to-peer protocol. No RPC node required. Useful for restricted environments or when you want to minimize external dependencies.
-
-```bash
-NETWORK_PROVIDER_TYPE=p2p
-```
-
----
-
-## EVM Providers
-
-EVM Crawler connects via JSON-RPC (HTTP) or WebSocket. Works with Ethereum, BSC, Polygon, Arbitrum, Optimism, Base, and any EVM-compatible chain.
-
-```bash
-NETWORK_CHAIN_ID=1                              # 1=Ethereum, 56=BSC, 137=Polygon, etc.
-PROVIDER_NETWORK_RPC_URLS=https://mainnet.infura.io/v3/YOUR_KEY
-# WebSocket for real-time:
-PROVIDER_NETWORK_WS_URLS=wss://mainnet.infura.io/ws/v3/YOUR_KEY
-```
-
-### Receipt Strategy
-
-Configure how receipts (and thus logs) are fetched:
-
-| Strategy | How it works | Best for |
+| Option | Good for | Trade-off |
 |---|---|---|
-| `auto` | Tries `eth_getBlockReceipts`, falls back per-transaction | Most providers |
-| `block-receipts` | Strict batch mode | Providers that support batch receipts |
-| `transaction-receipts` | One receipt per transaction | Maximum compatibility |
+| Own node | Maximum control, predictable access, no third-party dependency. | More disk, setup, monitoring, and maintenance. |
+| RPC provider | Faster start, easier testing, no node operations. | Rate limits, pricing, payload limits, provider-specific behavior. |
 
-```bash
-RECEIPTS_STRATEGY=auto
+EasyLayer is useful in both cases. Even when the provider has the full chain, your application does not need to store unrelated full-chain data if your model only needs focused state.
+
+## Bitcoin-like chains
+
+Bitcoin-style crawlers usually need block data and transaction/output data. The model can track a narrow UTXO/address subset without turning the application database into a full blockchain archive.
+
+Typical first models:
+
+- selected wallet activity;
+- selected UTXO set;
+- fee statistics;
+- block progress/system monitoring.
+
+## EVM-compatible chains
+
+EVM crawlers usually need blocks, transactions, receipts, logs, and optionally traces or mempool data depending on the model.
+
+Typical first models:
+
+- events for one contract;
+- transfers relevant to selected addresses;
+- protocol-specific status from logs;
+- selected call/trace monitoring when the provider supports it.
+
+## Rate limits and payload size
+
+Provider performance is not only requests per second. Large block responses, trace calls, receipts, and historical sync can be heavy.
+
+Start with a narrow model and measure:
+
+```mermaid
+flowchart LR
+  A[Narrow model] --> B[Measure provider latency]
+  B --> C[Measure retries and payload size]
+  C --> D[Measure EventStore and model growth]
 ```
 
-### Trace Support
+Do not publish benchmark numbers until they are measured for the exact package, network, provider, model, and storage backend.
 
-Enable trace data when your provider supports `debug_traceBlock` or `trace_block`:
+## Start height
 
-```bash
-TRACES_ENABLED=true
+A crawler normally needs a start height or checkpoint strategy.
+
+For evaluation:
+
+```mermaid
+flowchart LR
+  A[Recent block range] --> B[Prove model logic]
+  B --> C[Choose historical replay scope]
 ```
 
-The crawler checks provider capability at startup and fails immediately if traces are unavailable, so you never get silent missing data.
-
----
-
-## Historical Sync and Real-Time Mode
-
-Both Bitcoin and EVM crawlers handle sync in two phases:
-
-1. **Historical**: reads blocks from `START_BLOCK_HEIGHT` (or genesis if unset) to the current chain tip as fast as your provider allows
-2. **Real-time**: switches automatically once caught up, follows new blocks as they arrive
-
-```bash
-START_BLOCK_HEIGHT=840000  # start from a recent block, skip old history
-# omit to start live-only
-```
-
----
-
-## Supported External Providers
-
-| Provider | Bitcoin | EVM | Free tier |
-|---|---|---|---|
-| QuickNode | Yes | Yes | Yes |
-| Alchemy | No | Yes | Yes |
-| Infura | No | Yes | Yes |
-| Self-hosted node | Yes | Yes | N/A |
-| Any RPC-compatible | Yes | Yes | Varies |
-
----
+Do not begin with full-history sync unless it is necessary for the proof.
 
 ## Related
 
-- [State Models](/docs/data-modeling) — what the crawler feeds your state with
-- [Event Store](/docs/event-store) — where events are persisted
+- [State Models](/docs/data-modeling)
+- [EventStore](/docs/event-store)
+- [Mempool Monitoring](/docs/mempool-monitoring)

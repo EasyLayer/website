@@ -2,7 +2,7 @@
 import type { FC } from 'react';
 import React, { useState } from 'react';
 import Link from '@docusaurus/Link';
-import { Star } from 'react-feather';
+import { ChevronDown, Star } from 'react-feather';
 import Translate from '@docusaurus/Translate';
 import Announcement from './Announcement';
 import Transition from '../../../lib/Transition';
@@ -52,10 +52,14 @@ const Nav: FC = () => {
   const [open, setOpen] = useState(false);
   const linkClass =
     'border-b-2 border-transparent px-1 py-5 text-sm font-semibold text-neutral-700 dark:text-neutral-200 hover:border-yellow-500 hover:text-yellow-500';
-  const navLinks = [
+  const primaryNavLinks = [
     { to: DOCS_URLS.BASE, labelId: 'nav.docs', label: 'Docs' },
     { to: BLOG_URLS.BASE, labelId: 'nav.blog', label: 'Blog' },
     { to: '/#faq', labelId: 'nav.faq', label: 'FAQ' },
+  ];
+  const learnNavLinks = [
+    { to: SITE_URLS.PROOF, labelId: 'nav.proof', label: 'Proof' },
+    { to: SITE_URLS.WHY, labelId: 'nav.why', label: 'Why EasyLayer' },
     { to: SITE_URLS.ENTERPRISE, labelId: 'nav.enterprise', label: 'Enterprise' },
   ];
 
@@ -83,14 +87,35 @@ const Nav: FC = () => {
             <div className="flex flex-1 items-center justify-center sm:items-stretch lg:justify-between">
               <div className="flex items-center">
                 <Logo />
-                <div className="hidden pl-4 sm:ml-6 sm:space-x-4 lg:flex">
-                  {navLinks.map(({ to, labelId, label }) => (
+                <div className="hidden items-center pl-4 sm:ml-6 sm:space-x-4 lg:flex">
+                  {primaryNavLinks.map(({ to, labelId, label }) => (
                     <Link key={to} to={to}>
                       <span className={linkClass}>
                         <Translate id={labelId}>{label}</Translate>
                       </span>
                     </Link>
                   ))}
+                  <div className="group relative flex h-16 items-center">
+                    <button
+                      type="button"
+                      className="flex items-center gap-1 border-b-2 border-transparent px-1 py-5 text-sm font-semibold text-neutral-700 dark:text-neutral-200 hover:border-yellow-500 hover:text-yellow-500 focus:outline-none"
+                      aria-haspopup="menu"
+                    >
+                      <Translate id="nav.learn">Learn</Translate>
+                      <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
+                    </button>
+                    <div className="pointer-events-none absolute left-0 top-full min-w-56 rounded-xl border border-neutral-200 bg-white p-2 opacity-0 shadow-xl dark:border-neutral-700 dark:bg-neutral-900 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+                      {learnNavLinks.map(({ to, labelId, label }) => (
+                        <Link
+                          key={to}
+                          to={to}
+                          className="block rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-yellow-500/10 hover:text-yellow-600 dark:text-neutral-200 dark:hover:text-yellow-400"
+                        >
+                          <Translate id={labelId}>{label}</Translate>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                   <Link to={SITE_URLS.SUBSCRIBE}>
                     <span className="border-b-2 border-transparent px-1 py-5 text-sm font-medium">
                       <span className="rounded bg-yellow-500/25 px-2 py-1 text-neutral-700 dark:text-neutral-200 hover:bg-yellow-500/10">
@@ -144,19 +169,34 @@ const Nav: FC = () => {
                 </button>
               </div>
               <div className="mb-12 mt-6">
-                {[
-                  ...navLinks,
-                  { to: SOCIAL_URLS.GITHUB, labelId: 'nav.github', label: '⭐️ GitHub' },
-                  // { to: SOCIAL_URLS.TWITTER, labelId: 'nav.twitter', label: '🐦 Twitter' },
-                ].map(({ to, label }) => (
+                {primaryNavLinks.map(({ to, label }) => (
                   <div key={to} className="space-y-1 pb-4 pt-2">
-                    <Link to={to}>
+                    <Link to={to} onClick={() => setOpen(false)}>
                       <span className="block pl-3 pr-4 text-base font-medium text-neutral-700 dark:text-neutral-300">
                         {label}
                       </span>
                     </Link>
                   </div>
                 ))}
+                <div className="space-y-2 pb-4 pt-2">
+                  <span className="block pl-3 pr-4 text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Learn
+                  </span>
+                  {learnNavLinks.map(({ to, label }) => (
+                    <Link key={to} to={to} onClick={() => setOpen(false)}>
+                      <span className="block rounded-lg py-2 pl-6 pr-4 text-base font-medium text-neutral-700 hover:bg-yellow-500/10 dark:text-neutral-300">
+                        {label}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+                <div className="space-y-1 pb-4 pt-2">
+                  <Link to={SOCIAL_URLS.GITHUB} onClick={() => setOpen(false)}>
+                    <span className="block pl-3 pr-4 text-base font-medium text-neutral-700 dark:text-neutral-300">
+                      ⭐️ GitHub
+                    </span>
+                  </Link>
+                </div>
                 <div className="space-y-1 pb-4 pt-2">
                   <Link to={SITE_URLS.SUBSCRIBE} onClick={() => setOpen(false)}>
                     <span className="block rounded bg-yellow-500/25 px-2 py-1 pl-3 pr-4 text-base font-medium text-neutral-700 dark:text-neutral-200 hover:bg-yellow-500/10">
